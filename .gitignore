@@ -3,6 +3,11 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+<<<<<<< HEAD
+=======
+bin
+
+>>>>>>> branch 'master' of https://github.com/DN-2020/be.git
 
 ### STS ###
 .apt_generated
