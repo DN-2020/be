@@ -38,12 +38,21 @@ public class User implements UserDetails{
     private long idx;
 
     @Column(nullable = false, unique = true, length = 30)
-    private String id;
+    private String user_id;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(nullable = false, length = 100)
-    private String password;
+    private String user_password;
     @Column(nullable = false, length = 100)
-    private String name;
+    private String user_name;
+    @Column(nullable = false, length = 30)
+    private String user_tel;
+    @Column(nullable = false, length = 30)
+    private int user_postNum;
+    @Column(nullable = false, length = 100)
+    private String user_address;
+    @Column(nullable = false, length = 100)
+    private String user_detail_address;
+   
 //    @NotBlank
 //    private String email;
 //    @NotNull
@@ -74,7 +83,7 @@ public class User implements UserDetails{
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
-        return this.id;
+        return this.user_id;
     }
    
 
@@ -105,5 +114,11 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

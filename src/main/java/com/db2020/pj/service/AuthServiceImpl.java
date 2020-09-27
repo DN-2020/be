@@ -40,9 +40,13 @@ public class AuthServiceImpl implements AuthService{
 	public void signUp(User user) {
 		
 		userRepository.save(User.builder()
-				 	            .id(user.getId())
-				 	            .password(passwordEncoder.encode(user.getPassword()))
-				 	            .name(user.getName())
+				 	            .user_id(user.getUser_id())
+				 	            .user_password(passwordEncoder.encode(user.getUser_password()))
+				 	            .user_name(user.getUser_name())
+				 	            .user_tel(user.getUser_tel())
+				 	            .user_postNum(user.getUser_postNum())
+				 	            .user_address(user.getUser_address())
+				 	            .user_detail_address(user.getUser_detail_address())
 				                .roles(Collections.singletonList("ROLE_USER")).build());
 	}
     
