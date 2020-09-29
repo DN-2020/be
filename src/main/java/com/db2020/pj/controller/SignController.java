@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.db2020.pj.config.cookie.CookieUtil;
 import com.db2020.pj.config.jwt.JwtUtil;
 import com.db2020.pj.config.redis.RedisUtil;
-import com.db2020.pj.entity.User;
+import com.db2020.pj.entity.Customer;
+import com.db2020.pj.exception.custom.CUserExistException;
+import com.db2020.pj.exception.custom.CUserNotException;
+import com.db2020.pj.model.CommonResult;
 import com.db2020.pj.model.Response;
 import com.db2020.pj.model.SingleResult;
 import com.db2020.pj.service.AuthService;
@@ -57,20 +60,18 @@ public class SignController {
 //	}
 
 	@PostMapping("/signup")
-	public Response signup(HttpServletRequest req, HttpServletResponse res, User user) {
-		try {
-			authService.signUp(user);
-			return new Response("success", "회원가입을 성공적으로 완료했습니다.", null);
-		} catch (Exception e) {
-			return new Response("error", "회원가입을 하는 도중 오류가 발생했습니다.", null);
-		}
+	public CommonResult signup(HttpServletRequest req, HttpServletResponse res, Customer user) throws Exception {
+
+		authService.signUp(user);
+		return new CommonResult(200, "회원가입을 성공적으로 완료했습니다.");
+
 	}
 
 	@PostMapping("/signin")
 	public SingleResult<String> signin(HttpServletRequest req, HttpServletResponse res, @RequestParam String id,
 			@RequestParam String password) throws Exception {
 
-		final User user = authService.loginUser(id, password);
+		final Customer user = authService.loginUser(id, password);
 		final String accesstoken = jwtUtil.generateToken(user);
 		final String refreshtoken = jwtUtil.generateRefreshToken(user);
 		// 제네릭 선언으로 인한여 accessToken 데이터만 가져오게 함.
@@ -82,6 +83,5 @@ public class SignController {
 		res.addCookie(refreshToken);
 		return responseService.getSingleResult(storage_accssToken);
 	}
-	
-	
+
 }
