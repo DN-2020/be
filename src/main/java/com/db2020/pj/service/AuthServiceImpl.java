@@ -7,7 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.db2020.pj.config.redis.RedisUtil;
-import com.db2020.pj.entity.User;
+import com.db2020.pj.entity.Customer;
+import com.db2020.pj.exception.custom.CUserExistException;
 import com.db2020.pj.exception.custom.CUserNotException;
 import com.db2020.pj.exception.custom.CUserPWException;
 import com.db2020.pj.repository.UserRepository;
@@ -27,27 +28,31 @@ public class AuthServiceImpl implements AuthService{
     private RedisUtil redisUtil;
     
     @Override
-    public User loginUser(String id, String password) throws Exception{
-        User user = userRepository.findById(id);
-        if(user==null) 
-        	throw new CUserNotException();
-        if(!passwordEncoder.matches(password, user.getPassword()))
-            throw new CUserPWException();
-        return user;
+    public Customer loginUser(String email, String pw) throws Exception{
+//        Customer user = userRepository.findById(email);
+//        if(user == null) 
+//        	throw new CUserNotException();
+//        if(!passwordEncoder.matches(pw, user.getCustomer_pw()))
+//            throw new CUserPWException();
+        return null;
     }
 
 	@Override
-	public void signUp(User user) {
-		
-		userRepository.save(User.builder()
-				 	            .user_id(user.getUser_id())
-				 	            .user_password(passwordEncoder.encode(user.getUser_password()))
-				 	            .user_name(user.getUser_name())
-				 	            .user_tel(user.getUser_tel())
-				 	            .user_postNum(user.getUser_postNum())
-				 	            .user_address(user.getUser_address())
-				 	            .user_detail_address(user.getUser_detail_address())
-				                .roles(Collections.singletonList("ROLE_USER")).build());
+	public void signUp(Customer user) {
+		String email = userRepository.findById(user.getCustomer_email());
+		if(user.getCustomer_email().equals(email)) {
+			throw new CUserExistException();
+		}
+		else {
+			userRepository.signUp(Customer.builder()
+	 	            .customer_email(user.getCustomer_email())
+	 	            .customer_pw(passwordEncoder.encode(user.getCustomer_pw()))
+	 	            .customer_nm(user.getCustomer_nm())
+	 	            .customer_tel(user.getCustomer_tel())
+	 	            .customer_post(user.getCustomer_post())
+	 	            .customer_address(user.getCustomer_address())
+	 	            .customer_address_detail(user.getCustomer_address_detail())
+	                .roles(Collections.singletonList("ROLE_USER")).build());
+		}
 	}
-    
 }

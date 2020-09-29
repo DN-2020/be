@@ -18,7 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.db2020.pj.config.cookie.CookieUtil;
 import com.db2020.pj.config.redis.RedisUtil;
-import com.db2020.pj.entity.User;
+import com.db2020.pj.entity.Customer;
 import com.db2020.pj.service.CustomUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
@@ -86,8 +86,8 @@ public class JwtRequestFilter extends OncePerRequestFilter{
 							.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
 					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
-					User user = new User();
-					user.setUser_id(refreshUname);
+					Customer user = new Customer();
+					user.setCustomer_email(refreshUname);
 					String newToken = jwtUtil.generateToken(user);
 
 					Cookie newAccessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, newToken);

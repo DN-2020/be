@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.db2020.pj.entity.User;
+import com.db2020.pj.entity.Customer;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -80,12 +80,12 @@ public class JwtUtil {
     }
 
     // Access Token을 형성
-    public String generateToken(User user) {
+    public String generateToken(Customer user) {
         return doGenerateToken(user.getUsername(), TOKEN_VALIDATION_SECOND);
     }
 
     // Refresh Token을 형성
-    public String generateRefreshToken(User user) {
+    public String generateRefreshToken(Customer user) {
         return doGenerateToken(user.getUsername(), REFRESH_TOKEN_VALIDATION_SECOND);
     }
     

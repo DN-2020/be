@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.db2020.pj.entity.User;
+import com.db2020.pj.entity.Customer;
 import com.db2020.pj.repository.UserRepository;
 
 @Service
@@ -16,14 +16,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private UserRepository userRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-		User user = userRepository.findById(username);
-		if (user == null) {
-			throw new UsernameNotFoundException(username + " : 사용자 존재하지 않음");
-		}
+//		Customer user = userRepository.findById(email);
+//		if (user == null) {
+//			throw new UsernameNotFoundException(email + " : 사용자 존재하지 않음");
+//		}
 
-		return user;
+		return null;
 	}
 
 }
