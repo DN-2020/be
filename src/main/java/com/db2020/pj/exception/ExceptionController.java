@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.db2020.pj.exception.custom.CUserExistException;
 import com.db2020.pj.exception.custom.CUserNotException;
 import com.db2020.pj.exception.custom.CUserPWException;
 import com.db2020.pj.model.CommonResult;
@@ -43,6 +44,13 @@ public class ExceptionController {
 	public CommonResult userPWException(HttpServletRequest request, CUserPWException e) {
 		
 		return responseService.getFailResult(Integer.valueOf(getMessage("userPwWrong.code")), getMessage("userPwWrong.msg"));
+	}
+	
+	@ExceptionHandler(CUserExistException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public CommonResult userExistException(HttpServletRequest request, CUserExistException e) {
+		
+		return responseService.getFailResult(Integer.valueOf(getMessage("userExist.code")), getMessage("userExist.msg"));
 	}
 	
 	// code정보에 해당하는 메시지를 조회합니다.
