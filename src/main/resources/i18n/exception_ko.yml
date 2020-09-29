@@ -10,18 +10,23 @@ userNotFound:
 userPwWrong:
   code: "-1001"
   msg: "비밀번호가 정확하지 않습니다."
+  
 emailSigninFailed:
-  code: "-1001"
+  code: "-1002"
   msg: "계정이 존재하지 않거나 이메일 또는 비밀번호가 정확하지 않습니다."
+
+userExist:
+  code: "-1003"  
+  msg: "이미 존재하는 계정입니다."
   
 entryPointException:
-  code: "-1002"
+  code: "-1004"
   msg: "해당 리소스에 접근하기 위한 권한이 없습니다."
   
 accessDenied:
-  code: "-1003"
+  code: "-1005"
   msg: "보유한 권한으로 접근할수 없는 리소스 입니다."
   
 userTimeOver:
-  code: "-1004" 
+  code: "-1006" 
   msg: "보유한 AccessToken이 만료되었습니다."
