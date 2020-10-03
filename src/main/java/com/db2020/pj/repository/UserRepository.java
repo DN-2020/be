@@ -1,10 +1,23 @@
 package com.db2020.pj.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Map;
 
-import com.db2020.pj.entity.User;
+import com.db2020.pj.entity.Customer;
 
-public interface UserRepository extends JpaRepository<User, Long>{
+import javassist.bytecode.DuplicateMemberException;
+
+public interface UserRepository {
+
+	public String findById(String email);
 	
-	User findById(String username);
+	public Customer findUserInfo(String email);
+	
+	public Customer findUserInfo(Map<String, String> loginMap);
+	
+	public void signUp(Customer user);
+
+	public void reviseUserInfo(Customer user);
+	
+	public void removeUser(String customer_email);
+
 }

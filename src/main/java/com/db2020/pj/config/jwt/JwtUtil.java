@@ -1,5 +1,6 @@
 package com.db2020.pj.config.jwt;
 
+import java.security.SignatureException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
@@ -10,18 +11,20 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import com.db2020.pj.entity.User;
+import com.db2020.pj.entity.Customer;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtUtil {
 	
-	public final static long TOKEN_VALIDATION_SECOND = 1000L * 60 * 30;				// Access_Token 30분 설정
-    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2; // Refresh_Token 2일 설정
+	public final static long TOKEN_VALIDATION_SECOND = 1000L * 24 * 1;//30				// Access_Token 30분 설정
+    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 24 * 20; // Refresh_Token 2일 설정
 
     final static public String ACCESS_TOKEN_NAME = "accessToken";
     final static public String REFRESH_TOKEN_NAME = "refreshToken";
@@ -61,17 +64,20 @@ public class JwtUtil {
 //    }
 
     // 토큰이 유효한 토큰인지 검사한 후, 토큰에 담긴 Payload 값을 가져온다
-    public Claims extractAllClaims(String token) throws ExpiredJwtException {
-        return Jwts.parser()
-                .setSigningKey(SECRET_KEY)
-                .parseClaimsJws(token)
-                .getBody();
+    public Claims extractAllClaims(String token) {
+    	
+		return Jwts.parser()
+                    .setSigningKey(SECRET_KEY)
+                    .parseClaimsJws(token)
+                    .getBody();
     }
+    	
 
     // 추출한 Payload로 부터 userName을 가져온다.
     public String getUsername(String token) {
         return extractAllClaims(token).get("username", String.class);
     }
+    
 
     // 토큰의 만료를 확인
     public Boolean isTokenExpired(String token) {
@@ -80,12 +86,12 @@ public class JwtUtil {
     }
 
     // Access Token을 형성
-    public String generateToken(User user) {
+    public String generateToken(Customer user) {
         return doGenerateToken(user.getUsername(), TOKEN_VALIDATION_SECOND);
     }
 
     // Refresh Token을 형성
-    public String generateRefreshToken(User user) {
+    public String generateRefreshToken(Customer user) {
         return doGenerateToken(user.getUsername(), REFRESH_TOKEN_VALIDATION_SECOND);
     }
     
@@ -107,7 +113,7 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsername(token);
-
+        System.out.println(username.equals(userDetails.getUsername()) && !isTokenExpired(token));
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }

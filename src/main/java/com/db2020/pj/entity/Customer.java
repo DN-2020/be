@@ -21,46 +21,42 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Builder
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor 
-@Table(name = "member" ,schema = "test")
-public class User implements UserDetails{
+public class Customer implements UserDetails{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idx;
-
-    @Column(nullable = false, unique = true, length = 30)
-    private String id;
+   
+    private long customer_seq;
+    private String customer_email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(nullable = false, length = 100)
-    private String password;
-    @Column(nullable = false, length = 100)
-    private String name;
-//    @NotBlank
-//    private String email;
-//    @NotNull
-//    private String address;
-
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name="social_id")
-//    private SocialData social;
-
-    // 계정이 가지고 있는 권한 목록
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
+    private String customer_pw;
+    private String customer_nm;
+    private String customer_tel;
+    private int customer_post;
+    private String customer_address;
+    private String customer_detail_address;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String customer_role;
+    
+//    private List<String> roles = new ArrayList<>();
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    	Set<GrantedAuthority> roles = new HashSet<>();
+    	
+    	for (String role : customer_role.split(",")) {
+    	      roles.add(new SimpleGrantedAuthority(role));
+    	}
+    	return roles;
+//      return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
 	/*
@@ -74,7 +70,7 @@ public class User implements UserDetails{
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
-        return this.id;
+        return this.customer_email;
     }
    
 
@@ -105,5 +101,11 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

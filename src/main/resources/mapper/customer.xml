@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="customer">
+ 
+    <select id="selectId" parameterType="String" resultType="String">
+		SELECT 
+			customer_email
+		FROM 
+			t_customer
+		WHERE 
+			customer_email = #{email}
+	</select>
+	
+	<select id="info" parameterType="string" resultType="customer">
+		SELECT *
+		FROM
+			t_customer
+		where
+			customer_email = #{email}
+	</select>
+	
+	<insert id="signUp" parameterType="customer">
+		INSERT INTO t_customer(customer_email, customer_pw, customer_nm, customer_tel, customer_post, customer_address, customer_detail_address, customer_mileage, customer_role, t_membership_seq)
+		VALUES(#{customer_email}, #{customer_pw}, #{customer_nm}, #{customer_tel}, #{customer_post}, #{customer_address}, #{customer_detail_address}, 0, #{customer_role}, 1)
+	</insert>
+	
+	
+	<select id="signIn" parameterType="hashMap" resultType="customer">
+		SELECT
+			customer_email, customer_pw
+		FROM
+			t_customer
+		WHERE
+			customer_email = #{customer_email}
+	</select>
+	
+	<update id="reviseInfo" parameterType="customer">
+		UPDATE
+			t_customer
+		SET
+			customer_email=#{customer_email}, customer_pw=#{customer_pw}, customer_nm=#{customer_nm}, customer_tel=#{customer_tel}, customer_post=#{customer_post}, customer_address=#{customer_address}, customer_detail_address=#{customer_detail_address}
+		WHERE
+			customer_email = #{customer_email}
+	</update>
+	
+	<delete id="remove" parameterType="String">
+		DELETE
+		FROM
+			t_customer
+		WHERE
+			customer_email = #{customer_email}
+	</delete>
+	<!--  
+	<select id="signRole" parameterType="customer">
+		INSERT INTO t_customer_role(t_customer_seq, role_name)
+		SELECT max(customer_seq)
+		FROM t_customer
+		
+	</select>
+	-->
+</mapper> 
