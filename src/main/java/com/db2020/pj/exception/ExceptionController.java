@@ -5,16 +5,19 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.db2020.pj.exception.custom.CAuthenticationEntryPointException;
 import com.db2020.pj.exception.custom.CUserExistException;
 import com.db2020.pj.exception.custom.CUserNotException;
 import com.db2020.pj.exception.custom.CUserPWException;
 import com.db2020.pj.model.CommonResult;
 import com.db2020.pj.service.ResponseService;
 
+import io.jsonwebtoken.SignatureException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -51,6 +54,17 @@ public class ExceptionController {
 	public CommonResult userExistException(HttpServletRequest request, CUserExistException e) {
 		
 		return responseService.getFailResult(Integer.valueOf(getMessage("userExist.code")), getMessage("userExist.msg"));
+	}
+	
+	@ExceptionHandler(CAuthenticationEntryPointException.class)
+	public CommonResult authenticationEntryPointException(HttpServletRequest request, CAuthenticationEntryPointException e) {
+		System.out.println("rrrr");
+	    return responseService.getFailResult(Integer.valueOf(getMessage("entryPointException.code")), getMessage("entryPointException.msg"));
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public CommonResult accessDeniedException(HttpServletRequest request, AccessDeniedException e) {
+	        return responseService.getFailResult(Integer.valueOf(getMessage("accessDenied.code")), getMessage("accessDenied.msg"));
 	}
 	
 	// code정보에 해당하는 메시지를 조회합니다.

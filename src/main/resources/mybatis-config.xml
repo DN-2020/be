@@ -5,6 +5,8 @@
 	
 	<typeAliases>
 		<typeAlias type="com.db2020.pj.entity.Customer" alias="customer"/>
+		<typeAlias type="com.db2020.pj.entity.Goods" alias="goods"/>
+		<typeAlias type="com.db2020.pj.entity.GoodsDetail" alias="goodsDetail"/>
 	</typeAliases>
 	
 </configuration>

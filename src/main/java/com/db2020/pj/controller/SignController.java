@@ -1,6 +1,7 @@
 package com.db2020.pj.controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import com.db2020.pj.model.Response;
 import com.db2020.pj.model.SingleResult;
 import com.db2020.pj.service.AuthService;
 import com.db2020.pj.service.ResponseService;
+import com.db2020.pj.test.Emp;
 
 @RestController
 @RequestMapping(value = "/v1")
@@ -68,10 +70,9 @@ public class SignController {
 	}
 
 	@PostMapping("/signin")
-	public SingleResult<String> signin(HttpServletRequest req, HttpServletResponse res, @RequestParam String id,
-			@RequestParam String password) throws Exception {
+	public SingleResult<String> signin(HttpServletRequest req, HttpServletResponse res, @RequestParam Map<String, String> loginMap) throws Exception {
 
-		final Customer user = authService.loginUser(id, password);
+		final Customer user = authService.loginUser(loginMap);
 		final String accesstoken = jwtUtil.generateToken(user);
 		final String refreshtoken = jwtUtil.generateRefreshToken(user);
 		// 제네릭 선언으로 인한여 accessToken 데이터만 가져오게 함.
@@ -83,5 +84,36 @@ public class SignController {
 		res.addCookie(refreshToken);
 		return responseService.getSingleResult(storage_accssToken);
 	}
+	
+	@PostMapping("/logout")
+	public CommonResult logout(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		Cookie refresh_jwtToken = cookieUtil.getCookie(req, JwtUtil.REFRESH_TOKEN_NAME);
+
+		Cookie access_cookie = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, "");
+		Cookie refresh_cookie = new Cookie(JwtUtil.REFRESH_TOKEN_NAME, "");
+		
+		access_cookie.setPath("/");
+		access_cookie.setMaxAge(0);
+		refresh_cookie.setPath("/");
+		refresh_cookie.setMaxAge(0);
+		
+		res.addCookie(access_cookie);
+		res.addCookie(refresh_cookie);
+		
+		String jwt = refresh_jwtToken.getValue();
+	    
+		if(redisUtil.getData(jwt) != null){
+			redisUtil.deleteData(jwt);
+		}
+		
+		return new CommonResult(200, "로그아웃을 성공적으로 완료했습니다.");
+	}
+	
+//	@PostMapping("/admin/signup")
+//	public CommonResult signupAdmin(HttpServletRequest req, HttpServletResponse res, Emp emp) throws Exception {
+//		
+//		authService.signUpAdmin(emp);
+//		return new CommonResult(200, "회원가입을 성공적으로 완료했습니다.");
+//	}
 
 }

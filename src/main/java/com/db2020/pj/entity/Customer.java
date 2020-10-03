@@ -21,7 +21,9 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Builder
@@ -34,18 +36,27 @@ public class Customer implements UserDetails{
    
     private long customer_seq;
     private String customer_email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String customer_pw;
     private String customer_nm;
     private String customer_tel;
     private int customer_post;
     private String customer_address;
-    private String customer_address_detail;
-   
-    private List<String> roles = new ArrayList<>();
+    private String customer_detail_address;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String customer_role;
+    
+//    private List<String> roles = new ArrayList<>();
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    	Set<GrantedAuthority> roles = new HashSet<>();
+    	
+    	for (String role : customer_role.split(",")) {
+    	      roles.add(new SimpleGrantedAuthority(role));
+    	}
+    	return roles;
+//      return this.roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
 	/*
@@ -90,7 +101,7 @@ public class Customer implements UserDetails{
     public boolean isEnabled() {
         return true;
     }
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@Override
 	public String getPassword() {
 		// TODO Auto-generated method stub
