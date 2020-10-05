@@ -3,7 +3,7 @@ package com.db2020.pj.service;
 import java.util.Map;
 
 import com.db2020.pj.entity.Customer;
-import com.db2020.pj.test.Emp;
+import com.db2020.pj.entity.Emp;
 
 public interface AuthService {
 
