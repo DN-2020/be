@@ -20,7 +20,7 @@ import com.db2020.pj.config.cookie.CookieUtil;
 import com.db2020.pj.config.redis.RedisUtil;
 import com.db2020.pj.entity.Customer;
 import com.db2020.pj.exception.custom.CAuthenticationEntryPointException;
-import com.db2020.pj.service.CustomUserDetailsService;
+import com.db2020.pj.service.detail.CustomUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -56,7 +56,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 			if (jwtToken != null) {
 				jwt = jwtToken.getValue();
 				System.out.println(jwt);
-				System.out.println("여기");
 				username = jwtUtil.getUsername(jwt);
 				System.out.println("username=" + username);
 			}

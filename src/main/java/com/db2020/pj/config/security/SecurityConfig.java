@@ -11,8 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.db2020.pj.config.jwt.JwtRequestFilter;
-//import com.db2020.pj.service.CustomUserDetailsService;
-import com.db2020.pj.exception.custom.CustomAccessDeniedHandler;
 import com.db2020.pj.exception.custom.CustomAuthenticationEntryPoint;
 
 @EnableWebSecurity
@@ -37,9 +35,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 	       		  .authorizeRequests()
 //				  .antMatchers("/**").permitAll()
+	       		  .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
 				  .antMatchers("/*/signin", "/*/signup").permitAll()
+				  .antMatchers("/*/company").hasAnyRole("ADMIN", "EMP")
+				  .antMatchers("/*/goods").permitAll()
 				  .antMatchers("/*/user/info").hasRole("USER")
-				  .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
 				  .antMatchers("/test/admin").hasRole("ADMIN")
 				  .anyRequest().authenticated();
            
