@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.db2020.pj.mapper.ReviewMapper">
+    <!-- 리뷰 등록-->
+    <insert id="insertReview" parameterType="Hashmap">
+        insert t_review(t_customer_seq, review_title, review_contents, review_grade, t_reservation_seq)
+        values(#{customer_seq},#{review_title},#{review_contents},#{review_grade},#{reservation_seq})
+    </insert>
+
+    <!--후기리스트 목록-->
+    <select id ="selectListReview" parameterType="Hashmap" resultType="Hashmap">
+        select * from t_review
+        join t_reservation on t_reservation.reservation_seq = t_review.t_reservation_seq
+        join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
+        join t_goods on t_goods.goods_seq = t_goods_detail.t_goods_seq
+        join t_company on t_goods.t_company_seq = t_company.company_seq
+        where t_goods.goods_nm like concat("%",#{goods_nm},"%")
+        and t_company.company_nm like concat("%",#{company_nm},"%")
+    </select>
+
+    <!--사용자 리뷰 목록-->
+    <select id="selectUserReview" parameterType="Hashmap" resultType="Hashmap">
+        select * from t_review
+        join t_reservation on t_reservation.reservation_seq = t_review.t_reservation_seq
+        join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
+        join t_goods on t_goods.goods_seq = t_goods_detail.t_goods_seq
+        join t_company on t_goods.t_company_seq = t_company.company_seq
+        where t_review.t_customer_seq = #{customer_seq}
+    </select>
+    <!--상세 리뷰 -->
+    <select id="selectDetailReview" parameterType="Hashmap" resultType="Hashmap">
+        select * from t_review
+        join t_reservation on t_reservation.reservation_seq = t_review.t_reservation_seq
+        join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
+        join t_goods on t_goods.goods_seq = t_goods_detail.t_goods_seq
+        join t_company on t_goods.t_company_seq = t_company.company_seq
+        where t_review.review_seq = #{review_seq}
+
+    </select>
+
+    <update id="updateReview" parameterType="Hashmap">
+        update t_review
+        set t_review.review_title = #{review_title} ,t_review.review_contents = #{review_content} ,t_review.review_grade= #{review_grade}
+        where t_review.review_seq = #{review_seq}
+    </update>
+</mapper>
