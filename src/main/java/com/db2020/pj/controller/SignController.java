@@ -25,7 +25,6 @@ import com.db2020.pj.model.Response;
 import com.db2020.pj.model.SingleResult;
 import com.db2020.pj.service.AuthService;
 import com.db2020.pj.service.ResponseService;
-import com.db2020.pj.test.Emp;
 
 @RestController
 @RequestMapping(value = "/v1")
