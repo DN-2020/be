@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.db2020.pj.mapper.ReservationMapper">
+
+    <!--예약 등록-->
+    <insert id="insertReservation" parameterType="Hashmap">
+        insert
+        t_reservation(reservation_nm, reservation_total_price, reservation_st, reservation_end, t_goods_detail_seq, t_customer_seq)
+        values(#{reservation_nm}, #{reservation_total_price}, #{reservation_st}, #{reservation_end}, #{goods_detail_seq} , #{customer_seq} );
+    </insert>
+
+    <select id="selectReservationSeq" parameterType = "Hashmap" resultType="String">
+        select
+            reservation_seq from t_reservation
+        where reservation_nm = #{reservation_nm} and
+        reservation_total_price = #{reservation_total_price} and
+        reservation_st = #{reservation_st} and
+        reservation_end = #{reservation_end} and
+        t_goods_detail_seq = #{goods_detail_seq} and
+        t_customer_seq = #{customer_seq}
+    </select>
+
+    <insert id="insertApproval" parameterType="Hashmap">
+        insert
+        t_approval(approval_method, approval_mileage, approval_price, approval_sales_price, approval_total_price, t_reservation_seq)
+        values (#{approval_method}, #{approval_mileage}, #{price} , #{sales_price}, #{total_price}, #{reservation_seq} );
+    </insert>
+
+    <!-- 예약 취소-->
+    <update id="updateReservation" parameterType="Hashmap">
+        update t_reservation set reservation_yn = "예약완료"
+        where reservation_seq = #{reservation_seq};
+    </update>
+    <update id="updateApproval" parameterType="Hashmap">
+        update t_approval
+            set approval_type = "취소"
+        where t_approval.t_reservation_seq = #{reservation_seq};
+    </update>
+
+    <insert id="insertRefund" parameterType="Hashmap">
+        insert t_refund(refund_reason, refund_nm, t_reservation_seq)
+        values(#{refund_reason}, #{refund_nm}, #{reservation_seq})
+    </insert>
+
+    <!--예약 내역 조회-->
+    <select id ="selectUserReservation" parameterType="Hashmap" resultType="Hashmap">
+       select * from t_reservation
+        join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        where t_reservation.t_customer_seq = #{customer_seq}
+    </select>
+
+    <!--예약내역 상세 조회 (유저, 관리자, 회사)-->
+    <select id ="selectDetailUserReservation" parameterType="Hashmap" resultType="Hashmap">
+        select * from t_reservation
+        join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        where t_reservation.reservation_seq = #{reservation_seq}
+    </select>
+
+    <!--취소 내역 조회-->
+    <select id = "selectRefund" parameterType="Hashmap" resultType="Hashmap">
+        select * from t_reservation
+        join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        join t_refund on t_refund.t_reservation_seq = t_reservation.reservation_seq
+        where t_reservation.reservation_seq = #{reservation_seq}
+    </select>
+
+
+    <!--예약 내역 조회(관리자)-->
+    <select id ="selectAdminReservation"  resultType="Hashmap">
+        select * from t_reservation
+        join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        left join t_refund on t_refund.t_reservation_seq = t_reservation.reservation_seq
+    </select>
+
+    <!--예약 내역 조회(회사)-->
+    <select id ="selectCompanyReservation" parameterType="Hashmap" resultType="Hashmap">
+        select * from t_reservation
+        join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        join t_refund on t_refund.t_reservation_seq = t_reservation.reservation_seq
+        join t_goods_detail on t_goods_detail.t_goods_seq = t_reservation.t_goods_detail_seq
+        join t_goods on t_goods.goods_seq= t_goods_detail.t_goods_seq
+        where t_goods.t_company_seq = #{company_seq}
+    </select>
+</mapper>
