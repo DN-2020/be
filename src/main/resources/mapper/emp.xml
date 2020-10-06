@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="empDAO">
+ 
+   <insert id="empInsert" parameterType="empVO">
+   		INSERT
+   		INTO t_emp(emp_nm,emp_account,emp_pw,emp_joinDate,emp_address,emp_email,emp_tel,emp_phone,emp_createAt,emp_isUsed,dept_seq,company_seq)
+   		VALUES(#{emp_nm},#{emp_account},#{emp_pw},#{emp_joinDate},#{emp_address},#{emp_email},#{emp_tel},#{emp_phone},#{emp_createAt},"enable",#{dept_seq},#{company_seq})
+   </insert>
+   
+   <select id="companyEmpList" parameterType="Integer" resultType="empVO">
+   		SELECT *
+   		FROM t_emp
+   		WHERE company_seq=#{company_seq}
+   </select>
+   
+   <select id="empDetail" parameterType="hashmap" resultType="empVO">
+   		SELECT *
+   		FROM t_emp
+   		WHERE company_seq=#{company_seq} AND emp_seq=#{emp_seq}
+   </select>
+   
+   <update id="empUpdate" parameterType="empVO">
+   		UPDATE t_emp
+   		SET emp_nm=#{emp_nm},emp_account=#{emp_account},emp_pw=#{emp_pw},emp_joinDate=#{emp_joinDate},emp_address=#{emp_address},emp_email=#{emp_email},emp_tel=#{emp_tel},emp_phone=#{emp_phone},emp_updateAt=#{emp_updateAt}
+   		WHERE emp_seq=#{emp_seq}
+   </update>
+   
+</mapper> 

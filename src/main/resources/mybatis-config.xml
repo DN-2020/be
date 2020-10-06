@@ -7,6 +7,7 @@
 		<typeAlias type="com.db2020.pj.entity.Customer" alias="customer"/>
 		<typeAlias type="com.db2020.pj.entity.Goods" alias="goods"/>
 		<typeAlias type="com.db2020.pj.entity.GoodsDetail" alias="goodsDetail"/>
+		<typeAlias type="com.db2020.pj.entity.Emp" alias="empVO"/>
 	</typeAliases>
 	
 </configuration>

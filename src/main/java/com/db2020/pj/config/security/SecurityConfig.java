@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				  .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
 			.and()
 	       		  .authorizeRequests()
-//				  .antMatchers("/**").permitAll()
+				  .antMatchers("/**").permitAll()
 	       		  .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
 				  .antMatchers("/*/signin", "/*/signup").permitAll()
 				  .antMatchers("/*/company").hasAnyRole("ADMIN", "EMP")
