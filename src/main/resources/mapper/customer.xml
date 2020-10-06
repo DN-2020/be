@@ -35,7 +35,10 @@
 		WHERE
 			customer_email = #{customer_email}
 	</select>
-	
+	<select id="customerSeq" parameterType="string" resultType="int">
+		Select customer_seq from t_customer where customer_email = #{customer_email}
+
+	</select>
 	<update id="reviseInfo" parameterType="customer">
 		UPDATE
 			t_customer

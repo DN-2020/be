@@ -49,5 +49,9 @@ public class UserRepositoryImpl implements UserRepository{
 	public void removeUser(String customer_email) {
 		sqlSession.delete("customer.remove", customer_email);
 	}
-	
+
+	@Override
+	public int customerSeq(String email) {
+		return sqlSession.selectOne("customer.customerSeq", email);
+	}
 }

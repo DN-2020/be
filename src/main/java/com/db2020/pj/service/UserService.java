@@ -9,4 +9,5 @@ public interface UserService {
 	public void userInfo(Customer customer);
 	
 	public void removeUser(String customer_email);
+	public int selectUserSeq(String email);
 }
