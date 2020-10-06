@@ -1,5 +1,6 @@
 package com.db2020.pj.repository;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -49,5 +50,9 @@ public class UserRepositoryImpl implements UserRepository{
 	public void removeUser(String customer_email) {
 		sqlSession.delete("customer.remove", customer_email);
 	}
-	
+
+	@Override
+	public int customerSeq(String email) {
+		return sqlSession.selectOne("customer.customerSeq", email);
+	}
 }

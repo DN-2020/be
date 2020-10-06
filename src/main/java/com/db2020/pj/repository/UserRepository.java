@@ -1,5 +1,6 @@
 package com.db2020.pj.repository;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.db2020.pj.entity.Customer;
@@ -20,4 +21,5 @@ public interface UserRepository {
 	
 	public void removeUser(String customer_email);
 
+	public int customerSeq(String email);
 }
