@@ -14,7 +14,6 @@ import com.db2020.pj.exception.custom.CUserNotException;
 import com.db2020.pj.exception.custom.CUserPWException;
 import com.db2020.pj.repository.UserRepository;
 import com.db2020.pj.service.AuthService;
-import com.db2020.pj.test.Emp;
 
 import lombok.RequiredArgsConstructor;
 
@@ -57,11 +56,5 @@ public class AuthServiceImpl implements AuthService {
 					.customer_role("ROLE_USER").build());
 		}
 	}
-
-	@Override
-	public void signUpAdmin(Emp emp) throws Exception {
-//		String id = userRepository.findByAdminId();
-	}
-	
 	
 }
