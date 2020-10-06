@@ -42,6 +42,7 @@ public class ReservationRepository {
     public List<HashMap<String, Object>> selectRefund(HashMap<String, Object> map){
         return mapper.selectRefund(map);
     }
+    public HashMap<String, Object> selectDetailRefund(HashMap<String, Object> map) { return mapper.selectDetailRefund(map);}
     public List<HashMap<String, Object>> selectAdminReservation(){
         return mapper.selectAdminReservation();
     }

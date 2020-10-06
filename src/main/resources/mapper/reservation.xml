@@ -31,7 +31,7 @@
 
     <!-- 예약 취소-->
     <update id="updateReservation" parameterType="Hashmap">
-        update t_reservation set reservation_yn = "예약완료"
+        update t_reservation set reservation_yn = "n"
         where reservation_seq = #{reservation_seq};
     </update>
     <update id="updateApproval" parameterType="Hashmap">
@@ -61,12 +61,17 @@
 
     <!--취소 내역 조회-->
     <select id = "selectRefund" parameterType="Hashmap" resultType="Hashmap">
-        select * from t_reservation
-        join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
-        join t_refund on t_refund.t_reservation_seq = t_reservation.reservation_seq
-        where t_reservation.reservation_seq = #{reservation_seq}
+        select * from t_refund
+        join t_reservation on t_refund.t_reservation_seq = t_reservation.reservation_seq
+        join t_approval on  t_approval.t_reservation_seq = t_reservation.reservation_seq
+        where t_customer_seq = #{customer_seq}
     </select>
-
+    <select id="selectDetailRefund" parameterType="Hashmap" resultType="Hashmap" >
+        select * from t_refund
+        join t_reservation on t_refund.t_reservation_seq = t_reservation.reservation_seq
+        join t_approval on  t_approval.t_reservation_seq = t_reservation.reservation_seq
+        where refund_seq = #{refund_seq}
+    </select>
 
     <!--예약 내역 조회(관리자)-->
     <select id ="selectAdminReservation"  resultType="Hashmap">

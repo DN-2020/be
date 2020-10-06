@@ -93,4 +93,10 @@ public class ReservationServiceImpl implements ReservationService {
         ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
         return reservationRepository.selectCompanyReservation(map);
     }
+
+    @Override
+    public HashMap<String, Object> selectDetailRefund(HashMap<String, Object> map) {
+        ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
+        return reservationRepository.selectDetailRefund(map);
+    }
 }

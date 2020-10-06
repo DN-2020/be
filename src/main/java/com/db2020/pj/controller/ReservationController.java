@@ -111,7 +111,6 @@ public class ReservationController {
         HashMap<String,Object> result = reservationService.selectDetailUserReservation(map);
         return new Response("success", "예약내역 조회를 성공했습니다.", result);
     }
-
     //예약 취소 내역 조회 (API 수정)
     @GetMapping("/refund")
     public Response getRefund(@RequestParam HashMap<String, Object> map,
@@ -142,7 +141,7 @@ public class ReservationController {
         map.put("customer_id",email);
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq",customer_seq);
-        List<HashMap<String,Object>> result = reservationService.selectRefund(map);
+        HashMap<String,Object> result = reservationService.selectDetailRefund(map);
         return new Response("success", "예약내역 조회를 성공했습니다.", result);
     }
 
