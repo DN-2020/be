@@ -26,7 +26,10 @@
 		VALUES(#{customer_email}, #{customer_pw}, #{customer_nm}, #{customer_tel}, #{customer_post}, #{customer_address}, #{customer_detail_address}, 0, #{customer_role}, 1)
 	</insert>
 	
-	
+	<select id="customerSeq" parameterType="string" resultType="int">
+		Select customer_seq from t_customer where customer_email = #{customer_email}
+
+	</select>
 	<select id="signIn" parameterType="hashMap" resultType="customer">
 		SELECT
 			customer_email, customer_pw
