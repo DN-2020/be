@@ -1,9 +1,6 @@
 package com.db2020.pj.repository;
 
-<<<<<<< HEAD
 import java.sql.SQLException;
-=======
->>>>>>> feature/0.1/devchan2/search
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
