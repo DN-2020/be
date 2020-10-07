@@ -1,5 +1,6 @@
 package com.db2020.pj.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,9 @@ public interface GoodsService {
 	public void delete(String goods_seq);
 	
 	public void detail_delete(Map<String, String> parameter);
-	
-	
+
+	public List<Goods> selectSearch(HashMap<String, Object> map);
+
+	public List<Goods> selectCategorySearch(HashMap<String, Object> map);
 	
 }

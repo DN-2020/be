@@ -1,6 +1,10 @@
 package com.db2020.pj.repository;
 
+<<<<<<< HEAD
 import java.sql.SQLException;
+=======
+import java.util.HashMap;
+>>>>>>> feature/0.1/devchan2/search
 import java.util.List;
 import java.util.Map;
 
@@ -36,5 +40,10 @@ public interface GoodsRepository {
 	public void delete(String goods_seq);
 	
 	public void detail_delete(Map<String, String> parameter);
+
+	public List<Goods> selectSearch(HashMap<String, Object> map);
+
+	public List<Goods> selectCategorySearch(HashMap<String, Object> map);
+
 }
 

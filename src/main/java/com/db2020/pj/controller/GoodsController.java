@@ -1,5 +1,6 @@
 package com.db2020.pj.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -162,13 +163,33 @@ public class GoodsController {
 		
 	@DeleteMapping("goods/{goods_seq}/{goods_detail_seq}")
 	public CommonResult detail_deleteGoods(@PathVariable Map<String, String> parameter) {
-		
+
 		goodsService.detail_delete(parameter);
 		
 		return new CommonResult(200, "상품 상세 삭제를 성공적으로 하였습니다.");
 	}
+<<<<<<< HEAD
 	
 	
 	
 	
+=======
+	@GetMapping("search")
+	public ListResult<Goods>  searchGoods(@RequestParam HashMap<String, Object> goods){
+
+		List<Goods> goodsList = goodsService.selectSearch(goods);
+		return responseService.getListResult(goodsList);
+	}
+
+	@GetMapping("search/{category}")
+	public ListResult<Goods>  searchCategoryGoods(@RequestParam HashMap<String, Object> goods,
+											@PathVariable String category){
+		goods.put("category",category);
+		List<Goods> goodsList = goodsService.selectCategorySearch(goods);
+		return responseService.getListResult(goodsList);
+	}
+
+
+
+>>>>>>> feature/0.1/devchan2/search
 }

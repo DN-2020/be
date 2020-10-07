@@ -1,5 +1,6 @@
 package com.db2020.pj.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -97,5 +98,20 @@ public class GoodsServiceImpl implements GoodsService{
 	public void detail_delete(Map<String, String> parameter) {
 		goodsRepository.detail_delete(parameter);
 	}
-	
+
+	@Override
+	public List<Goods> selectSearch(HashMap<String, Object> map) {
+		int limit = Integer.parseInt(map.get("limit").toString());
+		map.put("limit", limit);
+		map.put("limit_end", limit+4);
+		return goodsRepository.selectSearch(map);
+	}
+
+	@Override
+	public List<Goods> selectCategorySearch(HashMap<String, Object> map) {
+		int limit = Integer.parseInt(map.get("limit").toString());;
+		map.put("limit", limit);
+		map.put("limit_end", limit+4);
+		return goodsRepository.selectCategorySearch(map);
+	}
 }
