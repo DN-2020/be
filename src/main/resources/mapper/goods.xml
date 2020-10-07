@@ -131,11 +131,7 @@
 		UPDATE
 			t_goods_detail
 		SET
-<<<<<<< HEAD
 			goods_detail_view_yn = 'Y'
-=======
-			goods_view_yn = 'Y'
->>>>>>> feature/0.1/devchan2/search
 		WHERE
 			t_goods_seq = #{goods_seq}
 		AND
@@ -155,11 +151,7 @@
 		UPDATE
 			t_goods_detail
 		SET
-<<<<<<< HEAD
 			goods_detail_view_yn = 'N'
-=======
-			goods_view_yn = 'N'
->>>>>>> feature/0.1/devchan2/search
 		WHERE
 			t_goods_seq = #{goods_seq}
 		AND

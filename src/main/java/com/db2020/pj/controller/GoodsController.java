@@ -145,15 +145,19 @@ public class GoodsController {
 	}
 	
 	// 상품 정보 상세 수정
-	@PutMapping("goods/{goods_seq}/{goods_detail_seq}")
-	public CommonResult detail_updateGoods(@PathVariable String goods_detail_seq, @RequestParam Map<String, Object> goods) {
+	@PutMapping("/goods/{goods_seq}/{goods_detail_seq}")
+	public CommonResult detail_updateGoods(@PathVariable Map<String, Object> parameter, @RequestParam Map<String, Object> goods) {
 		
-		goods.put("goods_detail_seq", goods_detail_seq);
+		goods.put("goods_seq", parameter.get("goods_seq"));
+		goods.put("goods_detail_seq", parameter.get("goods_detail_seq"));
+		
+		System.out.println(parameter.get("goods_seq"));
+		System.out.println(parameter.get("goods_detail_seq"));
 		goodsService.detail_update(goods);
 		return new CommonResult(200, "상세 상품 수정을 성공적으로 하였습니다.");
 	}
 
-	@DeleteMapping("goods/{goods_seq}")
+	@DeleteMapping("/goods/{goods_seq}")
 	public CommonResult deleteGoods(@PathVariable String goods_seq) {
 		
 		goodsService.delete(goods_seq);
@@ -161,19 +165,14 @@ public class GoodsController {
 		return new CommonResult(200, "상품 삭제를 성공적으로 하였습니다.");
 	}
 		
-	@DeleteMapping("goods/{goods_seq}/{goods_detail_seq}")
+	@DeleteMapping("/goods/{goods_seq}/{goods_detail_seq}")
 	public CommonResult detail_deleteGoods(@PathVariable Map<String, String> parameter) {
 
 		goodsService.detail_delete(parameter);
 		
 		return new CommonResult(200, "상품 상세 삭제를 성공적으로 하였습니다.");
 	}
-<<<<<<< HEAD
-	
-	
-	
-	
-=======
+
 	@GetMapping("search")
 	public ListResult<Goods>  searchGoods(@RequestParam HashMap<String, Object> goods){
 
@@ -189,7 +188,4 @@ public class GoodsController {
 		return responseService.getListResult(goodsList);
 	}
 
-
-
->>>>>>> feature/0.1/devchan2/search
 }
