@@ -34,7 +34,7 @@
 		WHERE promotion_seq=#{promotion_seq}
 	</select>
 	
-	<select id="promotionGoodsList" parameterType="Integer" resultType="goodsDetailVO">
+	<select id="promotionGoodsList" parameterType="Integer" resultType="goodsDetailDTOVO">
 		SELECT *
 		FROM t_goods_detail
 		WHERE t_promotion_seq=#{promotion_seq}

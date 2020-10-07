@@ -6,7 +6,7 @@
 	<typeAliases>
 		<typeAlias type="com.db2020.pj.entity.Promotion" alias="promotionVO"/>
 		<typeAlias type="com.db2020.pj.entity.PromotionGoodsDTO" alias="promotionGoodsDTO"/>
-		<typeAlias type="com.db2020.pj.entity.GoodsDetail" alias="goodsDetailVO"/>
+		<typeAlias type="com.db2020.pj.entity.GoodsDetailDTO" alias="goodsDetailDTOVO"/>
 	</typeAliases>
 	
 </configuration>

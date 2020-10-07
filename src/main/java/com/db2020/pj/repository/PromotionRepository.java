@@ -2,7 +2,7 @@ package com.db2020.pj.repository;
 
 import java.util.List;
 
-import com.db2020.pj.entity.GoodsDetail;
+import com.db2020.pj.entity.GoodsDetailDTO;
 import com.db2020.pj.entity.Promotion;
 import com.db2020.pj.entity.PromotionGoodsDTO;
 
@@ -18,5 +18,5 @@ public interface PromotionRepository {
 	
 	PromotionGoodsDTO promotionDetail(int promotion_seq);
 	
-	List<GoodsDetail> promotionGoodsList(int promotion_seq);
+	List<GoodsDetailDTO> promotionGoodsList(int promotion_seq);
 }

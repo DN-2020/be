@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.db2020.pj.entity.GoodsDetail;
+import com.db2020.pj.entity.GoodsDetailDTO;
 import com.db2020.pj.entity.Promotion;
 import com.db2020.pj.entity.PromotionGoodsDTO;
 import com.db2020.pj.repository.PromotionRepository;
@@ -47,7 +47,7 @@ public class PromotionServiceImpl implements PromotionService{
 	}
 	
 	@Override
-	public List<GoodsDetail> promotionGoodsList(int promotion_seq) {
+	public List<GoodsDetailDTO> promotionGoodsList(int promotion_seq) {
 		// TODO Auto-generated method stub
 		return promotionRepository.promotionGoodsList(promotion_seq);
 	}

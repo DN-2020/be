@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Getter @Setter @ToString
-public class GoodsDetail {
+public class GoodsDetailDTO {
 	private int goods_detail_seq;
 	private String goods_detail_nm;
 	private int goods_detail_price;

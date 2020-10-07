@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.db2020.pj.entity.GoodsDetail;
+import com.db2020.pj.entity.GoodsDetailDTO;
 import com.db2020.pj.entity.Promotion;
 import com.db2020.pj.entity.PromotionGoodsDTO;
 
@@ -47,7 +47,7 @@ public class promotionRepositoryImpl implements PromotionRepository{
 	}
 
 	@Override
-	public List<GoodsDetail> promotionGoodsList(int promotion_seq) {
+	public List<GoodsDetailDTO> promotionGoodsList(int promotion_seq) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("promotionDAO.promotionGoodsList",promotion_seq);
 		
