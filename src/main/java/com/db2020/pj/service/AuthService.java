@@ -3,7 +3,6 @@ package com.db2020.pj.service;
 import java.util.Map;
 
 import com.db2020.pj.entity.Customer;
-import com.db2020.pj.entity.Emp;
 
 public interface AuthService {
 
@@ -11,5 +10,4 @@ public interface AuthService {
 	
 	void signUp(Customer user) throws Exception;
 
-	void signUpAdmin(Emp emp) throws Exception; 
 }

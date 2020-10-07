@@ -18,7 +18,6 @@ import com.db2020.pj.config.cookie.CookieUtil;
 import com.db2020.pj.config.jwt.JwtUtil;
 import com.db2020.pj.config.redis.RedisUtil;
 import com.db2020.pj.entity.Customer;
-import com.db2020.pj.entity.Emp;
 import com.db2020.pj.exception.custom.CUserExistException;
 import com.db2020.pj.exception.custom.CUserNotException;
 import com.db2020.pj.model.CommonResult;
