@@ -1,5 +1,6 @@
 package com.db2020.pj.repository;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,11 @@ public interface GoodsRepository {
 	
 	public GoodsDetail selectOne(Map<String, Integer> query);
 	
+//	public Map<String, Object> reserve_date(Map<String, Object> reserve_date);
+	
 	public List<Goods> selectList(Map<String, Object> parameter);
+	
+	public List<Goods> selectAdminList(Map<String, Object> parameter);
 	
 	public List<GoodsDetail> selectDetailList(int goods_seq);
 	

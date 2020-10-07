@@ -1,14 +1,18 @@
 package com.db2020.pj.repository;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.db2020.pj.entity.Goods;
 import com.db2020.pj.entity.GoodsDetail;
+import com.db2020.pj.exception.custom.CGoodsNotException;
 
 @Repository
 public class GoodsRepositoryImpl implements GoodsRepository {
@@ -18,7 +22,9 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
 	@Override
 	public void register(Map<String, String> goods) {
+		
 		sqlSession.insert("goods.register", goods);
+		
 	}
 
 	@Override
@@ -28,8 +34,12 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
 	@Override
 	public Goods selectOne(int goods_seq) {
+		
 		Goods goods = sqlSession.selectOne("goods.select_goods", goods_seq);
-
+		
+		if(goods == null) {
+			throw new CGoodsNotException();
+		}
 		return goods;
 	}
 
@@ -42,18 +52,48 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 		return goodsDetail;
 	}
 
+//	@Override
+//	public Map<String, Object> reserve_date(Map<String, Object> reserve_date) {
+//		Map<String, Object> list = sqlSession.selectMap("goods.mapList", reserve_date, "reserve_date");
+//		
+//		return list;
+//	}
+
 	@Override
 	public List<Goods> selectList(Map<String, Object> parameter) {
 
+		List<Goods> goodsList = null;
+		
+		if(parameter.get("goods_nm") != null) {
+			goodsList = sqlSession.selectList("goods.select_sgoodsList", parameter);
+		}
+		else if(parameter.get("company_seq") != null) {
+			goodsList = sqlSession.selectList("goods.select_cgoodsList", parameter);
+			System.out.println(goodsList.toString());
+		}
+		return goodsList;
+	}
+
+	
+	@Override
+	public List<Goods> selectAdminList(Map<String, Object> parameter) {
+		
 		List<Goods> goodsList;
 		
-		if(parameter.get("t_company_seq") != null) {
-			goodsList = sqlSession.selectList("goods.select_cgoodsList", parameter);
-		} 
-		else {
-			goodsList = sqlSession.selectList("goods.select_goodsList");
+		if(parameter.get("goods_nm") != null && parameter.get("company_nm") != null) {
+			System.out.println("1");
+			goodsList = sqlSession.selectList("goods.two_goodsList", parameter);
+		} else if(parameter.get("goods_nm") != null) {
+			System.out.println("2");
+			goodsList = sqlSession.selectList("goods.gn_goodsList", parameter);
+		} else if(parameter.get("company_nm") != null) {
+			System.out.println("3");
+			goodsList = sqlSession.selectList("goods.cn_goodsList", parameter);
+		} else {
+			System.out.println("4");
+			goodsList = sqlSession.selectList("goods.select_goodsList", parameter);
+			System.out.println(goodsList.toString());
 		}
-		
 		return goodsList;
 	}
 
@@ -67,9 +107,7 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
 	@Override
 	public void goodsIsView(Map<String, Object> parameter) {
-
 		if(parameter.get("goods_view_yn").equals("Y")) {
-			System.out.println("Rr");
 			sqlSession.update("goods.isViewY", parameter);
 		}
 		else {
@@ -96,8 +134,6 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
 	@Override
 	public void detail_update(Map<String, Object> goods) {
-		
-		System.out.println(goods.get("goods_detail_nm"));
 		sqlSession.update("goods.detail_update", goods);
 	}
 
