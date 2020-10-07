@@ -35,12 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 	       		  .authorizeRequests()
 //				  .antMatchers("/**").permitAll()
-	       		  .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
-				  .antMatchers("/*/signin", "/*/signup").permitAll()
-				  .antMatchers("/*/company").hasAnyRole("ADMIN", "EMP")
-				  .antMatchers("/*/goods").permitAll()
-				  .antMatchers("/*/user/info").hasRole("USER")
-				  .antMatchers("/test/admin").hasRole("ADMIN")
+	       		  .antMatchers("/**/admin/**").hasRole("ADMIN")
+	       		  .antMatchers("/**/company/**").hasAnyRole("ADMIN", "EMP")
+	       		  .antMatchers("/exception/**").permitAll()
+				  .antMatchers("/*/signin", "/*/signup", "/*/logout").permitAll()
+				  .antMatchers(HttpMethod.GET,"/*/goods/**").permitAll()
+				  .antMatchers(HttpMethod.POST,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
+				  .antMatchers(HttpMethod.PUT,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
+				  .antMatchers(HttpMethod.DELETE,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
+				  .antMatchers("/*/user/**").hasAnyRole("ADMIN", "USER")
 				  .anyRequest().authenticated();
            
 	}
