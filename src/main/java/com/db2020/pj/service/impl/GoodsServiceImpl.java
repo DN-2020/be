@@ -41,10 +41,22 @@ public class GoodsServiceImpl implements GoodsService{
 		return goodsDetail;
 	}
 
+//	@Override
+//	public Map<String, Object> reserve_date(Map<String, Object> reserve_date) {
+//		Map<String, Object> list = goodsRepository.reserve_date(reserve_date);
+//		return list;
+//	}
+
 	@Override
 	public List<Goods> selectList(Map<String, Object> parameter) {
 		List<Goods> goodsList = goodsRepository.selectList(parameter);
 		
+		return goodsList;
+	}
+
+	@Override
+	public List<Goods> selectAdminList(Map<String, Object> parameter) {
+		List<Goods> goodsList = goodsRepository.selectAdminList(parameter);
 		return goodsList;
 	}
 

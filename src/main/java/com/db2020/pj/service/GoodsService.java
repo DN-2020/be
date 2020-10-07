@@ -15,8 +15,12 @@ public interface GoodsService {
 	public Goods selectOne(int goods_seq);
 	
 	public GoodsDetail selectOne(Map<String, Integer> goods_detail);
+
+//	public Map<String, Object> reserve_date(Map<String, Object> reserve_date);
 	
 	public List<Goods> selectList(Map<String, Object> parameter);
+	
+	public List<Goods> selectAdminList(Map<String, Object> parameter);
 	
 	public List<GoodsDetail> selectDetailList(int goods_seq);
 	

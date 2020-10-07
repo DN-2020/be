@@ -32,18 +32,20 @@ public class GoodsController {
 	private ResponseService responseService;
 	
 	// 상품등록
-	@PostMapping("/company/{company_seq}/goods")
+//	@PostMapping("/company/{company_seq}/goods")
+	@PostMapping("/goods")
 	public CommonResult register(@RequestParam Map<String, String> goods) {
 		
-		System.out.println(goods.toString());
 		goodsService.register(goods);
 		
 		return new CommonResult(200, "상품등록을 성공적으로 완료했습니다.");
 	}
 	
 	// 상세 상품 등록
-	@PostMapping("/company/{company_seq}/goods/{goods_seq}")
-	public CommonResult detail_register(@RequestParam Map<String, String> goods) {
+//	@PostMapping("/company/{company_seq}/goods/{goods_seq}")
+	@PostMapping("/goods/{goods_seq}")
+	public CommonResult detail_register(@PathVariable String goods_seq, @RequestParam Map<String, String> goods) {
+		goods.put("goods_seq", goods_seq);
 		
 		goodsService.detail_register(goods);
 		
@@ -68,11 +70,34 @@ public class GoodsController {
 		return responseService.getSingleResult(goodsDetail);
 	}
 	
+//	// 상품 예약 된 날짜 조회
+//	@GetMapping("/goods/{goods_seq}/{goods_detail_seq}/reserve_date")
+//	public Map<String, Object> selectReserve_date(@PathVariable Map<String, Object> parameter){
+//		
+//		Map<String, Object> list = goodsService.reserve_date(parameter);
+//		
+//		return list;
+//	}
+	
+	
 	// 상품 리스트 조회
-	@GetMapping("/goods/list")
+//	@GetMapping("/company/goods/list")
+	@GetMapping("/goods/company/list")
 	public ListResult<Goods> selectGoodsList(@RequestParam Map<String, Object> parameter){
 		
 		List<Goods> goodsList = goodsService.selectList(parameter);
+		
+		System.out.println(goodsList.toString());
+		
+		return responseService.getListResult(goodsList);
+	}
+	
+	// 관리자 전체 상품 리스트
+//	@GetMapping("/admin/goods/list")
+	@GetMapping("/goods/admin/list")
+	public ListResult<Goods> adminGoodsList(@RequestParam Map<String, Object> parameter) {
+		
+		List<Goods> goodsList = goodsService.selectAdminList(parameter);
 		
 		return responseService.getListResult(goodsList);
 	}
@@ -86,25 +111,30 @@ public class GoodsController {
 		return responseService.getListResult(goodsDetailList);
 	}
 	
-	// 상품 리스트 단일 등록
-	@PutMapping("/admin/goods/{goods_seq}")
-	public CommonResult goodsRegister(@PathVariable Map<String, Object> parameter, String goods_view_yn) {
-		
-		parameter.put("goods_view_yn", goods_view_yn);
+	// 상품 리스트 단일 등록 변경
+//	@PutMapping("/admin/goods/{goods_seq}")
+	@PutMapping("/goods/{goods_seq}/isView")
+	public CommonResult goodsRegister(@PathVariable String goods_seq, @RequestParam Map<String, Object> parameter) {
+
+		System.out.println(goods_seq);
+		parameter.put("goods_seq", goods_seq);
 		goodsService.goodsIsView(parameter);
 		
-		return new CommonResult(200, "상품 리스트에 상품을 성공적으로 등록했습니다."); 
+		return new CommonResult(200, "상품 리스트에 상품을 성공적으로 변경하였습니다."); 
 	}
 	
-	// 상품 리스트 상세 등록
-	@PutMapping("/admin/goods/{goods_seq}/{goods_detail_seq}")
-	public CommonResult goodsDetailRegister(@PathVariable Map<String, Object> parameter) {
+	// 상품 리스트 상세 등록 변경
+//	@PutMapping("/admin/goods/{goods_seq}/{goods_detail_seq}")
+	@PutMapping("/goods/{goods_seq}/{goods_detail_seq}/isView")
+	public CommonResult goodsDetailRegister(@PathVariable Map<String, Object> parameter, @RequestParam String goods_detail_view_yn) {
 		
+		parameter.put("goods_detail_view_yn", goods_detail_view_yn);
 		goodsService.goodsDetailIsView(parameter);
 		
-		return new CommonResult(200, "상품 리스트에 상세 상품을 성공적으로 등록했습니다."); 
+		return new CommonResult(200, "상품 리스트에 상세 상품을 성공적으로 변경하였습니다."); 
 	}
 	
+	// 상품 정보 수정
 	@PutMapping("/goods/{goods_seq}")
 	public CommonResult updateGoods(@PathVariable String goods_seq, @RequestParam Map<String, Object> goods) {
 		
@@ -113,6 +143,7 @@ public class GoodsController {
 		return new CommonResult(200, "상품 수정을 성공적으로 하였습니다.");
 	}
 	
+	// 상품 정보 상세 수정
 	@PutMapping("goods/{goods_seq}/{goods_detail_seq}")
 	public CommonResult detail_updateGoods(@PathVariable String goods_detail_seq, @RequestParam Map<String, Object> goods) {
 		
@@ -136,6 +167,8 @@ public class GoodsController {
 		
 		return new CommonResult(200, "상품 상세 삭제를 성공적으로 하였습니다.");
 	}
+	
+	
 	
 	
 }
