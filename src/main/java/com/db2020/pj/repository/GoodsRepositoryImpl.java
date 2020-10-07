@@ -1,5 +1,6 @@
 package com.db2020.pj.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,5 +112,14 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 	public void detail_delete(Map<String, String> parameter) {
 		sqlSession.delete("goods.detail_delete", parameter);
 	}
-	
+
+	@Override
+	public List<Goods> selectSearch(HashMap<String, Object> map) {
+		return sqlSession.selectList("goods.selectSearch", map);
+	}
+
+	@Override
+	public List<Goods> selectCategorySearch(HashMap<String, Object> map) {
+		return sqlSession.selectList("goods.selectCategorySearch", map);
+	}
 }

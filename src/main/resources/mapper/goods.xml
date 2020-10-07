@@ -74,7 +74,7 @@
 		UPDATE
 			t_goods_detail
 		SET
-			goods_view_yn = 'Y"
+			goods_view_yn = 'Y'
 		WHERE
 			t_goods_seq = #{goods_seq}
 		AND
@@ -94,7 +94,7 @@
 		UPDATE
 			t_goods_detail
 		SET
-			goods_view_yn = 'N"
+			goods_view_yn = 'N'
 		WHERE
 			t_goods_seq = #{goods_seq}
 		AND
@@ -146,5 +146,16 @@
 		AND
 			t_goods_seq = #{goods_seq}	
 	</delete>
+
+	<select id="selectSearch" parameterType="hashMap" resultType="goods">
+		SELECT * FROM dn2020b.t_goods
+		where  goods_nm Like #{search}
+		Limit #{limit},#{limit_end}
+	</select>
+	<select id="selectCategorySearch" parameterType="hashMap" resultType="goods">
+		SELECT * FROM dn2020b.t_goods
+		where t_goods_type_seq = #{category}
+		Limit #{limit},#{limit_end}
+	</select>
 </mapper>
  
