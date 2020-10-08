@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="companyDAO">
+ 
+ 	<select id="companyList" resultType="companyVO">
+ 		SELECT *
+ 		FROM t_company
+ 	</select>
+   
+   <insert id="companyInsert" parameterType="companyVO">
+   		INSERT
+   		INTO t_company(company_nm,company_tel,company_post,company_address,company_detail_address,company_email,company_num,company_regist_num,company_createAt,company_role)
+   		VALUES (#{company_nm},#{company_tel},#{company_post},#{company_address},#{company_detail_address},#{company_email},#{company_num},#{company_regist_num},#{company_createAt},"ROLE_EMP")
+   </insert>
+   
+   <select id="companyDetailList" parameterType="Integer" resultType="companyVO">
+   		SELECT *
+   		FROM t_company
+   		WHERE company_seq=#{company_seq}
+   </select>
+   
+   <update id="companyUpdate" parameterType="companyVO">
+   		UPDATE t_company
+   		SET company_nm=#{company_nm},company_tel=#{company_tel},company_post=#{company_post},company_address=#{company_address},company_detail_address=#{company_detail_address},company_email=#{company_email},company_num=#{company_num},company_regist_num=#{company_regist_num},company_updateAt=#{company_updateAt}
+   		WHERE company_seq=#{company_seq}
+   </update>
+   
+   <delete id="companyDelete" parameterType="Integer">
+   		DELETE
+   		FROM t_company
+   		WHERE company_seq=#{company_seq}
+   </delete>
+</mapper> 
