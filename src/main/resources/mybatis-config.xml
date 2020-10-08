@@ -4,9 +4,15 @@
 <configuration>
 	
 	<typeAliases>
+<<<<<<< HEAD
 		<typeAlias type="com.db2020.pj.entity.Customer" alias="customer"/>
 		<typeAlias type="com.db2020.pj.entity.Goods" alias="goods"/>
 		<typeAlias type="com.db2020.pj.entity.GoodsDetail" alias="goodsDetail"/>
+=======
+		<typeAlias type="com.db2020.pj.entity.Promotion" alias="promotionVO"/>
+		<typeAlias type="com.db2020.pj.entity.PromotionGoodsDTO" alias="promotionGoodsDTO"/>
+		<typeAlias type="com.db2020.pj.entity.GoodsDetailDTO" alias="goodsDetailDTOVO"/>
+>>>>>>> feature/0.1/i_plz/promotion
 	</typeAliases>
 	
 </configuration>
