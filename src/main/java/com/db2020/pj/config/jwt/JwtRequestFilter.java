@@ -23,8 +23,6 @@ import com.db2020.pj.exception.custom.CAuthenticationEntryPointException;
 import com.db2020.pj.service.detail.CustomUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.SignatureException;
-import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {

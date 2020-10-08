@@ -174,14 +174,14 @@ public class GoodsController {
 	}
 
 	@GetMapping("search")
-	public ListResult<Goods>  searchGoods(@RequestParam HashMap<String, Object> goods){
+	public ListResult<Goods> searchGoods(@RequestParam HashMap<String, Object> goods){
 
 		List<Goods> goodsList = goodsService.selectSearch(goods);
 		return responseService.getListResult(goodsList);
 	}
 
 	@GetMapping("search/{category}")
-	public ListResult<Goods>  searchCategoryGoods(@RequestParam HashMap<String, Object> goods,
+	public ListResult<Goods> searchCategoryGoods(@RequestParam HashMap<String, Object> goods,
 											@PathVariable String category){
 		goods.put("category",category);
 		List<Goods> goodsList = goodsService.selectCategorySearch(goods);

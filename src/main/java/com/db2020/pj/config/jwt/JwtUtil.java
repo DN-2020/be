@@ -32,7 +32,7 @@ public class JwtUtil {
 //    @Value("${spring.jwt.secret}")
     private String SECRET_KEY;
    
-
+    
     @PostConstruct
 	protected void init() {
 

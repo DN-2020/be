@@ -20,6 +20,5 @@ public interface UserRepository {
 	
 	public void removeUser(String customer_email);
 
-
 	public int customerSeq(String email);
 }

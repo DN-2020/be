@@ -1,6 +1,5 @@
 package com.db2020.pj.repository;
 
-import com.db2020.pj.mapper.ReservationMapper;
 import com.db2020.pj.mapper.ReviewMapper;
 import org.apache.ibatis.session.SqlSession;
 
@@ -8,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ReviewRepository {
-    ReviewMapper mapper ;
+	ReviewMapper mapper ;
     SqlSession sqlSession;
 
     public ReviewRepository(SqlSession sqlSession){

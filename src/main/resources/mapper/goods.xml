@@ -205,12 +205,12 @@
 	</delete>
 
 	<select id="selectSearch" parameterType="hashMap" resultType="goods">
-		SELECT * FROM dn2020b.t_goods
-		where  goods_nm Like #{search}
+		SELECT * FROM t_goods
+		where  goods_nm Like CONCAT('%',#{search},'%')
 		Limit #{limit},#{limit_end}
 	</select>
 	<select id="selectCategorySearch" parameterType="hashMap" resultType="goods">
-		SELECT * FROM dn2020b.t_goods
+		SELECT * FROM t_goods
 		where t_goods_type_seq = #{category}
 		Limit #{limit},#{limit_end}
 	</select>
