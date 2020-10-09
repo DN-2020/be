@@ -8,11 +8,11 @@ echo "> 버전 최신화"
 
 git pull
 
-maven clean
+mvn clean
 
 echo "> 프로젝트 Build 시작"
 
-maven package
+mvn package
 
 echo "> Build 파일 복사"
 
@@ -39,3 +39,7 @@ JAR_NAME=$(ls $REPOSITORY/ |grep 'db2020' | tail -n 1)
 echo "> JAR Name: $JAR_NAME"
 
 nohup java -jar $REPOSITORY/$JAR_NAME &
+
+
+echo -e " > 배포 완료"
+
