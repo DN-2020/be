@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.db2020.pj.entity.Goods;
 import com.db2020.pj.entity.GoodsDetail;
-import com.db2020.pj.exception.custom.CGoodsNotException;
 
 @Repository
 public class GoodsRepositoryImpl implements GoodsRepository {
@@ -38,7 +37,7 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 		Goods goods = sqlSession.selectOne("goods.select_goods", goods_seq);
 		
 		if(goods == null) {
-			throw new CGoodsNotException();
+//			throw new CGoodsNotException();
 		}
 		return goods;
 	}

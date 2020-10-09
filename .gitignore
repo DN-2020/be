@@ -4,11 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 !**/src/main/resources/application.properties
-<<<<<<< HEAD
-=======
 bin
-
->>>>>>> branch 'master' of https://github.com/DN-2020/be.git
 
 ### STS ###
 .apt_generated
@@ -18,7 +14,7 @@ bin
 .settings
 .springBeans
 .sts4-cache
-.src/main/resource/application-local.properties
+*.properties
 
 ### IntelliJ IDEA ###
 .idea
