@@ -23,13 +23,12 @@ public class UserRepositoryImpl implements UserRepository{
 	@Override
 	public Customer findUserInfo(String email) {
 		
-		Customer user = sqlSession.selectOne("customer.info", email); 
+		Customer user = sqlSession.selectOne("customer.info", email);
 		return user;
 	}
 
 	@Override
 	public Customer findUserInfo(Map<String, String> loginMap) {
-		
 		return sqlSession.selectOne("customer.signIn", loginMap);
 	}
 

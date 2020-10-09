@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.db2020.pj</groupId>
 	<artifactId>db2020</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>db2020</name>
 	<description>Demo project for Spring Boot</description>
 

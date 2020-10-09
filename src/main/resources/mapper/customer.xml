@@ -29,7 +29,7 @@
 	
 	<select id="signIn" parameterType="hashMap" resultType="customer">
 		SELECT
-			customer_email, customer_pw
+			*
 		FROM
 			t_customer
 		WHERE
