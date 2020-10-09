@@ -17,7 +17,6 @@ bin
 .settings
 .springBeans
 .sts4-cache
-src/main/resources/application-local.properties
 
 ### IntelliJ IDEA ###
 .idea
@@ -37,3 +36,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+*.classpath/application-local.properties
