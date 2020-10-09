@@ -24,4 +24,4 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/reserve/be
-	    ./deploy.sh
+            ./deploy.sh
