@@ -39,7 +39,7 @@ public class reviewController {
 
     //리뷰 등록
     @PostMapping("/review")
-    public Response addReview(@RequestParam HashMap<String, Object> map,
+    public Response addReview(@RequestBody HashMap<String, Object> map,
                               HttpServletRequest request,
                               HttpServletResponse response){
         final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
@@ -55,7 +55,7 @@ public class reviewController {
     }
     // 리뷰 리스트 조회 (상품별 및 회사별)
     @GetMapping("/review/list")
-    public Response getReview(@RequestParam HashMap<String, Object> map,
+    public Response getReview(@RequestBody HashMap<String, Object> map,
                               HttpServletRequest request,
                               HttpServletResponse response){
         final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
@@ -70,7 +70,7 @@ public class reviewController {
     }
     // 후기 리스트 조회
     @GetMapping("user/review/list")
-    public Response getUserReview(@RequestParam HashMap<String, Object> map,
+    public Response getUserReview(@RequestBody HashMap<String, Object> map,
                                   HttpServletRequest request,
                                   HttpServletResponse response){
         final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
@@ -85,7 +85,7 @@ public class reviewController {
     }
     // 고객별 후기 조회
     @GetMapping("review/{review_seq}")
-    public Response getDetailReview(@RequestParam HashMap<String ,Object> map,
+    public Response getDetailReview(@RequestBody HashMap<String ,Object> map,
                                     @PathVariable int review_seq,
                                     HttpServletRequest request,
                                     HttpServletResponse response){
@@ -101,7 +101,7 @@ public class reviewController {
         return new Response("success", "사용자 상세 후기 조회 성공하셨습니다.", result);
     }
     @PutMapping("review/{review_seq}")
-    public Response updateDetailReview(@RequestParam HashMap<String, Object> map,
+    public Response updateDetailReview(@RequestBody HashMap<String, Object> map,
                                        @PathVariable int review_seq,
                                        HttpServletRequest request,
                                        HttpServletResponse response){

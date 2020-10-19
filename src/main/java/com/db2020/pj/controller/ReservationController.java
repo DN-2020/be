@@ -42,7 +42,7 @@ public class ReservationController {
     private UserService userService;
     // 예약등록
     @PostMapping("/reservation")
-    public Response addReservation(@RequestParam HashMap<String, Object> map,
+    public Response addReservation(@RequestBody HashMap<String, Object> map,
                                    HttpServletRequest request,
                                    HttpServletResponse response){
 
@@ -60,7 +60,7 @@ public class ReservationController {
 
     //예약취소
     @DeleteMapping("/reservation/{reservation_seq}")
-    public Response delReservation(@RequestParam HashMap<String, Object> map,
+    public Response delReservation(@RequestBody HashMap<String, Object> map,
                                    @PathVariable int reservation_seq ,
                                    HttpServletRequest request,
                                    HttpServletResponse response){
@@ -113,7 +113,7 @@ public class ReservationController {
     }
     //예약 취소 내역 조회 (API 수정)
     @GetMapping("/refund")
-    public Response getRefund(@RequestParam HashMap<String, Object> map,
+    public Response getRefund(@RequestBody HashMap<String, Object> map,
                               HttpServletRequest request,
                               HttpServletResponse response){
         final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
@@ -129,7 +129,7 @@ public class ReservationController {
 
     //취소 내역 상세 조회
     @GetMapping("/refund/{refund_seq}")
-    public Response getDetailRefund(@RequestParam HashMap<String, Object> map,
+    public Response getDetailRefund(@RequestBody HashMap<String, Object> map,
                                     @PathVariable int refund_seq,
                                     HttpServletRequest request,
                                     HttpServletResponse response){
@@ -147,7 +147,7 @@ public class ReservationController {
 
     //관리자의 예약 내역 조회
     @GetMapping("/admin/reservation")
-    public Response getAdminReservation (@RequestParam HashMap<String, Object> map,
+    public Response getAdminReservation (@RequestBody HashMap<String, Object> map,
                                          HttpServletRequest request,
                                          HttpServletResponse response){
         final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
@@ -168,7 +168,7 @@ public class ReservationController {
     }
     //관리자의 상세 예약 내역 조회
     @GetMapping("/admin/reservation/{reservation_seq}")
-    public Response getAdminDetailReservation(@RequestParam HashMap<String, Object> map,
+    public Response getAdminDetailReservation(@RequestBody HashMap<String, Object> map,
                                               @PathVariable int reservation_seq,
                                               HttpServletRequest request,
                                               HttpServletResponse response){

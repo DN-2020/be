@@ -43,25 +43,6 @@ public class SignController {
 	@Autowired
 	private ResponseService responseService;
 
-//	@PostMapping("/signin")
-//	public Response signin(HttpServletRequest req, HttpServletResponse res, 
-//						  @RequestParam String id,
-//						  @RequestParam String password) {
-//		try {
-//			final User user = authService.loginUser(id, password);
-//			final String accesstoken = jwtUtil.generateToken(user);
-//			final String refreshtoken = jwtUtil.generateRefreshToken(user);
-//			Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, accesstoken);
-//			Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshtoken);
-//			redisUtil.setDataExpire(refreshtoken, user.getUsername(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
-//			res.addCookie(accessToken);
-//			res.addCookie(refreshToken);
-//			return new Response("success", "로그인에 성공했습니다.", accesstoken);
-//		} catch (Exception e) {
-//			return new Response("error", "로그인에 실패했습니다.", e.getMessage());
-//		}
-//	}
-
 	@PostMapping("/signup")
 	public CommonResult signup(HttpServletRequest req, HttpServletResponse res, @RequestBody Customer user) throws Exception {
 
