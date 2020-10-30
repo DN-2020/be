@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,7 @@ import com.db2020.pj.config.cookie.CookieUtil;
 import com.db2020.pj.config.jwt.JwtUtil;
 import com.db2020.pj.config.redis.RedisUtil;
 import com.db2020.pj.entity.Customer;
+import com.db2020.pj.entity.LoginDTO;
 import com.db2020.pj.exception.custom.CUserExistException;
 import com.db2020.pj.exception.custom.CUserNotException;
 import com.db2020.pj.model.CommonResult;
@@ -41,27 +43,8 @@ public class SignController {
 	@Autowired
 	private ResponseService responseService;
 
-//	@PostMapping("/signin")
-//	public Response signin(HttpServletRequest req, HttpServletResponse res, 
-//						  @RequestParam String id,
-//						  @RequestParam String password) {
-//		try {
-//			final User user = authService.loginUser(id, password);
-//			final String accesstoken = jwtUtil.generateToken(user);
-//			final String refreshtoken = jwtUtil.generateRefreshToken(user);
-//			Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, accesstoken);
-//			Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshtoken);
-//			redisUtil.setDataExpire(refreshtoken, user.getUsername(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
-//			res.addCookie(accessToken);
-//			res.addCookie(refreshToken);
-//			return new Response("success", "로그인에 성공했습니다.", accesstoken);
-//		} catch (Exception e) {
-//			return new Response("error", "로그인에 실패했습니다.", e.getMessage());
-//		}
-//	}
-
 	@PostMapping("/signup")
-	public CommonResult signup(HttpServletRequest req, HttpServletResponse res, Customer user) throws Exception {
+	public CommonResult signup(HttpServletRequest req, HttpServletResponse res, @RequestBody Customer user) throws Exception {
 
 		authService.signUp(user);
 		return new CommonResult(200, "회원가입을 성공적으로 완료했습니다.");
@@ -69,9 +52,9 @@ public class SignController {
 	}
 
 	@PostMapping("/signin")
-	public SingleResult<String> signin(HttpServletRequest req, HttpServletResponse res, @RequestParam Map<String, String> loginMap) throws Exception {
+	public SingleResult<LoginDTO> signin(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, String> loginMap) throws Exception {
 
-		final Customer user = authService.loginUser(loginMap);
+		Customer user = authService.loginUser(loginMap);
 		final String accesstoken = jwtUtil.generateToken(user);
 		final String refreshtoken = jwtUtil.generateRefreshToken(user);
 		// 제네릭 선언으로 인한여 accessToken 데이터만 가져오게 함.
@@ -81,7 +64,10 @@ public class SignController {
 		redisUtil.setDataExpire(refreshtoken, user.getUsername(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
 		res.addCookie(accessToken);
 		res.addCookie(refreshToken);
-		return responseService.getSingleResult(storage_accssToken);
+		
+		LoginDTO login = new LoginDTO(user.getCustomer_seq(), user.getCustomer_email(), user.getCustomer_nm(), user.getCustomer_tel(), user.getCustomer_post(), user.getCustomer_address(), user.getCustomer_detail_address(), accesstoken , user.getCustomer_role());
+		
+		return responseService.getSingleResult(login);
 	}
 	
 	@PostMapping("/logout")

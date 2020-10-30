@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.db2020.pj.entity.Customer;
@@ -24,13 +23,12 @@ public class UserRepositoryImpl implements UserRepository{
 	@Override
 	public Customer findUserInfo(String email) {
 		
-		Customer user = sqlSession.selectOne("customer.info", email); 
+		Customer user = sqlSession.selectOne("customer.info", email);
 		return user;
 	}
 
 	@Override
 	public Customer findUserInfo(Map<String, String> loginMap) {
-		
 		return sqlSession.selectOne("customer.signIn", loginMap);
 	}
 
@@ -49,5 +47,9 @@ public class UserRepositoryImpl implements UserRepository{
 	public void removeUser(String customer_email) {
 		sqlSession.delete("customer.remove", customer_email);
 	}
-	
+
+	@Override
+	public int customerSeq(String email) {
+		return sqlSession.selectOne("customer.customerSeq", email);
+	}
 }

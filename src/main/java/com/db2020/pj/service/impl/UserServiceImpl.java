@@ -47,5 +47,9 @@ public class UserServiceImpl implements UserService {
 		
 		userRepository.removeUser(customer_email);
 	}
-	
+
+	@Override
+	public int selectUserSeq(String email) {
+		return userRepository.customerSeq(email);
+	}
 }

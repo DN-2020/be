@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="promotionDAO">
+
+	
+	<select id="promotionList" resultType="promotionVO">
+		SELECT *
+		FROM t_promotion
+	</select>
+	
+	<insert id="promotionInsert" parameterType="promotionVO">
+		INSERT 
+		INTO t_promotion(promotion_nm,promotion_discount,promotion_discountType,promotion_st,promotion_end)
+		VALUES (#{promotion_nm},#{promotion_discount},#{promotion_discountType},#{promotion_st},#{promotion_end})
+	</insert>
+	
+	<update id="promotionUpdate" parameterType="promotionVO">
+		UPDATE t_promotion
+		SET promotion_nm=#{promotion_nm},promotion_discount=#{promotion_discount},promotion_discountType=#{promotion_discountType},promotion_st=#{promotion_st},promotion_end=#{promotion_end}
+		WHERE promotion_seq=#{promotion_seq}
+	</update>
+	
+	<delete id="promotionDelete" parameterType="Integer">
+		Delete
+		FROM t_promotion
+		WHERE promotion_seq=#{promotion_seq}
+	</delete>
+	
+	<select id="promotionDetail" parameterType="Integer" resultType="promotionGoodsDTO">
+		SELECT *
+		FROM t_promotion
+		WHERE promotion_seq=#{promotion_seq}
+	</select>
+	
+	<select id="promotionGoodsList" parameterType="Integer" resultType="goodsDetailDTOVO">
+		SELECT *
+		FROM t_goods_detail
+		WHERE t_promotion_seq=#{promotion_seq}
+	</select>
+</mapper> 

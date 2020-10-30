@@ -29,35 +29,35 @@ public class JwtUtil {
     final static public String ACCESS_TOKEN_NAME = "accessToken";
     final static public String REFRESH_TOKEN_NAME = "refreshToken";
     
-//    @Value("${spring.jwt.secret}")
+    @Value("${spring.jwt.secret}")
     private String SECRET_KEY;
    
-
-    @PostConstruct
-	protected void init() {
-
-		Random rnd = new Random();
-		StringBuilder temp = new StringBuilder();
-		for (int i = 0; i < 30; i++) {
-			int rIndex = rnd.nextInt(3);
-			switch (rIndex) {
-			case 0:
-				// a-z
-				temp.append((char) ((int) (rnd.nextInt(26)) + 97));
-				break;
-			case 1:
-				// A-Z
-				temp.append((char) ((int) (rnd.nextInt(26)) + 65));
-				break;
-			case 2:
-				// 0-9
-				temp.append((rnd.nextInt(10)));
-				break;
-			}
-		}
-		SECRET_KEY = temp.toString();
-		SECRET_KEY = Base64.getEncoder().encodeToString(SECRET_KEY.getBytes());
-	}
+    
+//    @PostConstruct
+//	protected void init() {
+//
+//		Random rnd = new Random();
+//		StringBuilder temp = new StringBuilder();
+//		for (int i = 0; i < 30; i++) {
+//			int rIndex = rnd.nextInt(3);
+//			switch (rIndex) {
+//			case 0:
+//				// a-z
+//				temp.append((char) ((int) (rnd.nextInt(26)) + 97));
+//				break;
+//			case 1:
+//				// A-Z
+//				temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+//				break;
+//			case 2:
+//				// 0-9
+//				temp.append((rnd.nextInt(10)));
+//				break;
+//			}
+//		}
+//		SECRET_KEY = temp.toString();
+//		SECRET_KEY = Base64.getEncoder().encodeToString(SECRET_KEY.getBytes());
+//	}
 //    private Key getSigningKey(String secretKey) {
 //        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
 //        return Keys.hmacShaKeyFor(keyBytes);

@@ -1,4 +1,4 @@
-package com.db2020.pj.service;
+package com.db2020.pj.service.detail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

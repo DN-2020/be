@@ -1,7 +1,5 @@
 package com.db2020.pj.entity;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -108,4 +106,14 @@ public class Customer implements UserDetails{
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [customer_seq=" + customer_seq + ", customer_email=" + customer_email + ", customer_pw="
+				+ customer_pw + ", customer_nm=" + customer_nm + ", customer_tel=" + customer_tel + ", customer_post="
+				+ customer_post + ", customer_address=" + customer_address + ", customer_detail_address="
+				+ customer_detail_address + ", customer_role=" + customer_role + "]";
+	}
+
+    
+    
 }

@@ -11,8 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.db2020.pj.config.jwt.JwtRequestFilter;
-//import com.db2020.pj.service.CustomUserDetailsService;
-import com.db2020.pj.exception.custom.CustomAccessDeniedHandler;
 import com.db2020.pj.exception.custom.CustomAuthenticationEntryPoint;
 
 @EnableWebSecurity
@@ -37,11 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 	       		  .authorizeRequests()
 //				  .antMatchers("/**").permitAll()
-	       		  .antMatchers("/**").permitAll()
-				  .antMatchers("/*/signin", "/*/signup").permitAll()
-				  .antMatchers("/*/user/info").hasRole("USER")
-				  .antMatchers(HttpMethod.GET, "/exception/**").permitAll()
-				  .antMatchers("/test/admin").hasRole("ADMIN")
+	       		  .antMatchers("/**/admin/**").hasRole("ADMIN")
+	       		  .antMatchers("/**/company/**").hasAnyRole("ADMIN", "EMP")
+	       		  .antMatchers("/exception/**").permitAll()
+				  .antMatchers("/*/signin", "/*/signup", "/*/logout").permitAll()
+				  .antMatchers(HttpMethod.GET,"/*/goods/**").permitAll()
+				  .antMatchers(HttpMethod.POST,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
+				  .antMatchers(HttpMethod.PUT,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
+				  .antMatchers(HttpMethod.DELETE,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
+				  .antMatchers("/*/user/**").hasAnyRole("ADMIN", "USER")
 				  .anyRequest().authenticated();
            
 	}
