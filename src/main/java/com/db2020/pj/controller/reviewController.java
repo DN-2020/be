@@ -51,7 +51,7 @@ public class reviewController {
         map.put("customer_seq", customer_seq);
         reviewService.insertReview(map);
 
-        return new Response("success", "예약내역 조회를 성공했습니다.", null);
+        return new Response("200", "예약내역 조회를 성공했습니다.", null);
     }
 
     // 리뷰 리스트 조회 (상품별 및 회사별)
@@ -67,7 +67,7 @@ public class reviewController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         List<HashMap<String, Object>> result = reviewService.selectListReview(map);
-        return new Response("success", "리뷰 리스트 조회(상품별 및 회사별) 성공하셨습니다.", result);
+        return new Response("200", "리뷰 리스트 조회(상품별 및 회사별) 성공하셨습니다.", result);
     }
 
     // 후기 리스트 조회
@@ -82,7 +82,7 @@ public class reviewController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         List<HashMap<String, Object>> result = reviewService.selectUserReview(map);
-        return new Response("success", "사용자 후기 리스트 조회 성공하였습니다.", result);
+        return new Response("200", "사용자 후기 리스트 조회 성공하였습니다.", result);
     }
 
     // 고객별 후기 조회
@@ -100,7 +100,7 @@ public class reviewController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         HashMap<String, Object> result = reviewService.selectDetailReview(map);
-        return new Response("success", "사용자 상세 후기 조회 성공하셨습니다.", result);
+        return new Response("200", "사용자 상세 후기 조회 성공하셨습니다.", result);
     }
 
     @PutMapping("review/{review_seq}")
@@ -117,7 +117,7 @@ public class reviewController {
         map.put("customer_seq", customer_seq);
         map.put("review_seq", review_seq);
         reviewService.updateReview(map);
-        return new Response("success", "사용자 후기 조회 성공 하셨습니다.", null);
+        return new Response("200", "리뷰 변경을 성공 하셨습니다.", null);
     }
 
 }

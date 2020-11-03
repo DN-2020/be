@@ -56,7 +56,7 @@ public class ReservationController {
         map.put("customer_id", email);
         reservationService.insertReservation(map);
         response.setHeader("access_token", jwt);
-        return new Response("success", "예약등록을 성공했습니다", null);
+        return new Response("200", "예약등록을 성공했습니다", null);
     }
 
     //예약취소
@@ -76,7 +76,7 @@ public class ReservationController {
         map.put("customer_seq", customer_seq);
         reservationService.deleteReservation(map);
         response.setHeader("access_token", jwt);
-        return new Response("success", "예약취소를 성공했습니다", null);
+        return new Response("200", "예약취소를 성공했습니다", null);
     }
 
     //예약내역 조회
@@ -92,7 +92,7 @@ public class ReservationController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         List<HashMap<String, Object>> result = reservationService.selectUserReservation(map);
-        return new Response("success", "예약내역 조회를 성공했습니다.", result);
+        return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
     //예약 상세 조회
@@ -164,7 +164,7 @@ public class ReservationController {
             logger.info(i.toString());
         }
         logger.info("왜안더");
-        return new Response("success", "예약내역 조회를 성공했습니다.", result);
+        return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
     //관리자의 상세 예약 내역 조회
@@ -182,7 +182,7 @@ public class ReservationController {
         map.put("reservation_seq", reservation_seq);
         HashMap<String, Object> result = reservationService.selectDetailUserReservation(map);
 
-        return new Response("success", "예약내역 조회를 성공했습니다.", result);
+        return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
     //회사의 예약 내역 조회
@@ -201,7 +201,7 @@ public class ReservationController {
         map.put("customer_seq", customer_seq);
 
         List<HashMap<String, Object>> result = reservationService.selectCompanyReservation(map);
-        return new Response("success", "예약내역 조회를 성공했습니다.", result);
+        return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
     //회사의 상세 예약 내역 조회 
@@ -221,7 +221,7 @@ public class ReservationController {
         map.put("customer_seq", customer_seq);
 
         HashMap<String, Object> result = reservationService.selectDetailUserReservation(map);
-        return new Response("success", "예약내역 조회를 성공했습니다.", result);
+        return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
 
