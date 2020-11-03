@@ -8,9 +8,9 @@
     <!--예약 등록-->
     <insert id="insertReservation" parameterType="Hashmap">
         insert
-        t_reservation(reservation_nm, reservation_total_price, reservation_st, reservation_end, t_goods_detail_seq,
+        t_reservation(reservation_nm, reservation_total_price, reservation_st, reservation_end, t_goods_detail_seq, reservation_goods_detail,
         t_customer_seq)
-        values(#{reservation_nm}, #{reservation_total_price}, #{reservation_st}, #{reservation_end}, #{goods_detail_seq}
+        values(#{reservation_nm}, #{reservation_total_price}, #{reservation_st}, #{reservation_end}, #{goods_detail_seq}, #{reservation_goods_detail}
         , #{customer_seq} );
     </insert>
 
