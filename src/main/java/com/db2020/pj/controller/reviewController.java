@@ -19,6 +19,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping(value = "/v1")
 public class reviewController {
 
     @Autowired

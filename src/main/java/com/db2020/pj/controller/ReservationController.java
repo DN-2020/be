@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping(value = "/v1")
 public class ReservationController {
 
     Logger logger = LoggerFactory.getLogger(ReservationController.class);
