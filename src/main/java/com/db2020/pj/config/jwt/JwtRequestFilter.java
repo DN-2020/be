@@ -27,79 +27,79 @@ import io.jsonwebtoken.ExpiredJwtException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-	@Autowired
-	private CustomUserDetailsService userDetailsService;
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
-	@Autowired
-	private JwtUtil jwtUtil;
+    @Autowired
+    private JwtUtil jwtUtil;
 
-	@Autowired
-	private CookieUtil cookieUtil;
+    @Autowired
+    private CookieUtil cookieUtil;
 
-	@Autowired
-	private RedisUtil redisUtil;
+    @Autowired
+    private RedisUtil redisUtil;
 
-	@Override
-	protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-			FilterChain filterChain) throws ServletException, IOException {
+    @Override
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+                                    FilterChain filterChain) throws ServletException, IOException {
 
-		final Cookie jwtToken = cookieUtil.getCookie(httpServletRequest, JwtUtil.ACCESS_TOKEN_NAME);
+        final Cookie jwtToken = cookieUtil.getCookie(httpServletRequest, JwtUtil.ACCESS_TOKEN_NAME);
 
-		String username = null;
-		String jwt = null;
-		String refreshJwt = null;
-		String refreshUname = null;
+        String username = null;
+        String jwt = null;
+        String refreshJwt = null;
+        String refreshUname = null;
 
-		try {
-			if (jwtToken != null) {
-				jwt = jwtToken.getValue();
-				System.out.println(jwt);
-				username = jwtUtil.getUsername(jwt);
-				System.out.println("username=" + username);
-			}
-			if (username != null) {
-				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-				if (jwtUtil.validateToken(jwt, userDetails)) {
-					UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-							userDetails, null, userDetails.getAuthorities());
-					usernamePasswordAuthenticationToken
-							.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-				}
-			}
-		} catch (ExpiredJwtException e) {
-			Cookie refreshToken = cookieUtil.getCookie(httpServletRequest, JwtUtil.REFRESH_TOKEN_NAME);
-			if (refreshToken != null) {
-				refreshJwt = refreshToken.getValue();
-			}
-		} catch (Exception e) {
-			
-		}
-		try {
-			if (refreshJwt != null) {
-				refreshUname = redisUtil.getData(refreshJwt);
-				System.out.println("1" + refreshUname);
-				if (refreshUname.equals(jwtUtil.getUsername(refreshJwt))) {
-					UserDetails userDetails = userDetailsService.loadUserByUsername(refreshUname);
-					System.out.println("2" + userDetails.getUsername());
-					UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
-							userDetails, null, userDetails.getAuthorities());
-					usernamePasswordAuthenticationToken
-							.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        try {
+            if (jwtToken != null) {
+                jwt = jwtToken.getValue();
+                System.out.println(jwt);
+                username = jwtUtil.getUsername(jwt);
+                System.out.println("username=" + username);
+            }
+            if (username != null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                if (jwtUtil.validateToken(jwt, userDetails)) {
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities());
+                    usernamePasswordAuthenticationToken
+                            .setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }
+            }
+        } catch (ExpiredJwtException e) {
+            Cookie refreshToken = cookieUtil.getCookie(httpServletRequest, JwtUtil.REFRESH_TOKEN_NAME);
+            if (refreshToken != null) {
+                refreshJwt = refreshToken.getValue();
+            }
+        } catch (Exception e) {
 
-					Customer user = new Customer();
-					user.setCustomer_email(refreshUname);
-					String newToken = jwtUtil.generateToken(user);
+        }
+        try {
+            if (refreshJwt != null) {
+                refreshUname = redisUtil.getData(refreshJwt);
+                System.out.println("1" + refreshUname);
+                if (refreshUname.equals(jwtUtil.getUsername(refreshJwt))) {
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(refreshUname);
+                    System.out.println("2" + userDetails.getUsername());
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities());
+                    usernamePasswordAuthenticationToken
+                            .setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
-					Cookie newAccessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, newToken);
-					httpServletResponse.addCookie(newAccessToken);
-				}
-			}
-		} catch (ExpiredJwtException e) {
-			System.out.println("Refresh 만료");
-		}
+                    Customer user = new Customer();
+                    user.setCustomer_email(refreshUname);
+                    String newToken = jwtUtil.generateToken(user);
 
-		filterChain.doFilter(httpServletRequest, httpServletResponse);
-	}
+                    Cookie newAccessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, newToken);
+                    httpServletResponse.addCookie(newAccessToken);
+                }
+            }
+        } catch (ExpiredJwtException e) {
+            System.out.println("Refresh 만료");
+        }
+
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
+    }
 }
