@@ -103,7 +103,6 @@ public class GoodsServiceImpl implements GoodsService{
 	public List<Goods> selectSearch(HashMap<String, Object> map) {
 		int limit = Integer.parseInt(map.get("limit").toString());
 		map.put("limit", limit);
-		map.put("limit_end", limit+4);
 		return goodsRepository.selectSearch(map);
 	}
 
@@ -111,7 +110,6 @@ public class GoodsServiceImpl implements GoodsService{
 	public List<Goods> selectCategorySearch(HashMap<String, Object> map) {
 		int limit = Integer.parseInt(map.get("limit").toString());;
 		map.put("limit", limit);
-		map.put("limit_end", limit+4);
 		return goodsRepository.selectCategorySearch(map);
 	}
 }
