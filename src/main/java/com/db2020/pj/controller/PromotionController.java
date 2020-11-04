@@ -45,9 +45,11 @@ public class PromotionController {
 	}
 	
 	@RequestMapping(value = "/promotion/{promotion_seq}",method = RequestMethod.PUT)
-	public CommonResult promotionUpdate(HttpServletRequest req, HttpServletResponse res,@RequestBody Promotion promotion) {
-		
+	public CommonResult promotionUpdate(@PathVariable Integer promotion_seq, HttpServletRequest req, HttpServletResponse res,@RequestBody Promotion promotion) {
+
+		promotion.setPromotion_seq(promotion_seq);
 		promotionService.promotionUpdate(promotion);
+
 		CommonResult result = new CommonResult();
 		result.setCode(200);
 		result.setMsg("success");

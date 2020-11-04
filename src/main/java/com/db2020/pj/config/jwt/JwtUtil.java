@@ -22,17 +22,17 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtUtil {
-	
-	public final static long TOKEN_VALIDATION_SECOND = 1000L * 24 * 1;//30				// Access_Token 30분 설정
-    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 24 * 20; // Refresh_Token 2일 설정
+
+    public final static long TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 2L ;  		// Access_Token  2시간 설정
+    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 24L;   // Refresh_Token 하루 설정
 
     final static public String ACCESS_TOKEN_NAME = "accessToken";
     final static public String REFRESH_TOKEN_NAME = "refreshToken";
-    
+
     @Value("${spring.jwt.secret}")
     private String SECRET_KEY;
-   
-    
+
+
 //    @PostConstruct
 //	protected void init() {
 //
@@ -65,19 +65,19 @@ public class JwtUtil {
 
     // 토큰이 유효한 토큰인지 검사한 후, 토큰에 담긴 Payload 값을 가져온다
     public Claims extractAllClaims(String token) {
-    	
-		return Jwts.parser()
-                    .setSigningKey(SECRET_KEY)
-                    .parseClaimsJws(token)
-                    .getBody();
+
+        return Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
     }
-    	
+
 
     // 추출한 Payload로 부터 userName을 가져온다.
     public String getUsername(String token) {
         return extractAllClaims(token).get("username", String.class);
     }
-    
+
 
     // 토큰의 만료를 확인
     public Boolean isTokenExpired(String token) {
@@ -94,7 +94,7 @@ public class JwtUtil {
     public String generateRefreshToken(Customer user) {
         return doGenerateToken(user.getUsername(), REFRESH_TOKEN_VALIDATION_SECOND);
     }
-    
+
     // 토큰을 생성, 페이로드에 담길 값을 username에 담는다
     public String doGenerateToken(String username, long expireTime) {
 

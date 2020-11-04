@@ -11,8 +11,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Response {
 	
-    private String response;
-    private String message;
+    private String code;
+    private String msg;
     private Object data;
 
 }
