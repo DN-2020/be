@@ -28,12 +28,12 @@ public class ExceptionController {
 	
 	private final MessageSource messageSource;
 	
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public CommonResult defaulException(HttpServletRequest request, Exception e) {
-		
-		return responseService.getFailResult(Integer.valueOf(getMessage("unKnown.code")), getMessage("unKnown.msg"));
-	}
+//	@ExceptionHandler(Exception.class)
+//	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//	public CommonResult defaulException(HttpServletRequest request, Exception e) {
+//		
+//		return responseService.getFailResult(Integer.valueOf(getMessage("unKnown.code")), getMessage("unKnown.msg"));
+//	}
 	
 	@ExceptionHandler(CUserNotException.class)
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
