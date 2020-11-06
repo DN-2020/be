@@ -12,12 +12,15 @@ import org.springframework.stereotype.Repository;
 
 import com.db2020.pj.entity.Goods;
 import com.db2020.pj.entity.GoodsDetail;
+import com.db2020.pj.mapper.ReservationMapper;
 
 @Repository
 public class GoodsRepositoryImpl implements GoodsRepository {
 
 	@Autowired
 	SqlSession sqlSession;
+	
+	ReservationMapper reservationMapper;
 
 	@Override
 	public void register(Map<String, String> goods) {
@@ -156,4 +159,14 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 	public List<Goods> selectCategorySearch(HashMap<String, Object> map) {
 		return sqlSession.selectList("goods.selectCategorySearch", map);
 	}
+
+	@Override
+	public List<HashMap<String, Object>> reserve_date(Map<String, Object> param) {
+
+		reservationMapper = sqlSession.getMapper(ReservationMapper.class);
+		
+		return reservationMapper.reserve_date(param);
+	}
+	
+	
 }

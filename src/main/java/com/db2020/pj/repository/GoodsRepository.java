@@ -42,5 +42,6 @@ public interface GoodsRepository {
 
 	public List<Goods> selectCategorySearch(HashMap<String, Object> map);
 
+	public List<HashMap<String, Object>> reserve_date(Map<String, Object> param); 
 }
 

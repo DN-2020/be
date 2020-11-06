@@ -94,4 +94,10 @@
         join t_goods on t_goods.goods_seq= t_goods_detail.t_goods_seq
         where t_goods.t_company_seq = #{company_seq}
     </select>
+    
+    <select id="reserve_date" parameterType="map" resultType="hashMap">
+    	SELECT reservation_st, reservation_end, reservation_goods_detail
+    	FROM dn2020b.t_reservation
+    	WHERE t_goods_detail_seq = #{goods_detail_seq}
+    </select>
 </mapper>

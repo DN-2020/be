@@ -2,6 +2,7 @@ package com.db2020.pj.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface ReservationMapper {
     public void insertReservation(HashMap<String, Object> map);
@@ -16,5 +17,6 @@ public interface ReservationMapper {
     public List<HashMap<String, Object>> selectRefund(HashMap<String, Object> map);
     public List<HashMap<String, Object>> selectAdminReservation();
     public List<HashMap<String, Object>> selectCompanyReservation(HashMap<String, Object> map);
+    public List<HashMap<String, Object>> reserve_date(Map<String, Object> param);
 
 }

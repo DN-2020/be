@@ -112,4 +112,12 @@ public class GoodsServiceImpl implements GoodsService{
 		map.put("limit", limit);
 		return goodsRepository.selectCategorySearch(map);
 	}
+
+	@Override
+	public List<HashMap<String, Object>> reserve_date(Map<String, Object> param) {
+
+		return goodsRepository.reserve_date(param);
+	}
+	
+	
 }

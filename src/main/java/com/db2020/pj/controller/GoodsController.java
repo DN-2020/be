@@ -34,7 +34,6 @@ public class GoodsController {
     private ResponseService responseService;
 
     // 상품등록
-//	@PostMapping("/company/{company_seq}/goods")
     @PostMapping("/goods")
     public CommonResult register(@RequestBody Map<String, String> goods) {
 
@@ -44,7 +43,6 @@ public class GoodsController {
     }
 
     // 상세 상품 등록
-//	@PostMapping("/company/{company_seq}/goods/{goods_seq}")
     @PostMapping("/goods/{goods_seq}")
     public CommonResult detail_register(@PathVariable String goods_seq, @RequestBody Map<String, String> goods) {
         goods.put("goods_seq", goods_seq);
@@ -72,18 +70,17 @@ public class GoodsController {
         return responseService.getSingleResult(goodsDetail);
     }
 
-//	// 상품 예약 된 날짜 조회
-//	@GetMapping("/goods/{goods_seq}/{goods_detail_seq}/reserve_date")
-//	public Map<String, Object> selectReserve_date(@PathVariable Map<String, Object> parameter){
-//		
-//		Map<String, Object> list = goodsService.reserve_date(parameter);
-//		
-//		return list;
-//	}
+	// 상품 예약 된 날짜 조회
+	@GetMapping("/goods/{goods_seq}/{goods_detail_seq}/reserve_date")
+	public List<HashMap<String, Object>> selectReserve_date(@PathVariable Map<String, Object> parameter){
+		
+		List<HashMap<String, Object>> list = goodsService.reserve_date(parameter);
+		
+		return list;
+	}
 
 
     // 상품 리스트 조회
-//	@GetMapping("/company/goods/list")
     @GetMapping("/goods/company/list")
     public ListResult<Goods> selectGoodsList(@RequestParam Map<String, Object> parameter) {
 
@@ -95,7 +92,6 @@ public class GoodsController {
     }
 
     // 관리자 전체 상품 리스트
-//	@GetMapping("/admin/goods/list")
     @GetMapping("/goods/admin/list")
     public ListResult<Goods> adminGoodsList(@RequestParam Map<String, Object> parameter) {
 
@@ -114,7 +110,6 @@ public class GoodsController {
     }
 
     // 상품 리스트 단일 등록 변경
-//	@PutMapping("/admin/goods/{goods_seq}")
     @PutMapping("/goods/{goods_seq}/isView")
     public CommonResult goodsRegister(@PathVariable String goods_seq, @RequestBody Map<String, Object> parameter) {
 
@@ -126,7 +121,6 @@ public class GoodsController {
     }
 
     // 상품 리스트 상세 등록 변경
-//	@PutMapping("/admin/goods/{goods_seq}/{goods_detail_seq}")
     @PutMapping("/goods/{goods_seq}/{goods_detail_seq}/isView")
     public CommonResult goodsDetailRegister(@PathVariable Map<String, Object> parameter, @RequestBody String goods_detail_view_yn) {
 
