@@ -32,10 +32,13 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public Customer loginUser(Map<String, String> loginMap) throws Exception {
 		Customer user = userRepository.findUserInfo(loginMap);
-		if (user.getCustomer_email() == null)
+		if (user == null)
 			throw new CUserNotException();
-		if (!passwordEncoder.matches(loginMap.get("customer_pw"), user.getCustomer_pw()))
+		if (!passwordEncoder.matches(loginMap.get("customer_pw"), user.getCustomer_pw())) {
+			
 			throw new CUserPWException();
+		}
+			
 		return user;
 	}
 
@@ -56,5 +59,4 @@ public class AuthServiceImpl implements AuthService {
 					.customer_role("ROLE_USER").build());
 		}
 	}
-
 }

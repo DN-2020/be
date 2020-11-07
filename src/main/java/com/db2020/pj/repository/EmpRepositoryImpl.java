@@ -10,35 +10,34 @@ import org.springframework.stereotype.Repository;
 import com.db2020.pj.entity.Emp;
 
 @Repository
-public class EmpRepositoryImpl implements EmpRepository{
+public class EmpRepositoryImpl implements EmpRepository {
 
-	@Autowired
-	SqlSession sqlSession;
-	
-	@Override
-	public int empInsert(Emp emp) {
-		// TODO Auto-generated method stub
-		return sqlSession.insert("empDAO.empInsert",emp);
-	}
+    @Autowired
+    SqlSession sqlSession;
 
-	@Override
-	public List<Emp> companyEmpList(int company_seq) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("empDAO.companyEmpList",company_seq);
-	}
+    @Override
+    public int empInsert(Emp emp) {
+        // TODO Auto-generated method stub
+        return sqlSession.insert("empDAO.empInsert", emp);
+    }
 
-	@Override
-	public Emp empDetail(HashMap<String, Integer> map) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("empDAO.empDetail",map);
-	}
+    @Override
+    public List<Emp> companyEmpList(int company_seq) {
+        // TODO Auto-generated method stub
+        return sqlSession.selectList("empDAO.companyEmpList", company_seq);
+    }
 
-	@Override
-	public int empUpdate(Emp emp) {
-		// TODO Auto-generated method stub
-		return sqlSession.update("empDAO.empUpdate",emp);
-	}
-	
-	
+    @Override
+    public Emp empDetail(HashMap<String, Integer> map) {
+        // TODO Auto-generated method stub
+        return sqlSession.selectOne("empDAO.empDetail", map);
+    }
+
+    @Override
+    public int empUpdate(Emp emp) {
+        // TODO Auto-generated method stub
+        return sqlSession.update("empDAO.empUpdate", emp);
+    }
+
 
 }

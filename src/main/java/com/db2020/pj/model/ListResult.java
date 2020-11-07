@@ -4,13 +4,13 @@ import java.util.List;
 
 public class ListResult<T> extends CommonResult {
 
-	private List<T> list;
+	private List<T> data;
 	
 	public List<T> getList() {
-		return list;
+		return data;
 	}
 
-	public void setList(List<T> list) {
-		this.list = list;
+	public void setList(List<T> data) {
+		this.data = data;
 	}
 }

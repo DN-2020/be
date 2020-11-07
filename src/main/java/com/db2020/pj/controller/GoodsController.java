@@ -19,6 +19,7 @@ import com.db2020.pj.entity.Goods;
 import com.db2020.pj.entity.GoodsDetail;
 import com.db2020.pj.model.CommonResult;
 import com.db2020.pj.model.ListResult;
+import com.db2020.pj.model.Response;
 import com.db2020.pj.model.SingleResult;
 import com.db2020.pj.service.GoodsService;
 import com.db2020.pj.service.ResponseService;
@@ -35,113 +36,115 @@ public class GoodsController {
 
     // 상품등록
     @PostMapping("/goods")
-    public CommonResult register(@RequestBody Map<String, String> goods) {
+    public Response register(@RequestBody Map<String, String> goods) {
 
         goodsService.register(goods);
 
-        return new CommonResult(200, "상품등록을 성공적으로 완료했습니다.");
+        return new Response("200", "상품등록을 성공적으로 완료했습니다.", null);
     }
 
     // 상세 상품 등록
     @PostMapping("/goods/{goods_seq}")
-    public CommonResult detail_register(@PathVariable String goods_seq, @RequestBody Map<String, String> goods) {
+    public Response detail_register(@PathVariable String goods_seq, @RequestBody Map<String, String> goods) {
         goods.put("goods_seq", goods_seq);
 
         goodsService.detail_register(goods);
 
-        return new CommonResult(200, "상세 상품등록을 성공적으로 완료했습니다.");
+        return new Response("200", "상세 상품등록을 성공적으로 완료했습니다.", null);
     }
 
     // 상품 조회
     @GetMapping("/goods/{goods_seq}")
-    public SingleResult<Goods> selectGoods(@PathVariable int goods_seq) {
+    public Response selectGoods(@PathVariable int goods_seq) {
 
         Goods goods = goodsService.selectOne(goods_seq);
 
-        return responseService.getSingleResult(goods);
+        return new Response("200", "상품 상세 조회를 성공적으로 하였습니다.", goods);
     }
 
     // 상품 상세 조회
     @GetMapping("/goods/{goods_seq}/{goods_detail_seq}")
-    public SingleResult<GoodsDetail> selectDetailGoods(@PathVariable Map<String, Integer> goods_detail) {
+    public Response selectDetailGoods(@PathVariable Map<String, Integer> goods_detail) {
 
         GoodsDetail goodsDetail = goodsService.selectOne(goods_detail);
 
-        return responseService.getSingleResult(goodsDetail);
+        return new Response("200", "상품 상세 조회를 성공적으로 하였습니다.", goodsDetail);
     }
 
 	// 상품 예약 된 날짜 조회
 	@GetMapping("/goods/{goods_seq}/{goods_detail_seq}/reserve_date")
-	public List<HashMap<String, Object>> selectReserve_date(@PathVariable Map<String, Object> parameter){
+	public Response selectReserve_date(@PathVariable Map<String, Object> parameter){
 		
-		List<HashMap<String, Object>> list = goodsService.reserve_date(parameter);
+		List<HashMap<String, Object>> data = goodsService.reserve_date(parameter);
 		
-		return list;
+		System.out.println(data.toString());
+		return new Response("200", "상품 예약 된 날짜 조회를 성공하였습니다.", data);
 	}
 
 
     // 상품 리스트 조회
     @GetMapping("/goods/company/list")
-    public ListResult<Goods> selectGoodsList(@RequestParam Map<String, Object> parameter) {
+    public Response selectGoodsList(@RequestParam Map<String, Object> parameter) {
 
         List<Goods> goodsList = goodsService.selectList(parameter);
 
         System.out.println(goodsList.toString());
 
-        return responseService.getListResult(goodsList);
+        return new Response("200", "상품 회사별 리스트를 성공적으로 조회하였습니다.", goodsList);
     }
 
     // 관리자 전체 상품 리스트
     @GetMapping("/goods/admin/list")
-    public ListResult<Goods> adminGoodsList(@RequestParam Map<String, Object> parameter) {
+    public Response adminGoodsList(@RequestParam Map<String, Object> parameter) {
 
         List<Goods> goodsList = goodsService.selectAdminList(parameter);
 
-        return responseService.getListResult(goodsList);
+        return new Response("200", "관리자용 상품 리스트를 성공적으로 조회하였습니다.", goodsList);
+      
     }
 
     // 상품 상세 리스트 조회
     @GetMapping("/goods/{goods_seq}/list")
-    public ListResult<GoodsDetail> selectGoodsDetailList(@PathVariable int goods_seq) {
+    public Response selectGoodsDetailList(@PathVariable int goods_seq) {
 
         List<GoodsDetail> goodsDetailList = goodsService.selectDetailList(goods_seq);
 
-        return responseService.getListResult(goodsDetailList);
+        return new Response("200", "상품 상세 리스트를 성공적으로 조회하였습니다.", goodsDetailList);
     }
 
     // 상품 리스트 단일 등록 변경
     @PutMapping("/goods/{goods_seq}/isView")
-    public CommonResult goodsRegister(@PathVariable String goods_seq, @RequestBody Map<String, Object> parameter) {
+    public Response goodsRegister(@PathVariable String goods_seq, @RequestBody Map<String, Object> parameter) {
 
-        System.out.println(goods_seq);
         parameter.put("goods_seq", goods_seq);
         goodsService.goodsIsView(parameter);
 
-        return new CommonResult(200, "상품 리스트에 상품을 성공적으로 변경하였습니다.");
+        return new Response("200", "상품의 등록상태를 성공적으로 변경하였습니다.", null);
     }
 
     // 상품 리스트 상세 등록 변경
     @PutMapping("/goods/{goods_seq}/{goods_detail_seq}/isView")
-    public CommonResult goodsDetailRegister(@PathVariable Map<String, Object> parameter, @RequestBody String goods_detail_view_yn) {
+    public Response goodsDetailRegister(@PathVariable Map<String, Object> parameter, @RequestBody String goods_detail_view_yn) {
 
         parameter.put("goods_detail_view_yn", goods_detail_view_yn);
         goodsService.goodsDetailIsView(parameter);
 
-        return new CommonResult(200, "상품 리스트에 상세 상품을 성공적으로 변경하였습니다.");
+        return new Response("200", "상품 상세의 등록상태를 성공적으로 변경하였습니다.", null);
     }
 
     // 상품 정보 수정
     @PutMapping("/goods/{goods_seq}")
-    public CommonResult updateGoods(@PathVariable String goods_seq, @RequestBody Map<String, Object> goods) {
+    public Response updateGoods(@PathVariable String goods_seq, @RequestBody Map<String, Object> goods) {
 
         goods.put("goods_seq", goods_seq);
         goodsService.update(goods);
-        return new CommonResult(200, "상품 수정을 성공적으로 하였습니다.");
+        
+        return new Response("200", "상품 수정을 성공적으로 하였습니다.", null);
     }
 
     // 상품 정보 상세 수정
     @PutMapping("/goods/{goods_seq}/{goods_detail_seq}")
-    public CommonResult detail_updateGoods(@PathVariable Map<String, Object> parameter, @RequestBody Map<String, Object> goods) {
+    public Response detail_updateGoods(@PathVariable Map<String, Object> parameter, @RequestBody Map<String, Object> goods) {
 
         goods.put("goods_seq", parameter.get("goods_seq"));
         goods.put("goods_detail_seq", parameter.get("goods_detail_seq"));
@@ -149,23 +152,23 @@ public class GoodsController {
         System.out.println(parameter.get("goods_seq"));
         System.out.println(parameter.get("goods_detail_seq"));
         goodsService.detail_update(goods);
-        return new CommonResult(200, "상세 상품 수정을 성공적으로 하였습니다.");
+        return new Response("200", "상세 상품 수정을 성공적으로 하였습니다.", null);
     }
 
     @DeleteMapping("/goods/{goods_seq}")
-    public CommonResult deleteGoods(@PathVariable String goods_seq) {
+    public Response deleteGoods(@PathVariable String goods_seq) {
 
         goodsService.delete(goods_seq);
 
-        return new CommonResult(200, "상품 삭제를 성공적으로 하였습니다.");
+        return new Response("200", "상품 삭제를 성공적으로 하였습니다.", null);
     }
 
     @DeleteMapping("/goods/{goods_seq}/{goods_detail_seq}")
-    public CommonResult detail_deleteGoods(@PathVariable Map<String, String> parameter) {
+    public Response detail_deleteGoods(@PathVariable Map<String, String> parameter) {
 
         goodsService.detail_delete(parameter);
 
-        return new CommonResult(200, "상품 상세 삭제를 성공적으로 하였습니다.");
+        return new Response("200", "상세 상품 삭제를 성공적으로 하였습니다.", null);
     }
 
     @GetMapping("search")

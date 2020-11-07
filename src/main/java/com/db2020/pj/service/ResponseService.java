@@ -1,6 +1,5 @@
 package com.db2020.pj.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -43,9 +42,9 @@ public class ResponseService {
 	}
 
 	// 다중건 결과를 처리하는 메소드
-	public <T> ListResult<T> getListResult(List<T> list) {
+	public <T> ListResult<T> getListResult(List<T> data) {
 		ListResult<T> result = new ListResult<>();
-		result.setList(list);
+		result.setList(data);
 		setSuccessResult(result);
 		return result;
 	}

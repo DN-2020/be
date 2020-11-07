@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommonResult {
-	private int code;
-	private String msg;
-	
+    private int code;
+    private String msg;
+
 }

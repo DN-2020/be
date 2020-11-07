@@ -96,8 +96,18 @@
     </select>
     
     <select id="reserve_date" parameterType="map" resultType="hashMap">
-    	SELECT reservation_st, reservation_end, reservation_goods_detail
+    	WITH RECURSIVE t AS
+    	(
+    	SELECT reservation_st, reservation_end, reservation_st + INTERVAL 0 HOUR sdt1, reservation_st + INTERVAL 24 HOUR edt1
     	FROM dn2020b.t_reservation
     	WHERE t_goods_detail_seq = #{goods_detail_seq}
+    	UNION ALL
+    	SELECT reservation_st, reservation_end, sdt1 + INTERVAL 1 DAY sdt1, edt1 + INTERVAL 1 DAY edt1
+    	FROM t
+    	<![CDATA[WHERE edt1 < reservation_end]]>
+    	)
+		SELECT left(sdt1, 10) AS reserve_date, count(*) AS reserve_ct
+		FROM t
+		GROUP BY sdt1 HAVING COUNT(*)
     </select>
 </mapper>

@@ -47,6 +47,7 @@ public class Customer implements UserDetails{
 //    private List<String> roles = new ArrayList<>();
     
     @Override
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public Collection<? extends GrantedAuthority> getAuthorities() {
     	Set<GrantedAuthority> roles = new HashSet<>();
     	

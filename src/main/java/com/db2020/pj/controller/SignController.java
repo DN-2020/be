@@ -44,15 +44,15 @@ public class SignController {
 	private ResponseService responseService;
 
 	@PostMapping("/signup")
-	public CommonResult signup(HttpServletRequest req, HttpServletResponse res, @RequestBody Customer user) throws Exception {
+	public Response signup(HttpServletRequest req, HttpServletResponse res, @RequestBody Customer user) throws Exception {
 
 		authService.signUp(user);
-		return new CommonResult(200, "회원가입을 성공적으로 완료했습니다.");
-
+		
+		return new Response("200", "회원가입을 성공적으로 하였습니다.", null);
 	}
 
 	@PostMapping("/signin")
-	public SingleResult<LoginDTO> signin(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, String> loginMap) throws Exception {
+	public Response signin(HttpServletRequest req, HttpServletResponse res, @RequestBody Map<String, String> loginMap) throws Exception {
 
 		Customer user = authService.loginUser(loginMap);
 		final String accesstoken = jwtUtil.generateToken(user);
@@ -67,11 +67,11 @@ public class SignController {
 		
 		LoginDTO login = new LoginDTO(user.getCustomer_seq(), user.getCustomer_email(), user.getCustomer_nm(), user.getCustomer_tel(), user.getCustomer_post(), user.getCustomer_address(), user.getCustomer_detail_address(), accesstoken , user.getCustomer_role());
 		
-		return responseService.getSingleResult(login);
+		return new Response("200", "로그인을 성공적으로 하였습니다.", login);
 	}
 	
 	@PostMapping("/logout")
-	public CommonResult logout(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public Response logout(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		Cookie refresh_jwtToken = cookieUtil.getCookie(req, JwtUtil.REFRESH_TOKEN_NAME);
 
 		Cookie access_cookie = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, "");
@@ -91,7 +91,7 @@ public class SignController {
 			redisUtil.deleteData(jwt);
 		}
 		
-		return new CommonResult(200, "로그아웃을 성공적으로 완료했습니다.");
+		return new Response("200", "로그아웃을 성공적으로 하였습니다.", null);
 	}
 	
 //	@PostMapping("/admin/signup")

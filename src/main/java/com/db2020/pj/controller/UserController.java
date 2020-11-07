@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,7 +46,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user/info")
-    public SingleResult<Customer> selectMypage(HttpServletRequest req, HttpServletResponse res) {
+    public Response selectMypage(HttpServletRequest req, HttpServletResponse res) {
 
         final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
 
@@ -54,18 +55,20 @@ public class UserController {
 
         Customer user = userService.userInfo(email);
 
-        return responseService.getSingleResult(user);
+        return new Response("200", "유저정보를 성공적으로 조회하였습니다.", user);
     }
 
     @PutMapping("/user/info")
-    public void putMypage(HttpServletRequest req, HttpServletResponse res, @RequestBody Customer customer) {
+    public Response putMypage(HttpServletRequest req, HttpServletResponse res, @RequestBody Customer customer) {
 
     	System.out.println(customer.toString());
         userService.userInfo(customer);
+        
+        return new Response("200", "유저정보를 성공적으로 수정하였습니다.", null);
     }
 
-    @DeleteMapping("/user/info")
-    public void deleteUser(HttpServletRequest req) {
+    @RequestMapping(value = "/user/info", method = RequestMethod.DELETE)
+    public Response deleteUser(HttpServletRequest req) {
 
         final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
 
@@ -74,5 +77,6 @@ public class UserController {
 
         userService.removeUser(customer_email);
 
+        return new Response("200", "유저정보를 성공적으로 삭제하였습니다.", null);
     }
 }

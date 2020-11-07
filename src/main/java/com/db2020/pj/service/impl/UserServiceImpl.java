@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void removeUser(String customer_email) {
 
+    	System.out.println(customer_email);
         userRepository.removeUser(customer_email);
     }
 
