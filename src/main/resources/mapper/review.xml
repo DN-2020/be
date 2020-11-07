@@ -25,9 +25,6 @@
     <select id="selectUserReview" parameterType="Hashmap" resultType="Hashmap">
         select * from t_review
         join t_reservation on t_reservation.reservation_seq = t_review.t_reservation_seq
-        join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
-        join t_goods on t_goods.goods_seq = t_goods_detail.t_goods_seq
-        join t_company on t_goods.t_company_seq = t_company.company_seq
         where t_review.t_customer_seq = #{customer_seq}
     </select>
     <!--상세 리뷰 -->

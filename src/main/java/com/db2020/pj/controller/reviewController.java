@@ -68,6 +68,9 @@ public class reviewController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         List<HashMap<String, Object>> result = reviewService.selectListReview(map);
+        if(result.isEmpty()){
+            result = null;
+        }
         return new Response("200", "리뷰 리스트 조회(상품별 및 회사별) 성공하셨습니다.", result);
     }
 
@@ -83,6 +86,9 @@ public class reviewController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         List<HashMap<String, Object>> result = reviewService.selectUserReview(map);
+        if(result.isEmpty()){
+            result = null;
+        }
         return new Response("200", "사용자 후기 리스트 조회 성공하였습니다.", result);
     }
 
