@@ -73,8 +73,8 @@
 
     <select id="selectDetailRefund" parameterType="Hashmap" resultType="Hashmap">
         select * from t_refund
-        left join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
-        left join t_refund on t_refund.t_reservation_seq = t_reservation.reservation_seq
+        join t_reservation on t_refund.t_reservation_seq = t_reservation.reservation_seq
+        join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
         where refund_seq = #{refund_seq}
     </select>
 
@@ -94,7 +94,8 @@
         join t_goods on t_goods.goods_seq= t_goods_detail.t_goods_seq
         where t_goods.t_company_seq = #{company_seq}
     </select>
-    
+
+    <!-- 날짜별 예약 내역 조회 -->
     <select id="reserve_date" parameterType="map" resultType="hashMap">
     	WITH RECURSIVE t AS
     	(

@@ -93,6 +93,9 @@ public class ReservationController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         List<HashMap<String, Object>> result = reservationService.selectUserReservation(map);
+        if(result.isEmpty()){
+            result = null;
+        }
         return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
@@ -126,6 +129,9 @@ public class ReservationController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         List<HashMap<String, Object>> result = reservationService.selectRefund(map);
+        if(result.isEmpty()){
+            result = null;
+        }
         return new Response("success", "예약내역 조회를 성공했습니다.", result);
     }
 
@@ -160,7 +166,9 @@ public class ReservationController {
         map.put("customer_seq", customer_seq);
         List<HashMap<String, Object>> result = reservationService.selectAdminReservation();
         response.setHeader("access_token", jwt);
-
+        if(result.isEmpty()){
+            result = null;
+        }
         for (HashMap<String, Object> i : result) {
             logger.info(i.toString());
         }
@@ -202,6 +210,9 @@ public class ReservationController {
         map.put("customer_seq", customer_seq);
 
         List<HashMap<String, Object>> result = reservationService.selectCompanyReservation(map);
+        if(result.isEmpty()){
+            result = null;
+        }
         return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
