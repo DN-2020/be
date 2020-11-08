@@ -15,13 +15,12 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("v1")
 public class ImageController {
     private S3Service s3Service;
 
     @Autowired
     private GoodsImageService goodsImageService;
-
-
 
     @ResponseBody
     @PostMapping("/goods/image")
