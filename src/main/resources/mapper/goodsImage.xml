@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.db2020.pj.mapper.GoodsImageMapper">
+
+
+    <insert id="insertGoodsImage" parameterType="hashmap">
+		insert into
+		t_image(t_goods_detail_seq, image_path, image_type)
+		values(#{goodsDetailSeq}, #{imagePath},#{imageType})
+	</insert>
+	<select id="selectGoodsDetailImage" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM dn2020b.t_image
+		where t_goods_detail_seq = #{goodsDetailSeq}
+
+	</select>
+	<select id="selectGoodsImage" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM dn2020b.t_image
+		join t_goods_detail on t_image.t_goods_detail_seq = t_goods_detail.goods_detail_seq
+		where t_goods_seq = #{goodsSeq}
+		and image_path = #{imageType}
+	</select>
+	<update id="updateGoodsImage" parameterType="hashmap">
+		update t_image set image_path = #{imagePath} , image_type = #{imageType}
+		where image_seq = #{imageSeq}
+	</update>
+	<delete id="deleteGoodsImage" parameterType="hashmap">
+		delete from t_image
+		where image_seq =#{imageSeq}
+	</delete>
+</mapper>
