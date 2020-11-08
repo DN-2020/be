@@ -39,7 +39,7 @@ public class GoodsController {
     public Response register(@RequestBody Map<String, String> goods) {
 
         goodsService.register(goods);
-
+        
         return new Response("200", "상품등록을 성공적으로 완료했습니다.", null);
     }
 
@@ -77,7 +77,9 @@ public class GoodsController {
 		
 		List<HashMap<String, Object>> data = goodsService.reserve_date(parameter);
 		
-		System.out.println(data.toString());
+		if(data.isEmpty()) {
+			data = null;
+		}
 		return new Response("200", "상품 예약 된 날짜 조회를 성공하였습니다.", data);
 	}
 
@@ -87,8 +89,6 @@ public class GoodsController {
     public Response selectGoodsList(@RequestParam Map<String, Object> parameter) {
 
         List<Goods> goodsList = goodsService.selectList(parameter);
-
-        System.out.println(goodsList.toString());
 
         return new Response("200", "상품 회사별 리스트를 성공적으로 조회하였습니다.", goodsList);
     }
@@ -109,6 +109,9 @@ public class GoodsController {
 
         List<GoodsDetail> goodsDetailList = goodsService.selectDetailList(goods_seq);
 
+        if(goodsDetailList.isEmpty()) {
+        	goodsDetailList = null;
+        }
         return new Response("200", "상품 상세 리스트를 성공적으로 조회하였습니다.", goodsDetailList);
     }
 
@@ -171,19 +174,24 @@ public class GoodsController {
         return new Response("200", "상세 상품 삭제를 성공적으로 하였습니다.", null);
     }
 
-    @GetMapping("search")
-    public ListResult<Goods> searchGoods(@RequestBody HashMap<String, Object> goods) {
+    @GetMapping("/search")
+    public Response searchGoods(@RequestBody HashMap<String, Object> goods) {
 
         List<Goods> goodsList = goodsService.selectSearch(goods);
-        return responseService.getListResult(goodsList);
+        
+        if(goodsList.isEmpty()) {
+        	goodsList = null;
+        }
+        return new Response("200", "상품 검색을 성공적으로 하였습니다.", goodsList);
     }
 
-    @GetMapping("search/{category}")
-    public ListResult<Goods> searchCategoryGoods(@RequestBody HashMap<String, Object> goods,
-                                                 @PathVariable String category) {
+    @GetMapping("/search/{category}")
+    public Response searchCategoryGoods(@RequestBody HashMap<String, Object> goods, @PathVariable String category) {
         goods.put("category", category);
         List<Goods> goodsList = goodsService.selectCategorySearch(goods);
-        return responseService.getListResult(goodsList);
+        if(goodsList.isEmpty()) {
+        	goodsList = null;
+        }
+        return new Response("200", "카테고리 상품 검색을 성공적으로 하였습니다.", goodsList); 
     }
-
 }
