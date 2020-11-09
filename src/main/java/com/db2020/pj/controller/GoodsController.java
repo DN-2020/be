@@ -59,7 +59,7 @@ public class GoodsController {
 
         Goods goods = goodsService.selectOne(goods_seq);
 
-        return new Response("200", "상품 조회를 성공적으로 완료했습니다.", goods);
+        return new Response("200", "상품 조회를 성공적으로 하였습니다.", goods);
     }
 
     // 상품 상세 조회
@@ -132,6 +132,7 @@ public class GoodsController {
 //        parameter.put("goods_detail_view_yn", goods_detail_view_yn);
     	goods_detail_view_yn.get("goods_detail_view_yn");
     	String param = (String)goods_detail_view_yn.get("goods_detail_view_yn");
+    	System.out.println(param);
         goodsService.goodsDetailIsView(parameter, param);
 
         return new Response("200", "상품 상세의 등록상태를 성공적으로 변경하였습니다.", null);
