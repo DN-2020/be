@@ -52,7 +52,7 @@ public class reviewController {
         map.put("customer_seq", customer_seq);
         reviewService.insertReview(map);
 
-        return new Response("200", "예약내역 조회를 성공했습니다.", null);
+        return new Response("200", "리뷰 등록을 성공했습니다.", null);
     }
 
     // 리뷰 리스트 조회 (상품별 및 회사별)

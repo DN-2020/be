@@ -127,10 +127,12 @@ public class GoodsController {
 
     // 상품 리스트 상세 등록 변경
     @PutMapping("/goods/{goods_seq}/{goods_detail_seq}/isView")
-    public Response goodsDetailRegister(@PathVariable Map<String, Object> parameter, @RequestBody String goods_detail_view_yn) {
+    public Response goodsDetailRegister(@PathVariable Map<String, Object> parameter, @RequestBody Map<String, Object> goods_detail_view_yn) {
 
-        parameter.put("goods_detail_view_yn", goods_detail_view_yn);
-        goodsService.goodsDetailIsView(parameter);
+//        parameter.put("goods_detail_view_yn", goods_detail_view_yn);
+    	goods_detail_view_yn.get("goods_detail_view_yn");
+    	String param = (String)goods_detail_view_yn.get("goods_detail_view_yn");
+        goodsService.goodsDetailIsView(parameter, param);
 
         return new Response("200", "상품 상세의 등록상태를 성공적으로 변경하였습니다.", null);
     }

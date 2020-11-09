@@ -74,8 +74,8 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 
 	@Override
-	public void goodsDetailIsView(Map<String, Object> parameter) {
-		goodsRepository.goodsDetailIsView(parameter);
+	public void goodsDetailIsView(Map<String, Object> parameter, String goods_detail_view_yn) {
+		goodsRepository.goodsDetailIsView(parameter, goods_detail_view_yn);
 	}
 
 	@Override

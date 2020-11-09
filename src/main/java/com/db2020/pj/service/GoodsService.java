@@ -27,7 +27,7 @@ public interface GoodsService {
 	
 	public void goodsIsView(Map<String, Object> parameter);
 	
-	public void goodsDetailIsView(Map<String, Object> parameter);
+	public void goodsDetailIsView(Map<String, Object> parameter, String goods_detail_view_yn);
 	
 	public void update(Map<String, Object> goods);
 	

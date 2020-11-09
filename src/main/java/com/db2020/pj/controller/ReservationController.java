@@ -114,7 +114,7 @@ public class ReservationController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         HashMap<String, Object> result = reservationService.selectDetailUserReservation(map);
-        return new Response("success", "예약내역 조회를 성공했습니다.", result);
+        return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
     //예약 취소 내역 조회 (API 수정)
@@ -132,7 +132,7 @@ public class ReservationController {
         if(result.isEmpty()){
             result = null;
         }
-        return new Response("success", "예약내역 조회를 성공했습니다.", result);
+        return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
     //취소 내역 상세 조회
@@ -150,7 +150,7 @@ public class ReservationController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         HashMap<String, Object> result = reservationService.selectDetailRefund(map);
-        return new Response("success", "예약내역 조회를 성공했습니다.", result);
+        return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
     //관리자의 예약 내역 조회

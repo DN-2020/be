@@ -119,12 +119,16 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 	}
 
 	@Override
-	public void goodsDetailIsView(Map<String, Object> parameter) {
+	public void goodsDetailIsView(Map<String, Object> parameter, String goods_detail_view_yn) {
 		
-		if(parameter.get("goods_detail_view_yn").equals("Y")) {
+		System.out.println(parameter.toString());
+		System.out.println(goods_detail_view_yn);
+		if(goods_detail_view_yn.equals("Y")) {
+			System.out.println("Y");
 			sqlSession.update("goods.detail_isViewY", parameter);
 		}
 		else {
+			System.out.println("N");
 			sqlSession.update("goods.detail_isViewN", parameter);
 		}
 	}
