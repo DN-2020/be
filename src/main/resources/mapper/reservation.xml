@@ -109,6 +109,8 @@
     	)
 		SELECT left(sdt1, 10) AS reserve_date, count(*) AS reserve_ct
 		FROM t
+		<![CDATA[WHERE NOW() < sdt1]]>
 		GROUP BY sdt1 HAVING COUNT(*)
+		ORDER BY sdt1
     </select>
 </mapper>
