@@ -59,7 +59,7 @@ public class GoodsController {
 
         Goods goods = goodsService.selectOne(goods_seq);
 
-        return new Response("200", "상품 조회를 성공적으로 하였습니다.", goods);
+        return new Response("200", "상품 조회를 성공적으로 완료했습니다.", goods);
     }
 
     // 상품 상세 조회
