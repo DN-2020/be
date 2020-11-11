@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "/v1")
 public class ReservationController {
 
