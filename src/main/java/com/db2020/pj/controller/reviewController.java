@@ -60,7 +60,7 @@ public class reviewController {
     @GetMapping("/company/{company_seq}/review")
     public Response companyReview(@PathVariable Integer company_seq){
         HashMap<String ,Object> map = new HashMap<>();
-        map.put("compnay_seq", company_seq);
+        map.put("company_seq", company_seq);
 
         List<HashMap<String, Object>> result = reviewService.selectCompanyReviewList(map);
         if(result.isEmpty()){
