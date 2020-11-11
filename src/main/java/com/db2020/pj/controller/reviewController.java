@@ -57,10 +57,10 @@ public class reviewController {
     }
 
     //회사 리뷰 조회
-    @GetMapping("/compnay/{company_seq}/review")
+    @GetMapping("/company/{company_seq}/review")
     public Response companyReview(@PathVariable Integer company_seq){
         HashMap<String ,Object> map = new HashMap<>();
-        map.put("compnay_seq", company_seq);
+        map.put("company_seq", company_seq);
 
         List<HashMap<String, Object>> result = reviewService.selectCompanyReviewList(map);
         if(result.isEmpty()){
@@ -79,7 +79,7 @@ public class reviewController {
         if(result.isEmpty()){
             result = null;
         }
-        return new Response("200", "회사 리뷰 조회를 성공하셨습니다." ,result);
+        return new Response("200", "상품 리뷰 조회를 성공하셨습니다." ,result);
     }
     //상품 상세 리뷰 조회
     @GetMapping("/goodsdetail/{goods_detail_seq}/review")
@@ -90,7 +90,7 @@ public class reviewController {
         if(result.isEmpty()){
             result = null;
         }
-        return new Response("200", "회사 리뷰 조회를 성공하셨습니다." ,result);
+        return new Response("200", "상세 상품 리뷰 조회를 성공하셨습니다." ,result);
     }
     // 리뷰 리스트 조회 (상품별 및 회사별)
     @GetMapping("/review/list")
