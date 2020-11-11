@@ -50,6 +50,7 @@ public class UserController {
     @GetMapping("/user/info")
     public Response selectMypage(HttpServletRequest req, HttpServletResponse res) {
 
+    	System.out.println("토큰 전송 확인");
         final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
 
         String jwt = jwtToken.getValue();
