@@ -19,6 +19,8 @@ public class CookieUtil {
 	}
 	
 	public Cookie getCookie(HttpServletRequest req, String cookieName){
+		System.out.println("전송 결과: " + req.toString());
+		System.out.println("쿠키 이름: " + cookieName);
         final Cookie[] cookies = req.getCookies();
         if(cookies==null) return null;
         for(Cookie cookie : cookies){
