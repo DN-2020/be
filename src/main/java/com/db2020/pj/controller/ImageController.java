@@ -1,23 +1,26 @@
 package com.db2020.pj.controller;
 
 import com.amazonaws.services.apigateway.model.Model;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.db2020.pj.entity.Test;
 import com.db2020.pj.model.Response;
 import com.db2020.pj.service.GoodsImageService;
 import com.db2020.pj.service.S3Service;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Controller
+@RestController
 @AllArgsConstructor
-@RequestMapping("v1")
+@RequestMapping("/v1")
 public class ImageController {
     private S3Service s3Service;
 
@@ -29,15 +32,30 @@ public class ImageController {
     	
     	return "file";
     }
-    
-    @PostMapping("/api/upload/multi")
-    public void uploadFile(
-         @RequestParam("file") MultipartHttpServletRequest uploadfile,
-         @RequestParam("extraField") String extraField) {
+   
 
-         System.out.println(extraField);
-            
+    @PostMapping("/api/upload/multi")
+    public @ResponseBody String uploadFile(Test test, @RequestBody MultipartFile[] files) {
+    	 
+    	ObjectMetadata omd = new ObjectMetadata();
+		
+    	System.out.println(test.getFileName());
+    	System.out.println(test.getSeq());
+		for(int i=0; i<files.length; i++) {
+			omd.setContentType(files[i].getContentType());
+			omd.setContentLength(files[i].getSize());
+			omd.setHeader("filename",files[i].getOriginalFilename());
+			System.out.println("filename" + files[i].getOriginalFilename());
+		}
+		return "success";
     }
+    
+    
+    
+    
+    
+    
+    
     
     @ResponseBody
     @PostMapping("/goods/image")
