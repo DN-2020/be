@@ -52,7 +52,7 @@ public class UserController {
 
     	System.out.println("토큰 전송 확인");
         final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
-
+        System.out.println("쿠키 여부 확인");
         String jwt = jwtToken.getValue();
         String email = jwtUtil.getUsername(jwt);
 
