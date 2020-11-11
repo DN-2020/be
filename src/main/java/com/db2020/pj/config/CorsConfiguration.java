@@ -10,6 +10,7 @@ public class CorsConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") //모든 요청에 대해서
                 .allowedOrigins("http://localhost:8080")
-                .allowedOrigins("http://localhost:3080"); //허용할 오리진들
+                .allowedOrigins("http://localhost:3080")
+                .allowedOrigins("http://localhost:3000"); //허용할 오리진들
     }
 }
