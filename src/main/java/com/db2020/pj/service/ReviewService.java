@@ -9,4 +9,7 @@ public interface ReviewService {
     public List<HashMap<String, Object>> selectUserReview(HashMap<String, Object> map);
     public HashMap<String, Object> selectDetailReview(HashMap<String, Object> map);
     public void updateReview(HashMap<String,Object> map);
+    public List<HashMap<String, Object>> selectCompanyReviewList(HashMap<String, Object> map);
+    public List<HashMap<String, Object>> selectGoodsReviewList(HashMap<String, Object> map);
+    public List<HashMap<String, Object>> selectGoodsDetailReviewList(HashMap<String, Object> map);
 }
