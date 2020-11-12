@@ -20,26 +20,24 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/v1")
 public class ImageController {
     private S3Service s3Service;
 
 
-    Logger logger = LoggerFactory.getLogger(ImageController.class);
     @Autowired
     private GoodsImageService goodsImageService;
 
     @GetMapping("/file")
     public String file(Model model) {
 
-    	return "file";
+        return "file";
     }
 
 
-
-
     @ResponseBody
-    @PostMapping("/goodsdetail/{goodsDetail_seq}/image")
+    @PostMapping(value = "/goodsdetail/{goodsDetail_seq}/image", consumes = "multipart/form-data")
     public Response InsertgoodsImage(@PathVariable String goodsDetail_seq, @RequestParam MultipartFile[] files) throws IOException {
 
         HashMap<String ,Object> map = new HashMap<>();
@@ -47,7 +45,6 @@ public class ImageController {
             String result =  s3Service.upload(file,"goods/detail/"+goodsDetail_seq+"/");
             map.put("imagePath", result);
             map.put("goodsDetailSeq", goodsDetail_seq);
-            logger.info(result);
             goodsImageService.insertGoodsImage(map);
         }
         return new Response("200", "이미지 추가 성공하였습니다.", null);
