@@ -1,5 +1,6 @@
 package com.db2020.pj.service.impl;
 
+import com.db2020.pj.entity.Goods;
 import com.db2020.pj.repository.GoodsImageRepository;
 import com.db2020.pj.service.GoodsImageService;
 import org.apache.ibatis.session.SqlSession;
@@ -38,5 +39,9 @@ public class GoodsImageServiceImpl implements GoodsImageService {
     public void deleteGoodsImage(HashMap<String, Object> map){
         GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
         repository.deleteGoodsImage(map);
+    }
+    public HashMap<String, Object> selectImage(HashMap<String, Object> map){
+        GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
+        return repository.selectImage(map);
     }
 }

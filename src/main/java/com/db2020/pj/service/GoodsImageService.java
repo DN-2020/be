@@ -9,4 +9,5 @@ public interface GoodsImageService {
     public List<HashMap<String, Object>> selectGoodsImage(HashMap<String, Object> map);
     public void updateGoodsImage(HashMap<String, Object> map);
     public void deleteGoodsImage(HashMap<String, Object> map);
+    public HashMap<String, Object> selectImage(HashMap<String, Object> map);
 }

@@ -24,6 +24,11 @@
 		update t_image set  image_type = #{imageType}
 		where image_seq = #{imageSeq}
 	</update>
+	<select id="selectImage" parameterType="hashmap" resultType="hashmap">
+		select * from t_image
+		where image_seq = #{imageSeq}
+
+	</select>
 	<delete id="deleteGoodsImage" parameterType="hashmap">
 		delete from t_image
 		where image_seq =#{imageSeq}

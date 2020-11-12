@@ -28,6 +28,9 @@ public class GoodsImageRepository {
     public void updateGoodsImage(HashMap<String, Object> map){
         mapper.updateGoodsImage(map);
     }
+    public HashMap<String, Object> selectImage(HashMap<String, Object> map){
+        return mapper.selectImage(map);
+    }
     public void deleteGoodsImage(HashMap<String, Object> map){
         mapper.deleteGoodsImage(map);
     }

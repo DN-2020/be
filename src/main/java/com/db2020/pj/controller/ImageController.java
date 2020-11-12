@@ -56,7 +56,7 @@ public class ImageController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("goodsSeq",goodsSeq);
 
-        return new Response("200", "상품별 이미지 조회 성곡하였습니다", goodsImageService.selectGoodsImage(map));
+        return new Response("200", "상품별 이미지 조회 성공하였습니다", goodsImageService.selectGoodsImage(map));
     }
     @ResponseBody
     @GetMapping("/goods/{goodsSeq}/{goodsDetailSeq}/image")
@@ -83,7 +83,8 @@ public class ImageController {
         map.put("goodsSeq",goodsSeq);
         map.put("goodsDetailSeq",goodsDetailSeq);
 
-        s3Service.deleteS3File();
+        HashMap<String, Object> result = goodsImageService.selectImage(map);
+        s3Service.deleteS3File(result.get("image_path").toString());
         goodsImageService.deleteGoodsImage(map);
         return new Response("200", "이미지 삭제를 성공하였습니다.", null);
     }
