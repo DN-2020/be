@@ -66,7 +66,7 @@ public class SignController {
 		redisUtil.setDataExpire(refreshtoken, user.getUsername(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
 		res.addCookie(accessToken);
 		res.addCookie(refreshToken);
-		
+		res.setHeader("accesstoken",accessToken.toString());
 		LoginDTO login = new LoginDTO(user.getCustomer_seq(), user.getCustomer_email(), user.getCustomer_nm(), user.getCustomer_tel(), user.getCustomer_post(), user.getCustomer_address(), user.getCustomer_detail_address(), user.getCustomer_role());
 		
 		return new Response("200", "로그인을 성공적으로 하였습니다.", login);
