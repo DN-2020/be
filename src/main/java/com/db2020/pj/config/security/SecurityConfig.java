@@ -56,7 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				  .antMatchers("/*/user/**").hasAnyRole("ADMIN", "USER")
 				  .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 				  .anyRequest().authenticated();
-           
 	}
 
 	@Bean
@@ -71,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	        configuration.setAllowedOrigins(Arrays.asList("*"));
 	        configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "DELETE"));
 	        configuration.setAllowCredentials(true);
-	        configuration.setAllowedHeaders(Arrays.asList("Authorization", "TOKEN_ID", "X-Requested-With", "Authorization", "Content-Type", "Content-Length", "Cache-Control"));
+	        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cookie", "Set-Cookie", "TOKEN_ID", "X-Requested-With", "Authorization", "Content-Type", "Content-Length", "Cache-Control"));
 	        
 	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	        source.registerCorsConfiguration("/**", configuration);
