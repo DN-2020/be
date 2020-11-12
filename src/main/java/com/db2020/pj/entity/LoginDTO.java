@@ -22,7 +22,6 @@ public class LoginDTO {
     private int customer_post;
     private String customer_address;
     private String customer_detail_address;
-    private String access_token;
     private String customer_role;
     
 }
