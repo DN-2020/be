@@ -29,6 +29,7 @@ public class CookieUtil {
         final Cookie[] cookies = req.getCookies();
         if(cookies==null) return null;
         for(Cookie cookie : cookies){
+        	System.out.println("무슨 쿠키가 오긴 왔음");
             if(cookie.getName().equals(cookieName))
                 return cookie;
         }
