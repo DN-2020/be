@@ -22,8 +22,9 @@ public class CookieUtil {
 		System.out.println(req.getProtocol());
 		System.out.println(req.getRequestURL());
 		
-		System.out.println("AccessToken: " + req.getHeader("accessToken"));
-		System.out.println("RefreshToken: " + req.getHeader("refreshToken"));
+		System.out.println("Set-Cookie: " + req.getHeader("Set-Cookie"));
+//		System.out.println("AccessToken: " + req.getHeader("accessToken"));
+//		System.out.println("RefreshToken: " + req.getHeader("refreshToken"));
 		System.out.println("전송 결과: " + req.toString());
 		System.out.println("쿠키 이름: " + cookieName);
         final Cookie[] cookies = req.getCookies();
