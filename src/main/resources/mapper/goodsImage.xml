@@ -18,7 +18,7 @@
 		SELECT * FROM dn2020b.t_image
 		join t_goods_detail on t_image.t_goods_detail_seq = t_goods_detail.goods_detail_seq
 		where t_goods_seq = #{goodsSeq}
-		and image_path = #{imageType}
+		and image_type = #{imageType}
 	</select>
 	<update id="updateGoodsImage" parameterType="hashmap">
 		update t_image set  image_type = #{imageType}
