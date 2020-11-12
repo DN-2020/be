@@ -46,7 +46,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     	System.out.println("필터 시작");
         final Cookie jwtToken = cookieUtil.getCookie(httpServletRequest, JwtUtil.ACCESS_TOKEN_NAME);
 
-        System.out.println("JWT 토큰 값: " + jwtToken);
+        System.out.println("JWT 토큰 값: " + jwtToken.getValue());
         String username = null;
         String jwt = null;
         String refreshJwt = null;
@@ -55,9 +55,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         try {
             if (jwtToken != null) {
                 jwt = jwtToken.getValue();
-                System.out.println(jwt);
                 username = jwtUtil.getUsername(jwt);
-                System.out.println("username=" + username);
+                System.out.println("USER 이름: " + username);
             }
             if (username != null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
