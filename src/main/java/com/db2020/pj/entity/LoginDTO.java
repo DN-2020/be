@@ -31,7 +31,7 @@ public class LoginDTO {
     private String customer_role;
 //    private List<Cooki/e> cookie;
     private String accessToken;
-    private String refreshToken;
+//    private String refreshToken;
     
     
    

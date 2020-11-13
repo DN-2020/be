@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -65,12 +66,15 @@ public class SignController {
 		// 제네릭 선언으로 인한여 accessToken 데이터만 가져오게 함.
 		final String storage_accssToken = accesstoken;
 		Cookie accessToken = cookieUtil.createCookie(JwtUtil.ACCESS_TOKEN_NAME, accesstoken);
-		Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshtoken);
+//		Cookie refreshToken = cookieUtil.createCookie(JwtUtil.REFRESH_TOKEN_NAME, refreshtoken);
 		redisUtil.setDataExpire(refreshtoken, user.getUsername(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
 		res.addCookie(accessToken);
-		res.addCookie(refreshToken);
+//		res.addCookie(refreshToken);
 		
-		res.setHeader("accesstoken",accessToken.toString());
+		Collection<String> headers = res.getHeaders(HttpHeaders.SET_COOKIE);
+		for(String header : headers) {
+			res.setHeader(HttpHeaders.SET_COOKIE, header+"; "+ "SameSite=None;");
+		}
 		LoginDTO login = new LoginDTO(user.getCustomer_seq(), 
 									  user.getCustomer_email(), 
 									  user.getCustomer_nm(), 
@@ -79,8 +83,8 @@ public class SignController {
 									  user.getCustomer_address(), 
 									  user.getCustomer_detail_address(), 
 									  user.getCustomer_role(),
-									  accessToken.getValue(),
-									  refreshToken.getValue()
+									  accessToken.getValue()
+//									  refreshToken.getValue()
 									  );
 		
 		return new Response("200", "로그인을 성공적으로 하였습니다.", login);
