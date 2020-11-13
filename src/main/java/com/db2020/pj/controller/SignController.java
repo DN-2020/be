@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.db2020.pj.config.cookie.CookieUtil;
 import com.db2020.pj.config.jwt.JwtUtil;
 import com.db2020.pj.config.redis.RedisUtil;
-import com.db2020.pj.entity.Cookies;
 import com.db2020.pj.entity.Customer;
 import com.db2020.pj.entity.LoginDTO;
 import com.db2020.pj.exception.custom.CUserExistException;
@@ -104,7 +103,7 @@ public class SignController {
 		
 		String jwt = refresh_jwtToken.getValue();
 	    
-		if(redisUtil.getData(jwt) != null){
+		if(redisUtil.getData(jwt) != null) {
 			redisUtil.deleteData(jwt);
 		}
 		
