@@ -1,6 +1,9 @@
 package com.db2020.pj.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.db2020.pj.config.cookie.CookieUtil;
 import com.db2020.pj.config.jwt.JwtUtil;
 import com.db2020.pj.config.redis.RedisUtil;
+import com.db2020.pj.entity.Cookies;
 import com.db2020.pj.entity.Customer;
 import com.db2020.pj.entity.LoginDTO;
 import com.db2020.pj.exception.custom.CUserExistException;
@@ -66,8 +70,19 @@ public class SignController {
 		redisUtil.setDataExpire(refreshtoken, user.getUsername(), JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
 		res.addCookie(accessToken);
 		res.addCookie(refreshToken);
+		
 		res.setHeader("accesstoken",accessToken.toString());
-		LoginDTO login = new LoginDTO(user.getCustomer_seq(), user.getCustomer_email(), user.getCustomer_nm(), user.getCustomer_tel(), user.getCustomer_post(), user.getCustomer_address(), user.getCustomer_detail_address(), user.getCustomer_role());
+		LoginDTO login = new LoginDTO(user.getCustomer_seq(), 
+									  user.getCustomer_email(), 
+									  user.getCustomer_nm(), 
+									  user.getCustomer_tel(), 
+									  user.getCustomer_post(), 
+									  user.getCustomer_address(), 
+									  user.getCustomer_detail_address(), 
+									  user.getCustomer_role(),
+									  accessToken.getValue(),
+									  refreshToken.getValue()
+									  );
 		
 		return new Response("200", "로그인을 성공적으로 하였습니다.", login);
 	}
