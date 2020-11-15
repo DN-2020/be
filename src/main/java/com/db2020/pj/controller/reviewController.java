@@ -44,9 +44,10 @@ public class reviewController {
     public Response addReview(@RequestBody HashMap<String, Object> map,
                               HttpServletRequest request,
                               HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
-
-        String jwt = jwtToken.getValue();
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//
+//        String jwt = jwtToken.getValue();
+    	String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -109,9 +110,10 @@ public class reviewController {
     @GetMapping("user/review/list")
     public Response getUserReview(HttpServletRequest request,
                                   HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
         HashMap<String, Object> map = new HashMap<>();
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -140,9 +142,10 @@ public class reviewController {
                                        @PathVariable int review_seq,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+    	String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);

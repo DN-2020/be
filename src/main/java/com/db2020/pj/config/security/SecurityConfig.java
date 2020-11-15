@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("Set-Cookie");
+        configuration.addAllowedMethod("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
 

@@ -51,10 +51,12 @@ public class UserController {
     public Response selectMypage(HttpServletRequest req, HttpServletResponse res) {
 
     	System.out.println("토큰 전송 확인");
-        final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
-        System.out.println("쿠키 여부 확인");
-        String jwt = jwtToken.getValue();
-        System.out.println("3" + jwt);
+//        final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
+    	String jwt = req.getHeader("Authorization");
+    	System.out.println(req.getHeader("Authorization"));
+//        System.out.println("쿠키 여부 확인");
+//        String jwt = jwtToken.getValue();
+//        System.out.println("3" + jwt);
         String email = jwtUtil.getUsername(jwt);
 
         Customer user = userService.userInfo(email);
@@ -74,9 +76,11 @@ public class UserController {
     @RequestMapping(value = "/user/info", method = RequestMethod.DELETE)
     public Response deleteUser(HttpServletRequest req) {
 
-        final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
-
-        String jwt = jwtToken.getValue();
+//        final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
+    	String jwt = req.getHeader("Authorization");
+    	System.out.println(req.getHeader("Authorization"));
+    	
+//        String jwt = jwtToken.getValue();
         String customer_email = jwtUtil.getUsername(jwt);
 
         userService.removeUser(customer_email);
