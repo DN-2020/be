@@ -71,6 +71,11 @@ public class SignController {
 		res.addCookie(accessToken);
 //		res.addCookie(refreshToken);
 		
+		res.addHeader("Authorization", accessToken.getValue());
+		res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
+		res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "SET_COOKIE");
+		res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://localhost:3000");
+		System.out.println(accessToken.getValue());
 		Collection<String> headers = res.getHeaders(HttpHeaders.SET_COOKIE);
 		for(String header : headers) {
 			res.setHeader(HttpHeaders.SET_COOKIE, header+"; "+ "SameSite=None;");
@@ -92,20 +97,24 @@ public class SignController {
 	
 	@PostMapping("/logout")
 	public Response logout(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Cookie refresh_jwtToken = cookieUtil.getCookie(req, JwtUtil.REFRESH_TOKEN_NAME);
+//		Cookie refresh_jwtToken = cookieUtil.getCookie(req, JwtUtil.REFRESH_TOKEN_NAME);
+		String jwt = req.getHeader("Authorization");
 
-		Cookie access_cookie = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, "");
-		Cookie refresh_cookie = new Cookie(JwtUtil.REFRESH_TOKEN_NAME, "");
+		final String access_cookie = jwtUtil.generateToken(null);
+		final String refresh_cookie = jwtUtil.generateRefreshToken(null);
 		
-		access_cookie.setPath("/");
-		access_cookie.setMaxAge(0);
-		refresh_cookie.setPath("/");
-		refresh_cookie.setMaxAge(0);
+//		Cookie access_cookie = new Cookie(JwtUtil.ACCESS_TOKEN_NAME, "");
+//		Cookie refresh_cookie = new Cookie(JwtUtil.REFRESH_TOKEN_NAME, "");
 		
-		res.addCookie(access_cookie);
-		res.addCookie(refresh_cookie);
+//		access_cookie.setPath("/");
+//		access_cookie.setMaxAge(0);
+//		refresh_cookie.setPath("/");
+//		refresh_cookie.setMaxAge(0);
 		
-		String jwt = refresh_jwtToken.getValue();
+//		res.addCookie(access_cookie);
+//		res.addCookie(refresh_cookie);
+		
+//		String jwt = refresh_jwtToken.getValue();
 	    
 		if(redisUtil.getData(jwt) != null) {
 			redisUtil.deleteData(jwt);

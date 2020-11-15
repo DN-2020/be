@@ -23,7 +23,8 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JwtUtil {
 
-    public final static long TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 2L ;  		// Access_Token  2시간 설정
+//    public final static long TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 2L ;  		// Access_Token  2시간 설정
+	public final static long TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 48L ;  		// Access_Token  2일 설정
     public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 24L;   // Refresh_Token 하루 설정
 
     final static public String ACCESS_TOKEN_NAME = "accessToken";

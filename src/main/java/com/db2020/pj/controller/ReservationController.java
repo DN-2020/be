@@ -49,9 +49,11 @@ public class ReservationController {
                                    HttpServletRequest request,
                                    HttpServletResponse response) {
 
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
-
-        String jwt = jwtToken.getValue();
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//
+//        String jwt = jwtToken.getValue();
+    	String jwt = request.getHeader("Authorization");
+    	
         String email = jwtUtil.getUsername(jwt);
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
@@ -69,9 +71,10 @@ public class ReservationController {
                                    HttpServletResponse response) {
         map.put("reservation_seq", reservation_seq);
 
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -86,9 +89,10 @@ public class ReservationController {
     public Response getReservation(HttpServletRequest request,
                                    HttpServletResponse response) {
         HashMap<String, Object> map = new HashMap<>();
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
-
-        String jwt = jwtToken.getValue();
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -107,9 +111,10 @@ public class ReservationController {
                                          HttpServletResponse response) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("reservation_seq", reservation_seq);
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
-
-        String jwt = jwtToken.getValue();
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -122,9 +127,10 @@ public class ReservationController {
     @GetMapping("/refund")
     public Response getRefund(HttpServletRequest request,
                               HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
         HashMap<String, Object> map = new HashMap<>();
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -143,9 +149,10 @@ public class ReservationController {
                                     HttpServletResponse response) {
     	HashMap<String, Object> map = new HashMap<>();
         map.put("refund_seq", refund_seq);
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -158,9 +165,10 @@ public class ReservationController {
     @GetMapping("/admin/reservation")
     public Response getAdminReservation(HttpServletRequest request,
                                         HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
         HashMap<String, Object> map = new HashMap<>();
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -182,9 +190,10 @@ public class ReservationController {
     public Response getAdminDetailReservation(@PathVariable int reservation_seq,
                                               HttpServletRequest request,
                                               HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
         HashMap<String, Object> map = new HashMap<>();
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -202,9 +211,10 @@ public class ReservationController {
                                           HttpServletResponse response) {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("company_seq", company_seq);
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -225,9 +235,10 @@ public class ReservationController {
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("reservation_seq", reservation_seq);
         map.put("company_seq", company_seq);
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
