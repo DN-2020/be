@@ -9,7 +9,29 @@
    		INTO t_emp(emp_nm,emp_account,emp_pw,emp_joinDate,emp_address,emp_email,emp_tel,emp_phone,emp_createAt,emp_isUsed,dept_seq,company_seq)
    		VALUES(#{emp_nm},#{emp_account},#{emp_pw},#{emp_joinDate},#{emp_address},#{emp_email},#{emp_tel},#{emp_phone},#{emp_createAt},"enable",#{dept_seq},#{company_seq})
    </insert>
-   
+
+   <select id="info" parameterType="String" resultType="empVO">
+	   SELECT a.*, b.company_nm
+	   FROM
+	   		t_emp a, t_company b
+	   WHERE
+	   		a.company_seq = b.company_seq
+	   AND
+	   		emp_email = #{emp_email}
+
+   </select>
+
+	<select id="info1" parameterType="String" resultType="empVO">
+	   SELECT a.*, b.company_nm
+	   FROM
+	   		t_emp a, t_company b
+	   WHERE
+	   		a.company_seq = b.company_seq
+	   AND
+	   		emp_email = #{emp_email}
+
+   </select>
+
    <select id="companyEmpList" parameterType="Integer" resultType="empVO">
    		SELECT *
    		FROM t_emp

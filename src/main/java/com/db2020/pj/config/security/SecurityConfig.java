@@ -43,12 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 	       		  .authorizeRequests()
 //				  .antMatchers("/**").permitAll()
-	       		  .antMatchers(HttpMethod.OPTIONS, "/v1/**").permitAll() 
+	       		  .antMatchers(HttpMethod.OPTIONS, "/v1/**").permitAll()
+				  .antMatchers("/*/signin", "/*/signup", "/*/logout", "/*/company/signin").permitAll()
 	       		  .antMatchers("/**/admin/**").hasRole("ADMIN")
 	       		  .antMatchers("/**/company/**").hasAnyRole("ADMIN", "EMP")
 	       		  .antMatchers("/exception/**").permitAll()
 	       		  .antMatchers("/**/image/**").permitAll()
-				  .antMatchers("/*/signin", "/*/signup", "/*/logout").permitAll()
 				  .antMatchers(HttpMethod.GET,"/*/goods/**").permitAll()
 				  .antMatchers(HttpMethod.POST,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
 				  .antMatchers(HttpMethod.PUT,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
@@ -63,7 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
-	
+
 	@Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

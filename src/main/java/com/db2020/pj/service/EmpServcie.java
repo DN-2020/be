@@ -7,7 +7,7 @@ import com.db2020.pj.entity.Emp;
 
 public interface EmpServcie {
 
-    int empInsert(Emp emp);
+    void empInsert(Emp emp);
 
     List<Emp> companyEmpList(int company_seq);
 

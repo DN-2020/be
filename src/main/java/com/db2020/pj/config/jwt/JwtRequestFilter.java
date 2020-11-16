@@ -8,6 +8,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,6 +22,7 @@ import com.db2020.pj.config.redis.RedisUtil;
 import com.db2020.pj.entity.Customer;
 import com.db2020.pj.exception.custom.CAuthenticationEntryPointException;
 import com.db2020.pj.service.detail.CustomUserDetailsService;
+//import com.db2020.pj.service.detail.CustomEmpDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
 
@@ -50,6 +52,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     	
     	System.out.println("JWTtoken : " + jwtToken);
         String username = null;
+        String emp_email = null;
         String jwt = null;
         String refreshJwt = null;
         String refreshUname = null;
@@ -59,12 +62,31 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 //                jwt = jwtToken.getValue();
 //                System.out.println("JWT 토큰 값: " + jwtToken.getValue());
                 username = jwtUtil.getUsername(jwtToken);
+                emp_email = jwtUtil.getEmp_email(jwtToken);
                 System.out.println("USER 이름: " + username);
+                System.out.println("Emp 메일: " + emp_email);
             }
             if (username != null) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                if (jwtUtil.validateToken(jwtToken, userDetails)) {
-                	System.out.println("AccessToken 통과");
+                String value = ":1";
+                System.out.println("일반 유저일 경우");
+                String username1 = username + value;
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username1);
+                if (jwtUtil.validateToken(value, jwtToken, userDetails)) {
+                    System.out.println("AccessToken 통과");
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                            userDetails, null, userDetails.getAuthorities());
+                    usernamePasswordAuthenticationToken
+                            .setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }
+            }
+            if (emp_email != null) {
+                String value = ":2";
+                System.out.println("회사일 경우");
+                String username1 = emp_email + value;
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username1);
+                if (jwtUtil.validateToken(value, jwtToken, userDetails)) {
+                    System.out.println("AccessToken 통과");
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
                     usernamePasswordAuthenticationToken

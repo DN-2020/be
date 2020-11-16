@@ -2,6 +2,8 @@ package com.db2020.pj.repository;
 
 import java.util.Map;
 
+import com.db2020.pj.entity.Emp;
+import com.db2020.pj.entity.EmpDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,16 +15,16 @@ public class UserRepositoryImpl implements UserRepository{
 
 	@Autowired
 	private SqlSession sqlSession;
-	
+
 	@Override
 	public String findById(String email) {
 		String result = sqlSession.selectOne("customer.selectId", email);
 		return result;
 	}
-	
+
 	@Override
 	public Customer findUserInfo(String email) {
-		
+
 		Customer user = sqlSession.selectOne("customer.info", email);
 		return user;
 	}

@@ -3,6 +3,9 @@ package com.db2020.pj.service.impl;
 import java.util.Collections;
 import java.util.Map;
 
+import com.db2020.pj.entity.Emp;
+import com.db2020.pj.entity.EmpDTO;
+import com.db2020.pj.repository.EmpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,8 +27,9 @@ public class AuthServiceImpl implements AuthService {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
+	private EmpRepository empRepository;
+	@Autowired
 	private PasswordEncoder passwordEncoder;
-
 	@Autowired
 	private RedisUtil redisUtil;
 
@@ -38,8 +42,21 @@ public class AuthServiceImpl implements AuthService {
 			
 			throw new CUserPWException();
 		}
-			
 		return user;
+	}
+
+	@Override
+	public Emp loginEmp(Emp empDto) throws Exception {
+
+		Emp emp = empRepository.findEmpInfo(empDto);
+		if (emp == null)
+			throw new CUserNotException();
+		if (!empDto.getEmp_pw().equals(emp.getEmp_pw())) {
+
+			throw new CUserPWException();
+		}
+		System.out.println(emp.toString());
+		return emp;
 	}
 
 	@Override

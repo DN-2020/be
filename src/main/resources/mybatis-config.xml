@@ -13,6 +13,7 @@
 		<typeAlias type="com.db2020.pj.entity.Dept" alias="deptVO"/>
 		<typeAlias type="com.db2020.pj.entity.Company" alias="companyVO"/>
 		<typeAlias type="com.db2020.pj.entity.Emp" alias="empVO"/>
+		<typeAlias type="com.db2020.pj.entity.EmpDTO" alias="empDTO"/>
 	</typeAliases>
 	
 </configuration>
