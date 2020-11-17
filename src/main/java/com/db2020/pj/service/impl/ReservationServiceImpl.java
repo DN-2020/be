@@ -7,7 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,6 +21,7 @@ public class ReservationServiceImpl implements ReservationService {
     private static final Logger logger = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
     @Override
+    @Transactional
     public void insertReservation(HashMap<String, Object> map) {
 
         ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
@@ -56,6 +60,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    @Transactional
     public void deleteReservation(HashMap<String, Object> map) {
         ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
 
@@ -91,7 +96,41 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public List<HashMap<String, Object>> selectCompanyReservation(HashMap<String, Object> map) {
         ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
-        return reservationRepository.selectCompanyReservation(map);
+
+        List<HashMap<String, Object>> request = reservationRepository.selectCompanyReservation(map);
+
+        SimpleDateFormat dateFormate = new SimpleDateFormat("yyyyMMdd");
+        Date today = new Date(System.currentTimeMillis());
+        int day = Integer.parseInt(dateFormate.format(today));
+        int startDay;
+        int endDay ;
+
+        int scheduled=0;
+        int complete=0;
+        int count=0;
+        int money=0;
+        for(HashMap<String, Object> data : request){
+            startDay = Integer.parseInt(data.get("reservation_st").toString().replace("-", ""));
+            endDay = Integer.parseInt(data.get("reservation_end").toString().replace("-",""));
+
+            logger.info(day+ " |||||||" + startDay + "||||||||||||||||" + endDay);
+            if(day<startDay){
+                logger.info(day+ " |||||||" + scheduled);
+                scheduled++;
+            }
+            if(day>endDay){
+                logger.info(day+ " |||||||" + complete);
+                complete++;
+            }
+            count++;
+            money = money + Integer.parseInt(data.get("reservation_total_price").toString());
+        }
+        request.get(0).put("scheduled",scheduled);
+        request.get(0).put("complete", complete);
+        request.get(0).put("count", complete);
+        request.get(0).put("AllMoney", money);
+
+        return request;
     }
 
     @Override

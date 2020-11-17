@@ -16,9 +16,9 @@ public class EmpServiceImpl implements EmpServcie {
     EmpRepository empRepository;
 
     @Override
-    public int empInsert(Emp emp) {
+    public void empInsert(Emp emp) {
         // TODO Auto-generated method stub
-        return empRepository.empInsert(emp);
+        empRepository.empInsert(emp);
     }
 
     @Override

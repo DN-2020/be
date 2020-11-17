@@ -43,4 +43,18 @@ public class ReviewServiceImpl implements ReviewService {
         ReviewRepository reviewRepository = new ReviewRepository(sqlSession);
         reviewRepository.updateReview(map);
     }
+
+    @Override
+    public List<HashMap<String, Object>> selectCompanyReviewList(HashMap<String, Object> map) {
+        ReviewRepository reviewRepository = new ReviewRepository(sqlSession);
+        return reviewRepository.selectCompanyReviewList(map);
+    }
+
+    @Override
+    public List<HashMap<String, Object>> selectGoodsReviewList(HashMap<String, Object> map) {
+        ReviewRepository reviewRepository = new ReviewRepository(sqlSession);
+        return reviewRepository.selectGoodsReviewList(map);
+    }
+
+
 }

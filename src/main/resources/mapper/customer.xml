@@ -22,8 +22,8 @@
 	</select>
 	
 	<insert id="signUp" parameterType="customer">
-		INSERT INTO t_customer(customer_email, customer_pw, customer_nm, customer_tel, customer_post, customer_address, customer_detail_address, customer_mileage, customer_role, t_membership_seq)
-		VALUES(#{customer_email}, #{customer_pw}, #{customer_nm}, #{customer_tel}, #{customer_post}, #{customer_address}, #{customer_detail_address}, 0, #{customer_role}, 1)
+		INSERT INTO t_customer(customer_email, customer_pw, customer_nm, customer_tel, customer_post, customer_address, customer_mileage, customer_role, t_membership_seq)
+		VALUES(#{customer_email}, #{customer_pw}, #{customer_nm}, #{customer_tel}, #{customer_post}, #{customer_address}, 0, #{customer_role}, 1)
 	</insert>
 	
 	

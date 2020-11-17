@@ -16,9 +16,24 @@ public class EmpRepositoryImpl implements EmpRepository {
     SqlSession sqlSession;
 
     @Override
-    public int empInsert(Emp emp) {
+    public void empInsert(Emp emp) {
         // TODO Auto-generated method stub
-        return sqlSession.insert("empDAO.empInsert", emp);
+        sqlSession.insert("empDAO.empInsert", emp);
+    }
+
+    @Override
+    public Emp findEmpInfo(Emp emp) {
+
+        System.out.println(emp.toString());
+        Emp param = sqlSession.selectOne("empDAO.info", emp.getEmp_email());
+        return param;
+    }
+
+    @Override
+    public Emp findEmpInfo(String emp_email) {
+
+        Emp param = sqlSession.selectOne("empDAO.info1", emp_email);
+        return param;
     }
 
     @Override

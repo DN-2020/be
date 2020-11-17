@@ -30,4 +30,14 @@ public class ReviewRepository {
     public void updateReview(HashMap<String, Object> map){
         mapper.updateReview(map);
     }
+
+    public List<HashMap<String, Object>> selectCompanyReviewList(HashMap<String, Object> map){
+        return mapper.selectCompanyReviewList(map);
+    }
+    public List<HashMap<String, Object>> selectGoodsReviewList(HashMap<String, Object> map){
+        return mapper.selectGoodsReviewList(map);
+    }
+    public List<HashMap<String, Object>> selectGoodsDetailReviewList(HashMap<String, Object> map){
+        return mapper.selectGoodsDetailReviewList(map);
+    }
 }

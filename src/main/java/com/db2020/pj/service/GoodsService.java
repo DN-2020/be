@@ -9,33 +9,33 @@ import com.db2020.pj.entity.GoodsDetail;
 
 public interface GoodsService {
 	
-	public void register(Map<String, String> goods);
+//	public void register(Map<String, String> goods);
 	
-	public void detail_register(Map<String, String> detail_goods);
+	public void detail_register(GoodsDetail goodsDetail);
 	
-	public Goods selectOne(int goods_seq);
+//	public Goods selectOne(int goods_seq);
 	
-	public GoodsDetail selectOne(Map<String, Integer> goods_detail);
+	public GoodsDetail selectOne(HashMap<String, Object> goods_detail);
 
 //	public Map<String, Object> reserve_date(Map<String, Object> reserve_date);
 	
-	public List<Goods> selectList(Map<String, Object> parameter);
+	public List<GoodsDetail> selectList(Map<String, Object> parameter);
 	
-	public List<Goods> selectAdminList(Map<String, Object> parameter);
+	public List<GoodsDetail> selectAdminList(Map<String, Object> parameter);
 	
 	public List<GoodsDetail> selectDetailList(int goods_seq);
 	
 	public void goodsIsView(Map<String, Object> parameter);
 	
-	public void goodsDetailIsView(Map<String, Object> parameter);
+//	public void goodsDetailIsView(Map<String, Object> parameter, String goods_detail_view_yn);
 	
 	public void update(Map<String, Object> goods);
 	
-	public void detail_update(Map<String, Object> goods);
+//	public void detail_update(Map<String, Object> goods);
 	
 	public void delete(String goods_seq);
 	
-	public void detail_delete(Map<String, String> parameter);
+//	public void detail_delete(Map<String, String> parameter);
 
 	public List<Goods> selectSearch(HashMap<String, Object> map);
 

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,7 @@ import com.db2020.pj.service.UserService;
  * 2.마이페이지 데이터 수정
  */
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "/v1")
 public class UserController {
 
@@ -48,9 +50,13 @@ public class UserController {
     @GetMapping("/user/info")
     public Response selectMypage(HttpServletRequest req, HttpServletResponse res) {
 
-        final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
-
-        String jwt = jwtToken.getValue();
+    	System.out.println("토큰 전송 확인");
+//        final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
+    	String jwt = req.getHeader("Authorization");
+    	System.out.println(req.getHeader("Authorization"));
+//        System.out.println("쿠키 여부 확인");
+//        String jwt = jwtToken.getValue();
+//        System.out.println("3" + jwt);
         String email = jwtUtil.getUsername(jwt);
 
         Customer user = userService.userInfo(email);
@@ -70,9 +76,11 @@ public class UserController {
     @RequestMapping(value = "/user/info", method = RequestMethod.DELETE)
     public Response deleteUser(HttpServletRequest req) {
 
-        final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
-
-        String jwt = jwtToken.getValue();
+//        final Cookie jwtToken = cookieUtil.getCookie(req, JwtUtil.ACCESS_TOKEN_NAME);
+    	String jwt = req.getHeader("Authorization");
+    	System.out.println(req.getHeader("Authorization"));
+    	
+//        String jwt = jwtToken.getValue();
         String customer_email = jwtUtil.getUsername(jwt);
 
         userService.removeUser(customer_email);

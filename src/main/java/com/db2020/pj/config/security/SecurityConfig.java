@@ -1,5 +1,7 @@
 package com.db2020.pj.config.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -9,6 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.db2020.pj.config.jwt.JwtRequestFilter;
 import com.db2020.pj.exception.custom.CustomAuthenticationEntryPoint;
@@ -26,7 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.csrf().disable()
+		http.cors().configurationSource(corsConfigurationSource())
+			.and()
+		    .csrf().disable()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.httpBasic()
 			// Filter단 Exception은 검토 불가능하기 때문에 커스텀 EntryPoint
@@ -35,17 +43,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 	       		  .authorizeRequests()
 //				  .antMatchers("/**").permitAll()
+	       		  .antMatchers(HttpMethod.OPTIONS, "/v1/**").permitAll()
+				  .antMatchers("/*/signin", "/*/signup", "/*/logout", "/*/company/signin").permitAll()
 	       		  .antMatchers("/**/admin/**").hasRole("ADMIN")
 	       		  .antMatchers("/**/company/**").hasAnyRole("ADMIN", "EMP")
 	       		  .antMatchers("/exception/**").permitAll()
-				  .antMatchers("/*/signin", "/*/signup", "/*/logout").permitAll()
+	       		  .antMatchers("/**/image/**").permitAll()
 				  .antMatchers(HttpMethod.GET,"/*/goods/**").permitAll()
 				  .antMatchers(HttpMethod.POST,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
 				  .antMatchers(HttpMethod.PUT,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
 				  .antMatchers(HttpMethod.DELETE,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
 				  .antMatchers("/*/user/**").hasAnyRole("ADMIN", "USER")
+				  .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
 				  .anyRequest().authenticated();
-           
 	}
 
 	@Bean
@@ -53,4 +63,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+
+	@Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }

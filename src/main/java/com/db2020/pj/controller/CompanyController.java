@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.query.criteria.internal.predicate.IsEmptyPredicate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import com.db2020.pj.model.Response;
 import com.db2020.pj.service.CompanyService;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(value = "v1")
 public class CompanyController {
 
