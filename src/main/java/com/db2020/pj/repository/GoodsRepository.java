@@ -16,7 +16,7 @@ public interface GoodsRepository {
 	
 	public Goods selectOne(int goods_seq);
 	
-	public GoodsDetail selectOne(Map<String, Integer> query);
+	public GoodsDetail selectOne(HashMap<String, Object> query);
 	
 //	public Map<String, Object> reserve_date(Map<String, Object> reserve_date);
 	

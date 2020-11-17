@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.db2020.pj.repository.GoodsImageRepository;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class GoodsServiceImpl implements GoodsService{
 
 	@Autowired
 	GoodsRepository goodsRepository;
+	@Autowired
+	SqlSession sqlSession;
+
 	
 	@Override
 	public void register(Map<String, String> goods) {
@@ -36,9 +41,11 @@ public class GoodsServiceImpl implements GoodsService{
 	}
 	
 	@Override
-	public GoodsDetail selectOne(Map<String, Integer> goods_detail) {
+	public GoodsDetail selectOne(HashMap<String, Object> goods_detail) {
 		GoodsDetail goodsDetail = goodsRepository.selectOne(goods_detail);
-		
+		GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
+
+		goodsDetail.setGoods_detail_image(repository.selectGoodsDetailImage(goods_detail));
 		return goodsDetail;
 	}
 

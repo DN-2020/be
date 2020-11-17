@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Builder
 @Getter
 @Setter
@@ -25,9 +28,21 @@ public class GoodsDetail {
 	String goods_detail_expression;
 	int t_goods_seq;
 	int t_promotion_seq;
-	
-	
-	
-	
-	
+	List<HashMap<String, Object>> goods_detail_image;
+
+	@Override
+	public String toString() {
+		return "GoodsDetail{" +
+				"goods_detail_seq=" + goods_detail_seq +
+				", goods_detail_nm='" + goods_detail_nm + '\'' +
+				", promotion_nm='" + promotion_nm + '\'' +
+				", goods_detail_price=" + goods_detail_price +
+				", goods_detail_amount=" + goods_detail_amount +
+				", goods_detail_view_yn='" + goods_detail_view_yn + '\'' +
+				", goods_detail_expression='" + goods_detail_expression + '\'' +
+				", t_goods_seq=" + t_goods_seq +
+				", t_promotion_seq=" + t_promotion_seq +
+				", goods_detail_image=" + goods_detail_image +
+				'}';
+	}
 }

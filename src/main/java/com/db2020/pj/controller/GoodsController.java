@@ -66,7 +66,7 @@ public class GoodsController {
 
     // 상품 상세 조회
     @GetMapping("/goods/{goods_seq}/{goods_detail_seq}")
-    public Response selectDetailGoods(@PathVariable Map<String, Integer> goods_detail) {
+    public Response selectDetailGoods(@PathVariable HashMap<String, Object> goods_detail) {
 
         GoodsDetail goodsDetail = goodsService.selectOne(goods_detail);
 

@@ -20,6 +20,7 @@ public class GoodsImageRepository {
     }
 
     public List<HashMap<String, Object>> selectGoodsDetailImage(HashMap<String, Object> map){
+        System.out.println(map.toString());
         return mapper.selectGoodsDetailImage(map);
     }
     public List<HashMap<String, Object>> selectGoodsImage(HashMap<String, Object> map){

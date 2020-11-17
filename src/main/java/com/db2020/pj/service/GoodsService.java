@@ -15,7 +15,7 @@ public interface GoodsService {
 	
 	public Goods selectOne(int goods_seq);
 	
-	public GoodsDetail selectOne(Map<String, Integer> goods_detail);
+	public GoodsDetail selectOne(HashMap<String, Object> goods_detail);
 
 //	public Map<String, Object> reserve_date(Map<String, Object> reserve_date);
 	

@@ -46,7 +46,7 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 	}
 
 	@Override
-	public GoodsDetail selectOne(Map<String, Integer> goods_detail) {
+	public GoodsDetail selectOne(HashMap<String, Object> goods_detail) {
 //		GoodsDetail goodsDetail = sqlSession.selectOne("goods.detail_select", goods_detail);
 
 		GoodsDetail goodsDetail = sqlSession.selectOne("goods.detail_goods", goods_detail);

@@ -59,12 +59,12 @@ public class ImageController {
         return new Response("200", "상품별 이미지 조회 성공하였습니다", goodsImageService.selectGoodsImage(map));
     }
     @ResponseBody
-    @GetMapping("/goods/{goodsSeq}/{goodsDetailSeq}/image")
-    public Response SelectGoodsDetailImage(@PathVariable Integer goodsSeq, @PathVariable Integer goodsDetailSeq) throws IOException {
+    @GetMapping("/goods/{goods_seq}/{goods_detail_seq}/image")
+    public Response SelectGoodsDetailImage(@PathVariable Integer goods_seq, @PathVariable Integer goods_detail_seq) throws IOException {
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("goodsSeq",goodsSeq);
-        map.put("goodsDetailSeq",goodsDetailSeq);
+        map.put("goods_seq",goods_seq);
+        map.put("goods_detail_seq",goods_detail_seq);
         return new Response("200", "상세 상품별 조회를 성공하였습니다.", goodsImageService.selectGoodsDetailImage(map));
     }
     @ResponseBody
