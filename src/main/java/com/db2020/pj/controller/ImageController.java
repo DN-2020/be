@@ -1,17 +1,23 @@
 package com.db2020.pj.controller;
 
 import com.amazonaws.services.apigateway.model.Model;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.db2020.pj.model.Response;
 import com.db2020.pj.service.GoodsImageService;
 import com.db2020.pj.service.S3Service;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.UUID;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -29,45 +35,38 @@ public class ImageController {
         return "file";
     }
 
-    @ResponseBody
-    @PostMapping("/image/upload")
-    public String uploadImage(@RequestParam MultipartFile image_path) throws IOException {
-        String uuid = UUID.randomUUID().toString();
-
-        String result = s3Service.upload(image_path,uuid);
-
-        return result;
-    }
 
     @ResponseBody
-    @PostMapping(value = "/goods/{goods_detail_seq}/image", consumes = "multipart/form-data")
-    public Response InsertgoodsImage(@PathVariable String goods_detail_seq, @RequestParam MultipartFile[] image_path) throws IOException {
+    @PostMapping(value = "/goodsdetail/{goodsDetail_seq}/image", consumes = "multipart/form-data")
+    public Response InsertgoodsImage(@PathVariable String goodsDetail_seq, @RequestParam MultipartFile[] files) throws IOException {
 
         HashMap<String ,Object> map = new HashMap<>();
-        for(MultipartFile file : image_path){
-            String uuid = UUID.randomUUID().toString();
-            String result =  s3Service.upload(file,uuid);
-            map.put("image_path", result);
-            map.put("goods_detail_seq", goods_detail_seq);
+        for(MultipartFile file : files){
+            String result =  s3Service.upload(file,"goods/detail/"+goodsDetail_seq+"/");
+            map.put("imagePath", result);
+            map.put("goodsDetailSeq", goodsDetail_seq);
             goodsImageService.insertGoodsImage(map);
         }
         return new Response("200", "이미지 추가 성공하였습니다.", null);
     }
 
+
     @ResponseBody
-    @GetMapping("/goods/{goods_detail_seq}/image")
-    public Response SelectGoodsDetailImage(@PathVariable Integer goods_detail_seq) throws IOException {
+    @GetMapping("/goods/{goods_seq}/image")
+    public Response SelectGoodsDetailImage(@PathVariable Integer goods_seq, @PathVariable Integer goods_detail_seq) throws IOException {
 
         HashMap<String, Object> map = new HashMap<>();
+        map.put("goods_seq",goods_seq);
         map.put("goods_detail_seq",goods_detail_seq);
         return new Response("200", "상세 상품별 조회를 성공하였습니다.", goodsImageService.selectGoodsDetailImage(map));
     }
     @ResponseBody
-    @DeleteMapping("/goods/image/{image_seq}")
-    public Response deleteGoodsDetailImage(@PathVariable Integer image_seq) throws IOException {
+    @DeleteMapping("/goods/image")
+    public Response deleteGoodsDetailImage(@PathVariable Integer goodsSeq, @PathVariable Integer goodsDetailSeq,@RequestBody HashMap<String, Object> map) throws IOException {
 
-        HashMap<String , Object> map = new HashMap<>();
-        map.put("image_seq", image_seq);
+        map.put("goodsSeq",goodsSeq);
+        map.put("goodsDetailSeq",goodsDetailSeq);
+
         HashMap<String, Object> result = goodsImageService.selectImage(map);
         s3Service.deleteS3File(result.get("image_path").toString());
         goodsImageService.deleteGoodsImage(map);

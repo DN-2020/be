@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin("*") 
+@CrossOrigin("*")
 @RequestMapping(value = "/v1")
 public class reviewController {
 
@@ -47,7 +47,7 @@ public class reviewController {
 //        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 //
 //        String jwt = jwtToken.getValue();
-    	String jwt = request.getHeader("Authorization");
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -71,10 +71,10 @@ public class reviewController {
     }
     //상품 리뷰 조회
 
-    @GetMapping("/goods/{goods_detail_seq}/review")
-    public Response goodsReview(@PathVariable Integer goods_detail_seq){
+    @GetMapping("/goods/{goods_seq}/review")
+    public Response goodsReview(@PathVariable Integer goods_seq){
         HashMap<String ,Object> map = new HashMap<>();
-        map.put("goods_detail_seq", goods_detail_seq);
+        map.put("goods_seq", goods_seq);
 
         List<HashMap<String, Object>> result = reviewService.selectGoodsReviewList(map);
         if(result.isEmpty()){
@@ -120,7 +120,7 @@ public class reviewController {
     public Response getDetailReview(@PathVariable int review_seq,
                                     HttpServletRequest request,
                                     HttpServletResponse response) {
-    	HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         map.put("review_seq", review_seq);
 
         HashMap<String, Object> result = reviewService.selectDetailReview(map);
@@ -135,7 +135,7 @@ public class reviewController {
 //        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
 //        String jwt = jwtToken.getValue();
-    	String jwt = request.getHeader("Authorization");
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
