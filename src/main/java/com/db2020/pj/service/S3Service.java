@@ -45,13 +45,15 @@ public class S3Service {
     }
 
     public String upload(MultipartFile file, String name) throws IOException {
-        String fileName = name ;
+        String fileName = name + file.getOriginalFilename();
 
+        System.out.println("왜앙대");
 
         s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
 
-        return name;
+        System.out.println("진짜왜앙ㅇ대");
+        return s3Client.getUrl(bucket, fileName).toString();
     }
 
     public String upload(MultipartFile file) throws IOException {

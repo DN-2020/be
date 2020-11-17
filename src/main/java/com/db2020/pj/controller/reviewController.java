@@ -82,7 +82,17 @@ public class reviewController {
         }
         return new Response("200", "상품 리뷰 조회를 성공하셨습니다." ,result);
     }
-
+    //상품 상세 리뷰 조회
+    @GetMapping("/goodsdetail/{goods_detail_seq}/review")
+    public Response goodsDetailReview(@PathVariable Integer goods_detail_seq){
+        HashMap<String ,Object> map = new HashMap<>();
+        map.put("goods_detail_seq", goods_detail_seq);
+        List<HashMap<String, Object>> result = reviewService.selectGoodsDetailReviewList(map);
+        if(result.isEmpty()){
+            result = null;
+        }
+        return new Response("200", "상세 상품 리뷰 조회를 성공하셨습니다." ,result);
+    }
     // 리뷰 리스트 조회 (상품별 및 회사별)
     @GetMapping("/review/list")
     public Response getReview(@RequestBody HashMap<String, Object> map,
