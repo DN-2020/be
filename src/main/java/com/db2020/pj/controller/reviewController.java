@@ -71,10 +71,10 @@ public class reviewController {
     }
     //상품 리뷰 조회
 
-    @GetMapping("/goods/{goods_seq}/review")
-    public Response goodsReview(@PathVariable Integer goods_seq){
+    @GetMapping("/goods/{goods_detail_seq}/review")
+    public Response goodsReview(@PathVariable Integer goods_detail_seq){
         HashMap<String ,Object> map = new HashMap<>();
-        map.put("goods_seq", goods_seq);
+        map.put("goods_detail_seq", goods_detail_seq);
 
         List<HashMap<String, Object>> result = reviewService.selectGoodsReviewList(map);
         if(result.isEmpty()){
