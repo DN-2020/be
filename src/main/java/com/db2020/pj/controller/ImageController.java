@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.db2020.pj.model.Response;
 import com.db2020.pj.service.GoodsImageService;
 import com.db2020.pj.service.S3Service;
+import com.sun.org.apache.xpath.internal.operations.Mult;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -35,53 +37,56 @@ public class ImageController {
         return "file";
     }
 
+    @PostMapping("/upload/image")
+    public String ImageUpload(@RequestParam MultipartFile image_path) throws IOException {
 
+        UUID uuid = UUID.randomUUID();
+        String newFileName = uuid.toString();
+        String result = s3Service.upload(image_path, newFileName);
+        return result;
+    }
     @ResponseBody
-    @PostMapping(value = "/goodsdetail/{goodsDetail_seq}/image", consumes = "multipart/form-data")
-    public Response InsertgoodsImage(@PathVariable String goodsDetail_seq, @RequestParam MultipartFile[] files) throws IOException {
+    @PostMapping(value = "/goodsdetail/{t_goods_detail_seq}/image", consumes = "multipart/form-data")
+    public Response InsertgoodsImage(@PathVariable String t_goods_detail_seq, @RequestParam MultipartFile[] image_path) throws IOException {
 
         HashMap<String ,Object> map = new HashMap<>();
-        for(MultipartFile file : files){
-            String result =  s3Service.upload(file,"goods/detail/"+goodsDetail_seq+"/");
-            map.put("imagePath", result);
-            map.put("goodsDetailSeq", goodsDetail_seq);
+        for(MultipartFile file : image_path){
+            String result =  s3Service.upload(file,"goods/detail/"+t_goods_detail_seq+"/");
+            map.put("image_path", file);
+            map.put("t_goods_detail_seq", t_goods_detail_seq);
             goodsImageService.insertGoodsImage(map);
         }
         return new Response("200", "이미지 추가 성공하였습니다.", null);
     }
 
     @ResponseBody
-    @GetMapping("/goods/{goodsSeq}/image")
-    public Response SelectgoodsImage(@PathVariable Integer goodsSeq) throws IOException {
+    @GetMapping("/goods/{t_goods_seq}/image")
+    public Response SelectgoodsImage(@PathVariable Integer t_goods_seq) throws IOException {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("goodsSeq",goodsSeq);
+        map.put("t_goods_seq",t_goods_seq);
 
         return new Response("200", "상품별 이미지 조회 성공하였습니다", goodsImageService.selectGoodsImage(map));
     }
     @ResponseBody
-    @GetMapping("/goods/{goods_seq}/{goods_detail_seq}/image")
-    public Response SelectGoodsDetailImage(@PathVariable Integer goods_seq, @PathVariable Integer goods_detail_seq) throws IOException {
+    @GetMapping("/goods/{t_goods_seq}/{t_goods_detail_seq}/image")
+    public Response SelectGoodsDetailImage(@PathVariable Integer t_goods_seq, @PathVariable Integer t_goods_detail_seq) throws IOException {
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("goods_seq",goods_seq);
-        map.put("goods_detail_seq",goods_detail_seq);
+        map.put("t_goods_seq",t_goods_seq);
+        map.put("t_goods_detail_seq",t_goods_detail_seq);
         return new Response("200", "상세 상품별 조회를 성공하였습니다.", goodsImageService.selectGoodsDetailImage(map));
     }
     @ResponseBody
-    @PutMapping("/goods/{goodsSeq}/{goodsDetailSeq}/image")
-    public Response UpdateGoodsDetailImage(@PathVariable Integer goodsSeq, @PathVariable Integer goodsDetailSeq, @RequestBody HashMap<String, Object> map) throws IOException {
+    @PutMapping("/goods/{t_goods_seq}/{t_goods_detail_seq}/image")
+    public Response UpdateGoodsDetailImage(@RequestBody HashMap<String, Object> map) throws IOException {
 
-        map.put("goodsSeq",goodsSeq);
-        map.put("goodsDetailSeq",goodsDetailSeq);
         goodsImageService.updateGoodsImage(map);
         return new Response("200", "메인 이미지 변경을 성공하였습니다.", null);
     }
     @ResponseBody
-    @DeleteMapping("/goods/{goodsSeq}/{goodsDetailSeq}/image")
-    public Response deleteGoodsDetailImage(@PathVariable Integer goodsSeq, @PathVariable Integer goodsDetailSeq,@RequestBody HashMap<String, Object> map) throws IOException {
+    @DeleteMapping("/goods/{t_goods_seq}/{t_goods_detail_seq}/image")
+    public Response deleteGoodsDetailImage(@PathVariable Integer t_goods_detail_seq, @PathVariable Integer goodsDetailSeq,@RequestBody HashMap<String, Object> map) throws IOException {
 
-        map.put("goodsSeq",goodsSeq);
-        map.put("goodsDetailSeq",goodsDetailSeq);
 
         HashMap<String, Object> result = goodsImageService.selectImage(map);
         s3Service.deleteS3File(result.get("image_path").toString());
