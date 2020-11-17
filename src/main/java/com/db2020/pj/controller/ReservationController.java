@@ -64,7 +64,7 @@ public class ReservationController {
     }
 
     //예약취소
-    @DeleteMapping("/reservation/{reservation_seq}")
+    @PutMapping("/reservation/{reservation_seq}")
     public Response delReservation(@RequestBody HashMap<String, Object> map,
                                    @PathVariable int reservation_seq,
                                    HttpServletRequest request,

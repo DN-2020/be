@@ -8,29 +8,18 @@
     <insert id="insertGoodsImage" parameterType="hashmap">
 		insert into
 		t_image(t_goods_detail_seq, image_path)
-		values(#{goodsDetailSeq}, #{imagePath})
+		values(#{goods_detail_seq}, #{image_path})
 	</insert>
 	<select id="selectGoodsDetailImage" parameterType="hashmap" resultType="hashmap">
-		SELECT * FROM dn2020b.t_image
+		SELECT * FROM t_image
 		where t_goods_detail_seq = #{goods_detail_seq}
 	</select>
-	<select id="selectGoodsImage" parameterType="hashmap" resultType="hashmap">
-		SELECT * FROM dn2020b.t_image
-		join t_goods_detail on t_image.t_goods_detail_seq = t_goods_detail.goods_detail_seq
-		where t_goods_seq = #{goodsSeq}
-		and image_type = 'Y'
-	</select>
-	<update id="updateGoodsImage" parameterType="hashmap">
-		update t_image set  image_type = #{imageType}
-		where image_seq = #{imageSeq}
-	</update>
 	<select id="selectImage" parameterType="hashmap" resultType="hashmap">
 		select * from t_image
-		where image_seq = #{imageSeq}
-
+		where image_seq = #{image_seq}
 	</select>
 	<delete id="deleteGoodsImage" parameterType="hashmap">
 		delete from t_image
-		where image_seq =#{imageSeq}
+		where image_seq =#{image_seq}
 	</delete>
 </mapper>

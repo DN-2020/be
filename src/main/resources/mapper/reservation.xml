@@ -53,6 +53,7 @@
     <select id="selectUserReservation" parameterType="Hashmap" resultType="Hashmap">
         select * from t_reservation
         join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        left join t_goods_detail on t_goods_detail_seq = goods_detail_seq
         where t_reservation.t_customer_seq = #{customer_seq}
     </select>
 
@@ -60,6 +61,7 @@
     <select id="selectDetailUserReservation" parameterType="Hashmap" resultType="Hashmap">
         select * from t_reservation
         join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        left join t_goods_detail on t_goods_detail_seq = goods_detail_seq
         where t_reservation.reservation_seq = #{reservation_seq}
     </select>
 
@@ -68,6 +70,7 @@
         select * from t_refund
         join t_reservation on t_refund.t_reservation_seq = t_reservation.reservation_seq
         join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        left join t_goods_detail on t_goods_detail_seq = goods_detail_seq
         where t_customer_seq = #{customer_seq}
     </select>
 
@@ -75,24 +78,26 @@
         select * from t_refund
         join t_reservation on t_refund.t_reservation_seq = t_reservation.reservation_seq
         join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        left join t_goods_detail on t_goods_detail_seq = goods_detail_seq
         where refund_seq = #{refund_seq}
     </select>
 
     <!--예약 내역 조회(관리자)-->
     <select id="selectAdminReservation" resultType="Hashmap">
         select * from t_reservation
-        left join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
         left join t_refund on t_refund.t_reservation_seq = t_reservation.reservation_seq
+        left join t_goods_detail on t_goods_detail_seq = goods_detail_seq
     </select>
 
     <!--예약 내역 조회(회사)-->
     <select id="selectCompanyReservation" parameterType="Hashmap" resultType="Hashmap">
         select * from t_reservation
-        left join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
+        join t_approval on t_approval.t_reservation_seq = t_reservation.reservation_seq
         left join t_refund on t_refund.t_reservation_seq = t_reservation.reservation_seq
-        join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
-        join t_goods on t_goods.goods_seq= t_goods_detail.t_goods_seq
-        where t_goods.t_company_seq = #{company_seq}
+        left join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
+        join t_company on t_goods_detail.t_company_seq = t_company.company_seq
+        where t_goods_detail.t_company_seq = #{company_seq}
     </select>
 
     <!-- -->

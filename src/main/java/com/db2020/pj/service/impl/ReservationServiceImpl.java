@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +21,7 @@ public class ReservationServiceImpl implements ReservationService {
     private static final Logger logger = LoggerFactory.getLogger(ReservationServiceImpl.class);
 
     @Override
+    @Transactional
     public void insertReservation(HashMap<String, Object> map) {
 
         ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
@@ -58,6 +60,7 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    @Transactional
     public void deleteReservation(HashMap<String, Object> map) {
         ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
 

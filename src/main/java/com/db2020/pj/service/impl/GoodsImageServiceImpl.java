@@ -28,14 +28,6 @@ public class GoodsImageServiceImpl implements GoodsImageService {
         return repository.selectGoodsDetailImage(map);
 
     }
-    public List<HashMap<String, Object>> selectGoodsImage(HashMap<String, Object> map){
-        GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
-        return repository.selectGoodsImage(map);
-    }
-    public void updateGoodsImage(HashMap<String, Object> map){
-        GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
-        repository.updateGoodsImage(map);
-    }
     public void deleteGoodsImage(HashMap<String, Object> map){
         GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
         repository.deleteGoodsImage(map);
