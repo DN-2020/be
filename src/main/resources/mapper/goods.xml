@@ -4,26 +4,34 @@
   
 <mapper namespace="goods">
 	
-	<insert id="register" parameterType="hashMap">
-		INSERT INTO t_goods(goods_nm, goods_post, goods_address, goods_detail_address, goods_tel, goods_view_yn, t_goods_type_seq, t_company_seq)
-		VALUES(#{goods_nm}, #{goods_post}, #{goods_address}, #{goods_detail_address}, #{goods_tel}, 'N', #{t_goods_type_seq}, #{company_seq})
-	</insert>
+<!--	<insert id="register" parameterType="hashMap">-->
+<!--		INSERT INTO t_goods(goods_nm, goods_post, goods_address, goods_detail_address, goods_tel, goods_view_yn, t_goods_type_seq, t_company_seq)-->
+<!--		VALUES(#{goods_nm}, #{goods_post}, #{goods_address}, #{goods_detail_address}, #{goods_tel}, 'N', #{t_goods_type_seq}, #{company_seq})-->
+<!--	</insert>-->
 	
-	<insert id="detail_register" parameterType="hashMap">
-		INSERT INTO t_goods_detail(goods_detail_nm, goods_detail_price, goods_detail_amount, goods_detail_view_yn, goods_detail_expression, t_goods_seq, t_promotion_seq)
-		VALUES(#{goods_detail_nm}, #{goods_detail_price}, #{goods_detail_amount}, 'N', #{goods_detail_expression}, #{goods_seq}, #{t_promotion_seq})
+	<insert id="detail_register" parameterType="goodsDetail">
+		INSERT INTO t_goods_detail(goods_detail_nm, goods_detail_price, goods_detail_amount, goods_detail_expression, goods_image_path, goods_post, goods_address, goods_detail_address, goods_detail_tel, goods_detail_view_yn, t_promotion_seq, t_company_seq, t_goods_type_seq)
+		VALUES(#{goods_detail_nm}, #{goods_detail_price}, #{goods_detail_amount}, #{goods_detail_expression}, #{goods_image_path}, #{goods_post}, #{goods_address}, #{goods_detail_address}, #{goods_detail_tel}, 'N', #{t_promotion_seq}, #{t_company_seq}, #{t_goods_type_seq})
 	</insert>
-	
-	<select id="select_goods" parameterType="hashMap" resultType="goods">
-		SELECT *, type_nm
-		FROM 
-			t_goods a, t_goods_type b
-		WHERE
-			a.goods_seq = #{goods_seq}
-		AND	
-			a.t_goods_type_seq = b.type_seq
-		
+
+	<select id="select_seq" resultType="int">
+		SELECT max(goods_detail_seq)
+		FROM t_goods_detail
 	</select>
+	<insert id="image_register" parameterType="hashMap">
+		INSERT INTO t_image(t_goods_detail_seq, image_path)
+		VALUES(#{goods_detail_seq}, #{image_path})
+	</insert>
+<!--	<select id="select_goods" parameterType="hashMap" resultType="goods">-->
+<!--		SELECT *, type_nm-->
+<!--		FROM -->
+<!--			t_goods a, t_goods_type b-->
+<!--		WHERE-->
+<!--			a.goods_seq = #{goods_seq}-->
+<!--		AND	-->
+<!--			a.t_goods_type_seq = b.type_seq-->
+<!--		-->
+<!--	</select>-->
 	
 	<select id="detail_goods" parameterType="hashMap" resultType="goodsDetail" >
 		SELECT a.*, b.promotion_nm
@@ -32,27 +40,25 @@
 		WHERE
 			a.goods_detail_seq = #{goods_detail_seq}
 		AND
-			a.t_goods_seq = #{goods_seq}
-		AND
 			a.t_promotion_seq = b.promotion_seq
 	</select>
 	
-	<select id="select_cgoodsList" parameterType="hashMap" resultType="goods">
+	<select id="select_cgoodsList" parameterType="hashMap" resultType="goodsDetail">
 		SELECT *
 		FROM
-			t_goods a, t_goods_type b, t_company c
+			t_goods_detail a, t_goods_type b, t_company c
 		WHERE
 			a.t_goods_type_seq = b.type_seq
 		AND	
-			a.t_company_seq = #{company_seq}
+			a.t_company_seq = #{t_company_seq}
 		AND	
 			a.t_company_seq = c.company_seq
 	</select>
 	
-	<select id="select_sgoodsList" parameterType="hashMap" resultType="goods">
+	<select id="select_sgoodsList" parameterType="hashMap" resultType="goodsDetail">
 		SELECT *
 		FROM
-			t_goods a, t_goods_type b, t_company c
+			t_goods_detail a, t_goods_type b, t_company c
 		WHERE
 			a.t_goods_type_seq = b.type_seq
 		AND	
@@ -60,22 +66,22 @@
 		AND	
 			a.t_company_seq = c.company_seq
 		AND
-			a.goods_nm LIKE CONCAT('%',#{goods_nm},'%')
+			a.goods_detail_nm LIKE CONCAT('%',#{goods_detail_nm},'%')
 	</select>
 	
-	<select id="select_goodsList" resultType="goods">
+	<select id="select_goodsList" resultType="goodsDetail">
 		SELECT *
 		FROM
-			t_goods a, t_goods_type b
+			t_goods_detail a, t_goods_type b
 		WHERE
 			a.t_goods_type_seq = b.type_seq
-		ORDER BY a.goods_seq
+		ORDER BY a.goods_detail_seq
 	
 	</select>
-	<select id="two_goodsList" parameterType="hashMap" resultType="goods">
+	<select id="two_goodsList" parameterType="hashMap" resultType="goodsDetail">
 		SELECT *
 		FROM
-			t_goods a, t_goods_type b, t_company c
+			t_goods_detail a, t_goods_type b, t_company c
 		WHERE
 			a.t_goods_type_seq = b.type_seq
 		AND	
@@ -83,25 +89,25 @@
 		AND	
 			c.company_nm LIKE CONCAT('%',#{company_nm},'%')
 		AND
-			a.goods_nm LIKE CONCAT('%',#{goods_nm},'%')
+			a.goods_detail_nm LIKE CONCAT('%',#{goods_detail_nm},'%')
 	</select>
 	
-	<select id="gn_goodsList" parameterType="hashMap" resultType="goods">
+	<select id="gn_goodsList" parameterType="hashMap" resultType="goodsDetail">
 		SELECT *
 		FROM
-			t_goods a, t_goods_type b, t_company c
+			t_goods_detail a, t_goods_type b, t_company c
 		WHERE
 			a.t_goods_type_seq = b.type_seq
 		AND	
 			a.t_company_seq = c.company_seq
 		AND
-			a.goods_nm LIKE CONCAT('%',#{goods_nm},'%')
+			a.goods_detail_nm LIKE CONCAT('%',#{goods_detail_nm},'%')
 	</select>
 	
-	<select id="cn_goodsList" parameterType="hashMap" resultType="goods">
+	<select id="cn_goodsList" parameterType="hashMap" resultType="goodsDetail">
 		SELECT *
 		FROM
-			t_goods a, t_goods_type b, t_company c
+			t_goods_detail a, t_goods_type b, t_company c
 		WHERE
 			a.t_goods_type_seq = b.type_seq
 		AND	
@@ -114,17 +120,15 @@
 		SELECT *
 		FROM
 			t_goods_detail
-		WHERE
-			t_goods_seq = #{goods_seq}
 	</select>
 	
 	<update id="isViewY" parameterType="hashMap">
 		UPDATE
-			t_goods
+			t_goods_detail
 		SET
-			goods_view_yn = 'Y'
+			goods_detail_view_yn = 'Y'
 		WHERE
-			goods_seq = #{goods_seq}
+			goods_detail_seq = #{goods_detail_seq}
 	</update>
 	
 	<update id="detail_isViewY" parameterType="hashMap">
@@ -140,11 +144,11 @@
 	
 	<update id="isViewN" parameterType="hashMap">
 		UPDATE
-			t_goods
+			t_goods_detail
 		SET
-			goods_view_yn = 'N'
+			goods_detail_view_yn = 'N'
 		WHERE
-			goods_seq = #{goods_seq}
+			goods_detail_seq = #{goods_detail_seq}
 	</update>
 	
 	<update id="detail_isViewN" parameterType="hashMap">
@@ -160,39 +164,39 @@
 	
 	<update id="update" parameterType="hashMap">
 		UPDATE 
-			t_goods
-		SET
-			goods_nm=#{goods_nm}, goods_post=#{goods_post}, goods_address=#{goods_address}, goods_detail_address=#{goods_detail_address}, goods_tel=#{goods_tel} 
-		WHERE
-			goods_seq=#{goods_seq}	
-	</update>
-	
-	<update id="detail_update" parameterType="hashMap">
-		UPDATE 
 			t_goods_detail
 		SET
-			goods_detail_nm=#{goods_detail_nm}, goods_detail_price=#{goods_detail_price}, goods_detail_amount=#{goods_detail_amount}, goods_detail_expression=#{goods_detail_expression} 
+			goods_detail_nm=#{goods_detail_nm}, goods_detail_price=#{goods_detail_price}, goods_detail_amount=#{goods_detail_amount}, goods_detail_expression=#{goods_detail_expression}, goods_image_path=#{goods_image_path}, goods_post=#{goods_post}, goods_address=#{goods_address}, goods_detail_address=#{goods_detail_address}, goods_detail_tel=#{goods_detail_tel}, t_goods_type_seq=#{t_goods_type_seq}
 		WHERE
-			goods_detail_seq=#{goods_detail_seq}	
+			goods_detail_seq=#{goods_detail_seq}
 	</update>
+	
+<!--	<update id="detail_update" parameterType="hashMap">-->
+<!--		UPDATE -->
+<!--			t_goods_detail-->
+<!--		SET-->
+<!--			goods_detail_nm=#{goods_detail_nm}, goods_detail_price=#{goods_detail_price}, goods_detail_amount=#{goods_detail_amount}, goods_detail_expression=#{goods_detail_expression} -->
+<!--		WHERE-->
+<!--			goods_detail_seq=#{goods_detail_seq}	-->
+<!--	</update>-->
 	
 	<delete id="delete_first" parameterType="string">
 		DELETE
 		FROM
 			t_goods_detail
 		WHERE 
-			t_goods_seq = #{goods_seq}
+			goods_detail_seq = #{goods_detail_seq}
 		
 	</delete>
 	
-	<delete id="delete_second" parameterType="string">
-		DELETE
-		FROM
-			t_goods
-		WHERE 
-			goods_seq = #{goods_seq}
-		
-	</delete>
+<!--	<delete id="delete_second" parameterType="string">-->
+<!--		DELETE-->
+<!--		FROM-->
+<!--			t_goods_detail-->
+<!--		WHERE -->
+<!--			goods_detail_seq = #{goods_detail_seq}-->
+<!--		-->
+<!--	</delete>-->
 	
 	<delete id="detail_delete" parameterType="hashMap">
 		DELETE
@@ -205,12 +209,12 @@
 	</delete>
 
 	<select id="selectSearch" parameterType="hashMap" resultType="goods">
-		SELECT * FROM t_goods
-		where  goods_nm Like CONCAT('%',#{search},'%')
+		SELECT * FROM t_goods_detail
+		where  goods_detail_nm Like CONCAT('%',#{search},'%')
 		Limit #{limit},16
 	</select>
 	<select id="selectCategorySearch" parameterType="hashMap" resultType="goods">
-		SELECT * FROM t_goods
+		SELECT * FROM t_goods_detail
 		where t_goods_type_seq = #{category}
 		Limit #{limit},16
 	</select>
