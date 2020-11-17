@@ -45,7 +45,7 @@ public class S3Service {
     }
 
     public String upload(MultipartFile file, String name) throws IOException {
-        String fileName = name + file.getOriginalFilename();
+        String fileName = name ;
 
         s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
