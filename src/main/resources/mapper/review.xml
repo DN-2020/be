@@ -14,7 +14,7 @@
         select * from t_review
         join t_reservation on t_reservation.reservation_seq = t_review.t_reservation_seq
         left join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
-        left join t_goods on t_goods.goods_seq = t_goods_detail.t_goods_seq
+        join t_company on t_goods_detail.t_company_seq = company_seq
         where t_company_seq =#{company_seq}
     </select>
     <!--상품 리뷰 목록 -->
@@ -22,22 +22,16 @@
         select * from t_review
         join t_reservation on t_reservation.reservation_seq = t_review.t_reservation_seq
         join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
-        where t_goods_seq = #{goods_seq}
+        where t_goods_detail.goods_detail_seq = #{goods_detail_seq}
     </select>
-    <!--상세 상품 리뷰 목록-->
-    <select id ="selectGoodsDetailReviewList" parameterType="Hashmap" resultType="Hashmap">
-        select * from t_review
-        join t_reservation on t_reservation.reservation_seq = t_review.t_reservation_seq
-        where t_goods_detail_seq = #{goods_detail_seq}
-    </select>
+
     <!--후기리스트 목록-->
     <select id="selectListReview" parameterType="Hashmap" resultType="Hashmap">
         select * from t_review
         join t_reservation on t_reservation.reservation_seq = t_review.t_reservation_seq
         join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
-        join t_goods on t_goods.goods_seq = t_goods_detail.t_goods_seq
-        join t_company on t_goods.t_company_seq = t_company.company_seq
-        where t_goods.goods_nm like concat("%",#{goods_nm},"%")
+        join t_company on t_goods_detail.t_company_seq = t_company.company_seq
+        where t_goods_detail.goods_detail_nm like concat("%",#{goods_detail_nm},"%")
         and t_company.company_nm like concat("%",#{company_nm},"%")
     </select>
 
@@ -52,8 +46,7 @@
         select * from t_review
         join t_reservation on t_reservation.reservation_seq = t_review.t_reservation_seq
         join t_goods_detail on t_goods_detail.goods_detail_seq = t_reservation.t_goods_detail_seq
-        join t_goods on t_goods.goods_seq = t_goods_detail.t_goods_seq
-        join t_company on t_goods.t_company_seq = t_company.company_seq
+        join t_company on t_goods_detail.t_company_seq = t_company.company_seq
         where t_review.review_seq = #{review_seq}
     </select>
 

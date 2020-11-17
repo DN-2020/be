@@ -52,6 +52,7 @@ public class SignController {
 	@PostMapping("/signup")
 	public Response signup(HttpServletRequest req, HttpServletResponse res, @RequestBody Customer user) throws Exception {
 
+		System.out.println(user.toString());
 		authService.signUp(user);
 		
 		return new Response("200", "회원가입을 성공적으로 하였습니다.", null);

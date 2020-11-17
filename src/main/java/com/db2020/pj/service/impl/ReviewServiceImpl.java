@@ -56,9 +56,5 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewRepository.selectGoodsReviewList(map);
     }
 
-    @Override
-    public List<HashMap<String, Object>> selectGoodsDetailReviewList(HashMap<String, Object> map) {
-        ReviewRepository reviewRepository = new ReviewRepository(sqlSession);
-        return reviewRepository.selectGoodsDetailReviewList(map);
-    }
+
 }

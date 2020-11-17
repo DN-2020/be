@@ -23,26 +23,28 @@ public class GoodsServiceImpl implements GoodsService{
 	SqlSession sqlSession;
 
 	
-	@Override
-	public void register(Map<String, String> goods) {
-		goodsRepository.register(goods);
-	}
+//	@Override
+//	public void register(Map<String, String> goods) {
+//		goodsRepository.register(goods);
+//	}
 
 	@Override
-	public void detail_register(Map<String, String> detail_goods) {
-		goodsRepository.detail_register(detail_goods);
+	public void detail_register(GoodsDetail goodsDetail) {
+
+		goodsRepository.detail_register(goodsDetail);
 	}
 
-	@Override
-	public Goods selectOne(int goods_seq) {
-		Goods goods = goodsRepository.selectOne(goods_seq);
-		
-		return goods;
-	}
+//	@Override
+//	public Goods selectOne(int goods_seq) {
+//		Goods goods = goodsRepository.selectOne(goods_seq);
+//
+//		return goods;
+//	}
 	
 	@Override
 	public GoodsDetail selectOne(HashMap<String, Object> goods_detail) {
 		GoodsDetail goodsDetail = goodsRepository.selectOne(goods_detail);
+		System.out.println(goodsDetail);
 		GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
 
 		goodsDetail.setGoods_detail_image(repository.selectGoodsDetailImage(goods_detail));
@@ -56,15 +58,15 @@ public class GoodsServiceImpl implements GoodsService{
 //	}
 
 	@Override
-	public List<Goods> selectList(Map<String, Object> parameter) {
-		List<Goods> goodsList = goodsRepository.selectList(parameter);
+	public List<GoodsDetail> selectList(Map<String, Object> parameter) {
+		List<GoodsDetail> goodsList = goodsRepository.selectList(parameter);
 		
 		return goodsList;
 	}
 
 	@Override
-	public List<Goods> selectAdminList(Map<String, Object> parameter) {
-		List<Goods> goodsList = goodsRepository.selectAdminList(parameter);
+	public List<GoodsDetail> selectAdminList(Map<String, Object> parameter) {
+		List<GoodsDetail> goodsList = goodsRepository.selectAdminList(parameter);
 		return goodsList;
 	}
 
@@ -80,31 +82,30 @@ public class GoodsServiceImpl implements GoodsService{
 		
 	}
 
-	@Override
-	public void goodsDetailIsView(Map<String, Object> parameter, String goods_detail_view_yn) {
-		goodsRepository.goodsDetailIsView(parameter, goods_detail_view_yn);
-	}
+//	@Override
+//	public void goodsDetailIsView(Map<String, Object> parameter, String goods_detail_view_yn) {
+//		goodsRepository.goodsDetailIsView(parameter, goods_detail_view_yn);
+//	}
 
 	@Override
 	public void update(Map<String, Object> goods) {
 		goodsRepository.update(goods);
 		
 	}
-	
-	@Override
-	public void detail_update(Map<String, Object> goods) {
-		goodsRepository.detail_update(goods);
-	}
+//	@Override
+//	public void detail_update(Map<String, Object> goods) {
+//		goodsRepository.detail_update(goods);
+//	}
 
 	@Override
 	public void delete(String goods_seq) {
 		goodsRepository.delete(goods_seq);		
 	}
 
-	@Override
-	public void detail_delete(Map<String, String> parameter) {
-		goodsRepository.detail_delete(parameter);
-	}
+//	@Override
+//	public void detail_delete(Map<String, String> parameter) {
+//		goodsRepository.detail_delete(parameter);
+//	}
 
 	@Override
 	public List<Goods> selectSearch(HashMap<String, Object> map) {

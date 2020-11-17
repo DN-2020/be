@@ -36,6 +36,7 @@ public class UserRepositoryImpl implements UserRepository{
 
 	@Override
 	public void signUp(Customer customer) {
+		System.out.println(customer.toString());
 		sqlSession.insert("customer.signUp", customer);
 //		sqlSession.insert("customer.signRole", customer.getRoles());	
 	}

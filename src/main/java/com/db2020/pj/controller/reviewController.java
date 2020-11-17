@@ -19,7 +19,7 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("*") 
 @RequestMapping(value = "/v1")
 public class reviewController {
 
@@ -44,30 +44,61 @@ public class reviewController {
     public Response addReview(@RequestBody HashMap<String, Object> map,
                               HttpServletRequest request,
                               HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
-
-        String jwt = jwtToken.getValue();
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//
+//        String jwt = jwtToken.getValue();
+    	String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         reviewService.insertReview(map);
 
-        return new Response("200", "예약내역 조회를 성공했습니다.", null);
+        return new Response("200", "리뷰 등록을 성공했습니다.", null);
     }
 
+    //회사 리뷰 조회
+    @GetMapping("/company/{company_seq}/review")
+    public Response companyReview(@PathVariable Integer company_seq){
+        HashMap<String ,Object> map = new HashMap<>();
+        map.put("company_seq", company_seq);
+
+        List<HashMap<String, Object>> result = reviewService.selectCompanyReviewList(map);
+        if(result.isEmpty()){
+            result = null;
+        }
+        return new Response("200", "회사 리뷰 조회를 성공하셨습니다." ,result);
+    }
+    //상품 리뷰 조회
+
+    @GetMapping("/goods/{goods_seq}/review")
+    public Response goodsReview(@PathVariable Integer goods_seq){
+        HashMap<String ,Object> map = new HashMap<>();
+        map.put("goods_seq", goods_seq);
+
+        List<HashMap<String, Object>> result = reviewService.selectGoodsReviewList(map);
+        if(result.isEmpty()){
+            result = null;
+        }
+        return new Response("200", "상품 리뷰 조회를 성공하셨습니다." ,result);
+    }
+    //상품 상세 리뷰 조회
+    @GetMapping("/goodsdetail/{goods_detail_seq}/review")
+    public Response goodsDetailReview(@PathVariable Integer goods_detail_seq){
+        HashMap<String ,Object> map = new HashMap<>();
+        map.put("goods_detail_seq", goods_detail_seq);
+        List<HashMap<String, Object>> result = reviewService.selectGoodsDetailReviewList(map);
+        if(result.isEmpty()){
+            result = null;
+        }
+        return new Response("200", "상세 상품 리뷰 조회를 성공하셨습니다." ,result);
+    }
     // 리뷰 리스트 조회 (상품별 및 회사별)
     @GetMapping("/review/list")
     public Response getReview(@RequestBody HashMap<String, Object> map,
                               HttpServletRequest request,
                               HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
-        String jwt = jwtToken.getValue();
-        String email = jwtUtil.getUsername(jwt);
-        map.put("customer_id", email);
-        int customer_seq = userService.selectUserSeq(email);
-        map.put("customer_seq", customer_seq);
         List<HashMap<String, Object>> result = reviewService.selectListReview(map);
         if(result.isEmpty()){
             result = null;
@@ -79,9 +110,10 @@ public class reviewController {
     @GetMapping("user/review/list")
     public Response getUserReview(HttpServletRequest request,
                                   HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
         HashMap<String, Object> map = new HashMap<>();
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+        String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);
@@ -100,13 +132,7 @@ public class reviewController {
                                     HttpServletResponse response) {
     	HashMap<String, Object> map = new HashMap<>();
         map.put("review_seq", review_seq);
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
-        String jwt = jwtToken.getValue();
-        String email = jwtUtil.getUsername(jwt);
-        map.put("customer_id", email);
-        int customer_seq = userService.selectUserSeq(email);
-        map.put("customer_seq", customer_seq);
         HashMap<String, Object> result = reviewService.selectDetailReview(map);
         return new Response("200", "사용자 상세 후기 조회 성공하셨습니다.", result);
     }
@@ -116,9 +142,10 @@ public class reviewController {
                                        @PathVariable int review_seq,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
-        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
+//        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
-        String jwt = jwtToken.getValue();
+//        String jwt = jwtToken.getValue();
+    	String jwt = request.getHeader("Authorization");
         String email = jwtUtil.getUsername(jwt);
         map.put("customer_id", email);
         int customer_seq = userService.selectUserSeq(email);

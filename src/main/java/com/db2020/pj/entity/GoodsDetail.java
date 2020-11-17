@@ -21,13 +21,20 @@ public class GoodsDetail {
 
 	int goods_detail_seq;
 	String goods_detail_nm;
-	String promotion_nm;
 	int goods_detail_price;
 	int goods_detail_amount;
-	String goods_detail_view_yn;
 	String goods_detail_expression;
-	int t_goods_seq;
+	String goods_image_path;
+	int goods_post;
+	String goods_address;
+	String goods_detail_address;
+	String goods_detail_tel;
+	String goods_detail_view_yn;
+	String goods_detail_createAt;
+	String promotion_nm;
+	int t_company_seq;
 	int t_promotion_seq;
+	int t_goods_type_seq;
 	List<HashMap<String, Object>> goods_detail_image;
 
 	@Override
@@ -35,12 +42,17 @@ public class GoodsDetail {
 		return "GoodsDetail{" +
 				"goods_detail_seq=" + goods_detail_seq +
 				", goods_detail_nm='" + goods_detail_nm + '\'' +
-				", promotion_nm='" + promotion_nm + '\'' +
 				", goods_detail_price=" + goods_detail_price +
 				", goods_detail_amount=" + goods_detail_amount +
-				", goods_detail_view_yn='" + goods_detail_view_yn + '\'' +
 				", goods_detail_expression='" + goods_detail_expression + '\'' +
-				", t_goods_seq=" + t_goods_seq +
+				", goods_image_path='" + goods_image_path + '\'' +
+				", goods_post=" + goods_post +
+				", goods_address='" + goods_address + '\'' +
+				", goods_detail_address='" + goods_detail_address + '\'' +
+				", goods_detail_tel='" + goods_detail_tel + '\'' +
+				", goods_detail_view_yn='" + goods_detail_view_yn + '\'' +
+				", goods_detail_createAt='" + goods_detail_createAt + '\'' +
+				", promotion_nm='" + promotion_nm + '\'' +
 				", t_promotion_seq=" + t_promotion_seq +
 				", goods_detail_image=" + goods_detail_image +
 				'}';

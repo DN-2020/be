@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,42 +32,43 @@ import com.db2020.pj.service.ResponseService;
 @RequestMapping(value = "/v1")
 public class GoodsController {
 
+    private Logger logger = LoggerFactory.getLogger(GoodsController.class);
+
     @Autowired
     private GoodsService goodsService;
 
     @Autowired
     private ResponseService responseService;
 
-    // 상품등록
-    @PostMapping("/goods")
-    public Response register(@RequestBody Map<String, String> goods) {
-
-        goodsService.register(goods);
-        
-        return new Response("200", "상품등록을 성공적으로 완료했습니다.", null);
-    }
+//    // 상품등록
+//    @PostMapping("/goods")
+//    public Response register(@RequestBody Map<String, String> goods) {
+//
+//        goodsService.register(goods);
+//
+//        return new Response("200", "상품등록을 성공적으로 완료했습니다.", null);
+//    }
 
     // 상세 상품 등록
-    @PostMapping("/goods/{goods_seq}")
-    public Response detail_register(@PathVariable String goods_seq, @RequestBody Map<String, String> goods) {
-        goods.put("goods_seq", goods_seq);
+    @PostMapping("/goods")
+    public Response detail_register(@RequestBody GoodsDetail goods) {
 
         goodsService.detail_register(goods);
 
         return new Response("200", "상세 상품등록을 성공적으로 완료했습니다.", null);
     }
 
-    // 상품 조회
-    @GetMapping("/goods/{goods_seq}")
-    public Response selectGoods(@PathVariable int goods_seq) {
-
-        Goods goods = goodsService.selectOne(goods_seq);
-
-        return new Response("200", "상품 조회를 성공적으로 하였습니다.", goods);
-    }
+//    // 상품 조회
+//    @GetMapping("/goods/{goods_seq}")
+//    public Response selectGoods(@PathVariable int goods_seq) {
+//
+//        Goods goods = goodsService.selectOne(goods_seq);
+//
+//        return new Response("200", "상품 조회를 성공적으로 하였습니다.", goods);
+//    }
 
     // 상품 상세 조회
-    @GetMapping("/goods/{goods_seq}/{goods_detail_seq}")
+    @GetMapping("/goods/{goods_detail_seq}")
     public Response selectDetailGoods(@PathVariable HashMap<String, Object> goods_detail) {
 
         GoodsDetail goodsDetail = goodsService.selectOne(goods_detail);
@@ -74,7 +77,7 @@ public class GoodsController {
     }
 
 	// 상품 예약 된 날짜 조회
-	@GetMapping("/goods/{goods_seq}/{goods_detail_seq}/reserve_date")
+	@GetMapping("/goods/{goods_detail_seq}/reserve_date")
 	public Response selectReserve_date(@PathVariable Map<String, Object> parameter){
 		
 		List<HashMap<String, Object>> data = goodsService.reserve_date(parameter);
@@ -85,12 +88,11 @@ public class GoodsController {
 		return new Response("200", "상품 예약 된 날짜 조회를 성공하였습니다.", data);
 	}
 
-
     // 상품 리스트 조회
     @GetMapping("/goods/company/list")
     public Response selectGoodsList(@RequestParam Map<String, Object> parameter) {
 
-        List<Goods> goodsList = goodsService.selectList(parameter);
+        List<GoodsDetail> goodsList = goodsService.selectList(parameter);
 
         return new Response("200", "상품 회사별 리스트를 성공적으로 조회하였습니다.", goodsList);
     }
@@ -99,7 +101,7 @@ public class GoodsController {
     @GetMapping("/goods/admin/list")
     public Response adminGoodsList(@RequestParam Map<String, Object> parameter) {
 
-        List<Goods> goodsList = goodsService.selectAdminList(parameter);
+        List<GoodsDetail> goodsList = goodsService.selectAdminList(parameter);
 
         return new Response("200", "관리자용 상품 리스트를 성공적으로 조회하였습니다.", goodsList);
       
@@ -118,66 +120,66 @@ public class GoodsController {
     }
 
     // 상품 리스트 단일 등록 변경
-    @PutMapping("/goods/{goods_seq}/isView")
-    public Response goodsRegister(@PathVariable String goods_seq, @RequestBody Map<String, Object> parameter) {
+    @PutMapping("/goods/{goods_detail_seq}/isView")
+    public Response goodsRegister(@PathVariable String goods_detail_seq, @RequestBody Map<String, Object> parameter) {
 
-        parameter.put("goods_seq", goods_seq);
+        parameter.put("goods_detail_seq", goods_detail_seq);
         goodsService.goodsIsView(parameter);
 
         return new Response("200", "상품의 등록상태를 성공적으로 변경하였습니다.", null);
     }
 
-    // 상품 리스트 상세 등록 변경
-    @PutMapping("/goods/{goods_seq}/{goods_detail_seq}/isView")
-    public Response goodsDetailRegister(@PathVariable Map<String, Object> parameter, @RequestBody Map<String, Object> goods_detail_view_yn) {
-
-//        parameter.put("goods_detail_view_yn", goods_detail_view_yn);
-    	goods_detail_view_yn.get("goods_detail_view_yn");
-    	String param = (String)goods_detail_view_yn.get("goods_detail_view_yn");
-    	System.out.println(param);
-        goodsService.goodsDetailIsView(parameter, param);
-
-        return new Response("200", "상품 상세의 등록상태를 성공적으로 변경하였습니다.", null);
-    }
+//    // 상품 리스트 상세 등록 변경
+//    @PutMapping("/goods/{goods_seq}/{goods_detail_seq}/isView")
+//    public Response goodsDetailRegister(@PathVariable Map<String, Object> parameter, @RequestBody Map<String, Object> goods_detail_view_yn) {
+//
+////        parameter.put("goods_detail_view_yn", goods_detail_view_yn);
+//    	goods_detail_view_yn.get("goods_detail_view_yn");
+//    	String param = (String)goods_detail_view_yn.get("goods_detail_view_yn");
+//    	System.out.println(param);
+//        goodsService.goodsDetailIsView(parameter, param);
+//
+//        return new Response("200", "상품 상세의 등록상태를 성공적으로 변경하였습니다.", null);
+//    }
 
     // 상품 정보 수정
-    @PutMapping("/goods/{goods_seq}")
-    public Response updateGoods(@PathVariable String goods_seq, @RequestBody Map<String, Object> goods) {
+    @PutMapping("/goods/{goods_detail_seq}")
+    public Response updateGoods(@PathVariable String goods_detail_seq, @RequestBody Map<String, Object> goods) {
 
-        goods.put("goods_seq", goods_seq);
+        goods.put("goods_detail_seq", goods_detail_seq);
         goodsService.update(goods);
         
         return new Response("200", "상품 수정을 성공적으로 하였습니다.", null);
     }
 
-    // 상품 정보 상세 수정
-    @PutMapping("/goods/{goods_seq}/{goods_detail_seq}")
-    public Response detail_updateGoods(@PathVariable Map<String, Object> parameter, @RequestBody Map<String, Object> goods) {
+//    // 상품 정보 상세 수정
+//    @PutMapping("/goods/{goods_seq}/{goods_detail_seq}")
+//    public Response detail_updateGoods(@PathVariable Map<String, Object> parameter, @RequestBody Map<String, Object> goods) {
+//
+//        goods.put("goods_seq", parameter.get("goods_seq"));
+//        goods.put("goods_detail_seq", parameter.get("goods_detail_seq"));
+//
+//        System.out.println(parameter.get("goods_seq"));
+//        System.out.println(parameter.get("goods_detail_seq"));
+//        goodsService.detail_update(goods);
+//        return new Response("200", "상세 상품 수정을 성공적으로 하였습니다.", null);
+//    }
 
-        goods.put("goods_seq", parameter.get("goods_seq"));
-        goods.put("goods_detail_seq", parameter.get("goods_detail_seq"));
+    @DeleteMapping("/goods/{goods_detail_seq}")
+    public Response deleteGoods(@PathVariable String goods_detail_seq) {
 
-        System.out.println(parameter.get("goods_seq"));
-        System.out.println(parameter.get("goods_detail_seq"));
-        goodsService.detail_update(goods);
-        return new Response("200", "상세 상품 수정을 성공적으로 하였습니다.", null);
-    }
-
-    @DeleteMapping("/goods/{goods_seq}")
-    public Response deleteGoods(@PathVariable String goods_seq) {
-
-        goodsService.delete(goods_seq);
+        goodsService.delete(goods_detail_seq);
 
         return new Response("200", "상품 삭제를 성공적으로 하였습니다.", null);
     }
 
-    @DeleteMapping("/goods/{goods_seq}/{goods_detail_seq}")
-    public Response detail_deleteGoods(@PathVariable Map<String, String> parameter) {
-
-        goodsService.detail_delete(parameter);
-
-        return new Response("200", "상세 상품 삭제를 성공적으로 하였습니다.", null);
-    }
+//    @DeleteMapping("/goods/{goods_seq}/{goods_detail_seq}")
+//    public Response detail_deleteGoods(@PathVariable Map<String, String> parameter) {
+//
+//        goodsService.detail_delete(parameter);
+//
+//        return new Response("200", "상세 상품 삭제를 성공적으로 하였습니다.", null);
+//    }
 
     @GetMapping("/search")
     public Response searchGoods(@RequestBody HashMap<String, Object> goods) {
