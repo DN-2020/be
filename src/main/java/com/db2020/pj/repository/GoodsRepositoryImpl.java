@@ -166,12 +166,12 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 	}
 
 	@Override
-	public List<Goods> selectSearch(HashMap<String, Object> map) {
+	public List<GoodsDetail> selectSearch(HashMap<String, Object> map) {
 		return sqlSession.selectList("goods.selectSearch", map);
 	}
 
 	@Override
-	public List<Goods> selectCategorySearch(HashMap<String, Object> map) {
+	public List<GoodsDetail> selectCategorySearch(HashMap<String, Object> map) {
 		return sqlSession.selectList("goods.selectCategorySearch", map);
 	}
 

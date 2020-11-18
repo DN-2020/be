@@ -11,7 +11,6 @@ import com.db2020.pj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -21,18 +20,10 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 @RequestMapping(value = "/v1")
-public class reviewController {
+public class ReviewController {
 
     @Autowired
     private JwtUtil jwtUtil;
-    @Autowired
-    private AuthService authService;
-    @Autowired
-    private CookieUtil cookieUtil;
-    @Autowired
-    private RedisUtil redisUtil;
-    @Autowired
-    private ResponseService responseService;
     @Autowired
     private ReviewService reviewService;
     @Autowired
@@ -71,10 +62,10 @@ public class reviewController {
     }
     //상품 리뷰 조회
 
-    @GetMapping("/goods/{goods_seq}/review")
-    public Response goodsReview(@PathVariable Integer goods_seq){
+    @GetMapping("/goods/{goods_detail_seq}/review")
+    public Response goodsReview(@PathVariable Integer goods_detail_seq){
         HashMap<String ,Object> map = new HashMap<>();
-        map.put("goods_seq", goods_seq);
+        map.put("goods_detail_seq", goods_detail_seq);
 
         List<HashMap<String, Object>> result = reviewService.selectGoodsReviewList(map);
         if(result.isEmpty()){
@@ -82,17 +73,7 @@ public class reviewController {
         }
         return new Response("200", "상품 리뷰 조회를 성공하셨습니다." ,result);
     }
-    //상품 상세 리뷰 조회
-    @GetMapping("/goodsdetail/{goods_detail_seq}/review")
-    public Response goodsDetailReview(@PathVariable Integer goods_detail_seq){
-        HashMap<String ,Object> map = new HashMap<>();
-        map.put("goods_detail_seq", goods_detail_seq);
-        List<HashMap<String, Object>> result = reviewService.selectGoodsDetailReviewList(map);
-        if(result.isEmpty()){
-            result = null;
-        }
-        return new Response("200", "상세 상품 리뷰 조회를 성공하셨습니다." ,result);
-    }
+
     // 리뷰 리스트 조회 (상품별 및 회사별)
     @GetMapping("/review/list")
     public Response getReview(@RequestBody HashMap<String, Object> map,

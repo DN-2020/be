@@ -1,24 +1,18 @@
 package com.db2020.pj.controller;
 
-import com.db2020.pj.config.cookie.CookieUtil;
 import com.db2020.pj.config.jwt.JwtUtil;
-import com.db2020.pj.config.redis.RedisUtil;
 import com.db2020.pj.model.Response;
-import com.db2020.pj.service.AuthService;
 import com.db2020.pj.service.ReservationService;
-import com.db2020.pj.service.ResponseService;
 import com.db2020.pj.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @CrossOrigin("*")
@@ -31,14 +25,6 @@ public class ReservationController {
     private ReservationService reservationService;
     @Autowired
     private JwtUtil jwtUtil;
-    @Autowired
-    private AuthService authService;
-    @Autowired
-    private CookieUtil cookieUtil;
-    @Autowired
-    private RedisUtil redisUtil;
-    @Autowired
-    private ResponseService responseService;
 
     @Autowired
     private UserService userService;
@@ -52,8 +38,8 @@ public class ReservationController {
 //        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 //
 //        String jwt = jwtToken.getValue();
-    	String jwt = request.getHeader("Authorization");
-    	
+        String jwt = request.getHeader("Authorization");
+
         String email = jwtUtil.getUsername(jwt);
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
@@ -147,7 +133,7 @@ public class ReservationController {
     public Response getDetailRefund(@PathVariable int refund_seq,
                                     HttpServletRequest request,
                                     HttpServletResponse response) {
-    	HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>();
         map.put("refund_seq", refund_seq);
 //        final Cookie jwtToken = cookieUtil.getCookie(request, JwtUtil.ACCESS_TOKEN_NAME);
 
@@ -227,7 +213,7 @@ public class ReservationController {
         return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
 
-    //회사의 상세 예약 내역 조회 
+    //회사의 상세 예약 내역 조회
     @GetMapping("/company/{company_seq}/reservation/{reservation_seq}")
     public Response getDetailCompanyReservation(@PathVariable int company_seq, @PathVariable int reservation_seq,
                                                 HttpServletRequest request,

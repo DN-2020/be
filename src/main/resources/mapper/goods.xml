@@ -208,12 +208,12 @@
 			t_goods_seq = #{goods_seq}	
 	</delete>
 
-	<select id="selectSearch" parameterType="hashMap" resultType="goods">
+	<select id="selectSearch" parameterType="hashMap" resultType="goodsDetail">
 		SELECT * FROM t_goods_detail
 		where  goods_detail_nm Like CONCAT('%',#{search},'%')
 		Limit #{limit},16
 	</select>
-	<select id="selectCategorySearch" parameterType="hashMap" resultType="goods">
+	<select id="selectCategorySearch" parameterType="hashMap" resultType="goodsDetail">
 		SELECT * FROM t_goods_detail
 		where t_goods_type_seq = #{category}
 		Limit #{limit},16

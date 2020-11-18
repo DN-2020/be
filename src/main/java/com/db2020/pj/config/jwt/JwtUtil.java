@@ -25,8 +25,8 @@ import io.jsonwebtoken.UnsupportedJwtException;
 @Component
 public class JwtUtil {
 
-//    public final static long TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 2L ;  		// Access_Token  2시간 설정
-	public final static long TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 48L ;  		// Access_Token  2일 설정
+    //    public final static long TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 2L ;  		// Access_Token  2시간 설정
+    public final static long TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 48L ;  		// Access_Token  2일 설정
     public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000 * 60L * 60L * 24L;   // Refresh_Token 하루 설정
 
     final static public String ACCESS_TOKEN_NAME = "accessToken";
@@ -68,7 +68,7 @@ public class JwtUtil {
 
     // 토큰이 유효한 토큰인지 검사한 후, 토큰에 담긴 Payload 값을 가져온다
     public Claims extractAllClaims(String token) {
-    	System.out.println("extractAllClaims method ::" + token);
+        System.out.println("extractAllClaims method ::" + token);
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
                 .parseClaimsJws(token)
@@ -78,7 +78,7 @@ public class JwtUtil {
 
     // 추출한 Payload로 부터 userName을 가져온다.
     public String getUsername(String token) {
-    	System.out.println("getUserName method ::"+ token);
+        System.out.println("getUserName method ::"+ token);
         return extractAllClaims(token).get("username", String.class);
     }
 

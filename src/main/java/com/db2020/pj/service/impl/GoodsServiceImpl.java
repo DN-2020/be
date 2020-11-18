@@ -44,7 +44,6 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public GoodsDetail selectOne(HashMap<String, Object> goods_detail) {
 		GoodsDetail goodsDetail = goodsRepository.selectOne(goods_detail);
-		System.out.println(goodsDetail);
 		GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
 
 		goodsDetail.setGoods_detail_image(repository.selectGoodsDetailImage(goods_detail));
@@ -108,14 +107,14 @@ public class GoodsServiceImpl implements GoodsService{
 //	}
 
 	@Override
-	public List<Goods> selectSearch(HashMap<String, Object> map) {
+	public List<GoodsDetail> selectSearch(HashMap<String, Object> map) {
 		int limit = Integer.parseInt(map.get("limit").toString());
 		map.put("limit", limit);
 		return goodsRepository.selectSearch(map);
 	}
 
 	@Override
-	public List<Goods> selectCategorySearch(HashMap<String, Object> map) {
+	public List<GoodsDetail> selectCategorySearch(HashMap<String, Object> map) {
 		int limit = Integer.parseInt(map.get("limit").toString());;
 		map.put("limit", limit);
 		return goodsRepository.selectCategorySearch(map);

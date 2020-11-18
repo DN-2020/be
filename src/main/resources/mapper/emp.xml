@@ -6,8 +6,8 @@
  
    <insert id="empInsert" parameterType="empVO">
    		INSERT
-   		INTO t_emp(emp_nm,emp_account,emp_pw,emp_joinDate,emp_address,emp_email,emp_tel,emp_phone,emp_createAt,emp_isUsed,dept_seq,company_seq)
-   		VALUES(#{emp_nm},#{emp_account},#{emp_pw},#{emp_joinDate},#{emp_address},#{emp_email},#{emp_tel},#{emp_phone},#{emp_createAt},"enable",#{dept_seq},#{company_seq})
+   		INTO t_emp(emp_email, emp_nm, emp_account, emp_pw, emp_joinDate, emp_address, emp_tel, emp_phone, emp_createAt, emp_isUsed, dept_seq, emp_role, company_seq)
+   		VALUES(#{emp_email}, #{emp_nm},#{emp_account},#{emp_pw},#{emp_joinDate},#{emp_address},#{emp_tel},#{emp_phone},#{emp_createAt},"enable",#{dept_seq}, 'ROLE_EMP', #{company_seq})
    </insert>
 
    <select id="info" parameterType="String" resultType="empVO">

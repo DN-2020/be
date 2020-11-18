@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.db2020.pj.mapper.GoodsImageMapper">
 
 
-    <insert id="insertGoodsImage" parameterType="hashmap">
-		insert into
-		t_image(t_goods_detail_seq, image_path)
-		values(#{goods_detail_seq}, #{image_path})
-	</insert>
+	<insert id="insertGoodsImage" parameterType="hashmap">
+      insert into
+      t_image(t_goods_detail_seq, image_path)
+      values(#{goods_detail_seq}, #{image_path})
+   </insert>
 	<select id="selectGoodsDetailImage" parameterType="hashmap" resultType="hashmap">
-		SELECT * FROM t_image
-		where t_goods_detail_seq = #{goods_detail_seq}
-	</select>
+      SELECT * FROM t_image
+      where t_goods_detail_seq = #{goods_detail_seq}
+   </select>
 	<select id="selectImage" parameterType="hashmap" resultType="hashmap">
-		select * from t_image
-		where image_seq = #{image_seq}
-	</select>
+      select * from t_image
+      where image_seq = #{image_seq}
+   </select>
 	<delete id="deleteGoodsImage" parameterType="hashmap">
-		delete from t_image
-		where image_seq =#{image_seq}
-	</delete>
+      delete from t_image
+      where image_seq =#{image_seq}
+   </delete>
 </mapper>

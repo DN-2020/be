@@ -38,9 +38,9 @@ public interface GoodsRepository {
 	
 	public void detail_delete(Map<String, String> parameter);
 
-	public List<Goods> selectSearch(HashMap<String, Object> map);
+	public List<GoodsDetail> selectSearch(HashMap<String, Object> map);
 
-	public List<Goods> selectCategorySearch(HashMap<String, Object> map);
+	public List<GoodsDetail> selectCategorySearch(HashMap<String, Object> map);
 
 	public List<HashMap<String, Object>> reserve_date(Map<String, Object> param);
 

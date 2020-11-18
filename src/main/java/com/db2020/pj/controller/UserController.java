@@ -67,7 +67,12 @@ public class UserController {
     @PutMapping("/user/info")
     public Response putMypage(HttpServletRequest req, HttpServletResponse res, @RequestBody Customer customer) {
 
-    	System.out.println(customer.toString());
+        String jwt = req.getHeader("Authorization");
+
+        String customer_email = jwtUtil.getUsername(jwt);
+
+        customer.setCustomer_email(customer_email);
+
         userService.userInfo(customer);
         
         return new Response("200", "유저정보를 성공적으로 수정하였습니다.", null);

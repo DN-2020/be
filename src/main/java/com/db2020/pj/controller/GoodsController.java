@@ -182,9 +182,9 @@ public class GoodsController {
 //    }
 
     @GetMapping("/search")
-    public Response searchGoods(@RequestBody HashMap<String, Object> goods) {
+    public Response searchGoods(@RequestParam HashMap<String, Object> goods) {
 
-        List<Goods> goodsList = goodsService.selectSearch(goods);
+        List<GoodsDetail> goodsList = goodsService.selectSearch(goods);
         
         if(goodsList.isEmpty()) {
         	goodsList = null;
@@ -193,9 +193,9 @@ public class GoodsController {
     }
 
     @GetMapping("/search/{category}")
-    public Response searchCategoryGoods(@RequestBody HashMap<String, Object> goods, @PathVariable String category) {
+    public Response searchCategoryGoods(@RequestParam HashMap<String, Object> goods, @PathVariable String category) {
         goods.put("category", category);
-        List<Goods> goodsList = goodsService.selectCategorySearch(goods);
+        List<GoodsDetail> goodsList = goodsService.selectCategorySearch(goods);
         if(goodsList.isEmpty()) {
         	goodsList = null;
         }
