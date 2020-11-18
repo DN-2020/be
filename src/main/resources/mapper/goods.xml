@@ -14,7 +14,7 @@
 		VALUES(#{goods_detail_nm}, #{goods_detail_price}, #{goods_detail_amount}, #{goods_detail_expression}, #{goods_image_path}, #{goods_post}, #{goods_address}, #{goods_detail_address}, #{goods_detail_tel}, 'N', #{t_promotion_seq}, #{t_company_seq}, #{t_goods_type_seq})
 	</insert>
 
-	<select id="goods_type" resultType="GoodsType">
+	<select id="goods_type" resultType="goodsType">
 		SELECT *
 		FROM t_goods_type;
 	</select>

@@ -50,7 +50,9 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
 	@Override
 	public List<GoodsType> goods_type() {
-		return sqlSession.selectList("goods.goods_type");
+		List<GoodsType> param = sqlSession.selectList("goods.goods_type");
+		System.out.println(param);
+		return param;
 	}
 
 	//	@Override
