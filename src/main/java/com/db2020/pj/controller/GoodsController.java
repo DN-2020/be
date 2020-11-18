@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.db2020.pj.entity.GoodsType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,11 @@ public class GoodsController {
 //
 //        return new Response("200", "상품등록을 성공적으로 완료했습니다.", null);
 //    }
-
+    @GetMapping("/goods/type")
+    public Response goodsType(){
+        List<GoodsType> param = goodsService.goods_type();
+        return new Response("200", "상품 타입리스트 조회를 성공적으로 완료했습니다.", param);
+    }
     // 상세 상품 등록
     @PostMapping("/goods")
     public Response detail_register(@RequestBody GoodsDetail goods) {

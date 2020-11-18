@@ -6,13 +6,15 @@ import java.util.Map;
 
 import com.db2020.pj.entity.Goods;
 import com.db2020.pj.entity.GoodsDetail;
+import com.db2020.pj.entity.GoodsType;
 
 public interface GoodsService {
 	
 //	public void register(Map<String, String> goods);
 	
 	public void detail_register(GoodsDetail goodsDetail);
-	
+
+	public List<GoodsType> goods_type();
 //	public Goods selectOne(int goods_seq);
 	
 	public GoodsDetail selectOne(HashMap<String, Object> goods_detail);

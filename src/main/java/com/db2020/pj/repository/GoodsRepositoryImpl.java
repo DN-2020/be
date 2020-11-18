@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.db2020.pj.controller.GoodsController;
+import com.db2020.pj.entity.GoodsType;
 import org.apache.ibatis.session.SqlSession;
 import org.hibernate.exception.DataException;
 import org.slf4j.Logger;
@@ -47,7 +48,12 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 		}
 	}
 
-//	@Override
+	@Override
+	public List<GoodsType> goods_type() {
+		return sqlSession.selectList("goods.goods_type");
+	}
+
+	//	@Override
 //	public Goods selectOne(int goods_seq) {
 //
 //		Goods goods = sqlSession.selectOne("goods.select_goods", goods_seq);

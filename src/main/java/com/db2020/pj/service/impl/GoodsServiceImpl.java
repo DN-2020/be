@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.db2020.pj.entity.GoodsType;
 import com.db2020.pj.repository.GoodsImageRepository;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,12 @@ public class GoodsServiceImpl implements GoodsService{
 		goodsRepository.detail_register(goodsDetail);
 	}
 
-//	@Override
+	@Override
+	public List<GoodsType> goods_type() {
+		return goodsRepository.goods_type();
+	}
+
+	//	@Override
 //	public Goods selectOne(int goods_seq) {
 //		Goods goods = goodsRepository.selectOne(goods_seq);
 //

@@ -4,12 +4,12 @@
   
 <mapper namespace="promotionDAO">
 
-	
+
 	<select id="promotionList" resultType="promotionVO">
 		SELECT *
 		FROM t_promotion
 	</select>
-	
+
 	<insert id="promotionInsert" parameterType="promotionVO">
 		INSERT 
 		INTO t_promotion(promotion_nm,promotion_discount,promotion_discountType,promotion_st,promotion_end)
