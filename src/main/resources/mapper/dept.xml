@@ -11,14 +11,14 @@
     
     <insert id="deptInsert" parameterType="deptVO">
     	INSERT
-    	INTO t_dept(dept_nm,dept_path,dept_manager,dept_createAt,company_seq)
-    	VALUES(#{dept_nm},#{dept_path},#{dept_manager},#{dept_createAt},#{company_seq})
+    	INTO t_dept(dept_nm,dept_manager,dept_createAt,company_seq)
+    	VALUES(#{dept_nm},#{dept_manager},#{dept_createAt},#{company_seq})
     </insert>
     
     <insert id="topDeptInsert" parameterType="deptVO">
     	INSERT
-    	INTO t_dept(dept_nm,dept_path,dept_manager,dept_createAt,company_seq,t_dept_seq,t_company_seq)
-    	VALUES(#{dept_nm},#{dept_path},#{dept_manager},#{dept_createAt},#{company_seq},#{t_dept_seq},#{t_company_seq})
+    	INTO t_dept(dept_nm,dept_manager,dept_createAt,company_seq,t_dept_seq,t_company_seq)
+    	VALUES(#{dept_nm},#{dept_manager},#{dept_createAt},#{company_seq},#{t_dept_seq},#{t_company_seq})
     </insert>
     
     <select id="deptDetailList" parameterType="Integer" resultType="deptVO">
@@ -29,7 +29,7 @@
     
     <update id="deptUpdate" parameterType="deptVO">
     	UPDATE t_dept
-    	SET dept_nm=#{dept_nm},dept_path=#{dept_path},dept_manager=#{dept_manager},dept_updateAt=#{dept_updateAt},company_seq=#{company_seq},t_dept_seq=#{t_dept_seq},t_company_seq=#{t_company_seq}
+    	SET dept_nm=#{dept_nm},dept_manager=#{dept_manager},dept_updateAt=#{dept_updateAt},company_seq=#{company_seq},t_dept_seq=#{t_dept_seq},t_company_seq=#{t_company_seq}
     	WHERE dept_seq=#{dept_seq}
     </update>
     

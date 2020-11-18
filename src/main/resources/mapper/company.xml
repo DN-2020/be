@@ -11,8 +11,8 @@
    
    <insert id="companyInsert" parameterType="companyVO">
    		INSERT
-   		INTO t_company(company_nm,company_tel,company_post,company_address,company_detail_address,company_email,company_num,company_regist_num,company_createAt,company_role)
-   		VALUES (#{company_nm},#{company_tel},#{company_post},#{company_address},#{company_detail_address},#{company_email},#{company_num},#{company_regist_num},#{company_createAt},"ROLE_EMP")
+   		INTO t_company(company_nm,company_tel,company_post,company_address,company_detail_address,company_email,company_num,company_regist_num,company_createAt)
+   		VALUES (#{company_nm},#{company_tel},#{company_post},#{company_address},#{company_detail_address},#{company_email},#{company_num},#{company_regist_num},#{company_createAt})
    </insert>
    
    <select id="companyDetailList" parameterType="Integer" resultType="companyVO">

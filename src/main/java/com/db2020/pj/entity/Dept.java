@@ -11,7 +11,6 @@ public class Dept {
 
     private int dept_seq;
     private String dept_nm;
-    private String dept_path;
     private String dept_manager;
     private String dept_createAt;
     private String dept_updateAt;
