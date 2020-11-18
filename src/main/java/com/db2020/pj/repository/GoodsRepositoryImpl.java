@@ -41,11 +41,11 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 
 		int goods_detail_seq = sqlSession.selectOne("goods.select_seq");
 
-		for(HashMap<String, Object> param : detail_goods.getGoods_detail_image()) {
-			param.put("goods_detail_seq", goods_detail_seq);
-
-			sqlSession.insert("goods.image_register", param);
-		}
+//		for(HashMap<String, Object> param : detail_goods.getGoods_detail_image()) {
+//			param.put("goods_detail_seq", goods_detail_seq);
+//
+//			sqlSession.insert("goods.image_register", param);
+//		}
 	}
 
 	@Override

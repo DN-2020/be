@@ -50,9 +50,9 @@ public class GoodsServiceImpl implements GoodsService{
 	@Override
 	public GoodsDetail selectOne(HashMap<String, Object> goods_detail) {
 		GoodsDetail goodsDetail = goodsRepository.selectOne(goods_detail);
-		GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
+//		GoodsImageRepository repository = new GoodsImageRepository(sqlSession);
 
-		goodsDetail.setGoods_detail_image(repository.selectGoodsDetailImage(goods_detail));
+//		goodsDetail.setGoods_detail_image(repository.selectGoodsDetailImage(goods_detail));
 		return goodsDetail;
 	}
 

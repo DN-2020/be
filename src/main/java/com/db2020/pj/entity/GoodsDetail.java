@@ -35,7 +35,7 @@ public class GoodsDetail {
 	int t_company_seq;
 	int t_promotion_seq;
 	int t_goods_type_seq;
-	List<HashMap<String, Object>> goods_detail_image;
+//	List<HashMap<String, Object>> goods_detail_image;
 
 	@Override
 	public String toString() {
@@ -54,7 +54,7 @@ public class GoodsDetail {
 				", goods_detail_createAt='" + goods_detail_createAt + '\'' +
 				", promotion_nm='" + promotion_nm + '\'' +
 				", t_promotion_seq=" + t_promotion_seq +
-				", goods_detail_image=" + goods_detail_image +
+//				", goods_detail_image=" + goods_detail_image +
 				'}';
 	}
 }
