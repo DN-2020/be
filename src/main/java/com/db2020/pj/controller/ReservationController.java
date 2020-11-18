@@ -233,6 +233,12 @@ public class ReservationController {
         HashMap<String, Object> result = reservationService.selectDetailUserReservation(map);
         return new Response("200", "예약내역 조회를 성공했습니다.", result);
     }
+    @GetMapping("/goods/{goods_detail_seq}/reservation")
+    public Response goodsReservation(@PathVariable int goods_detail_seq){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("goods_detail_seq",goods_detail_seq);
 
+        return new Response("200", "상품 조회를 성공했습니다.",reservationService.goodsReservation(map));
+    }
 
 }

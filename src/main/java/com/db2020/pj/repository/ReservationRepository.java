@@ -50,4 +50,8 @@ public class ReservationRepository {
         return mapper.selectCompanyReservation(map);
     }
 
+    public List<HashMap<String, Object>> goodsReservation(HashMap<String, Object> map){
+        return mapper.goodsReservation(map);
+    }
+
 }

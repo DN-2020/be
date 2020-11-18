@@ -18,5 +18,5 @@ public interface ReservationMapper {
     public List<HashMap<String, Object>> selectAdminReservation();
     public List<HashMap<String, Object>> selectCompanyReservation(HashMap<String, Object> map);
     public List<HashMap<String, Object>> reserve_date(Map<String, Object> param);
-
+    public List<HashMap<String, Object>> goodsReservation(HashMap<String, Object> map);
 }

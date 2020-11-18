@@ -100,7 +100,15 @@
         where t_goods_detail.t_company_seq = #{company_seq}
     </select>
 
-    <!-- -->
+    <!-- 상품별 예약 내역 조회-->
+    <select id ="goodsReservation" parameterType="Hashmap" resultType="Hashmap">
+        select * from t_goods_detail
+        join t_reservation on goods_detail_seq = t_goods_detail_seq
+        join t_approval on t_reservation_seq = reservation_seq
+        where goods_detail_seq = #{goods_detail_seq}
+		and reservation_yn = 'y'
+    </select>
+
     <!-- 날짜별 예약 내역 조회 -->
     <select id="reserve_date" parameterType="map" resultType="hashMap">
        WITH RECURSIVE t AS
