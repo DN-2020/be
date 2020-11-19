@@ -13,4 +13,5 @@ public interface ReservationService {
     public List<HashMap<String, Object>> selectAdminReservation();
     public List<HashMap<String, Object>> selectCompanyReservation(HashMap<String, Object> map);
 
+    public List<HashMap<String, Object>> goodsReservation(HashMap<String, Object> map);
 }

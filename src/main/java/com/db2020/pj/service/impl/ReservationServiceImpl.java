@@ -138,4 +138,10 @@ public class ReservationServiceImpl implements ReservationService {
         ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
         return reservationRepository.selectDetailRefund(map);
     }
+
+    @Override
+    public List<HashMap<String, Object>> goodsReservation(HashMap<String, Object> map){
+        ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
+        return reservationRepository.goodsReservation(map);
+    }
 }
