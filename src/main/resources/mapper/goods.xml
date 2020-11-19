@@ -170,7 +170,7 @@
 		UPDATE 
 			t_goods_detail
 		SET
-			goods_detail_nm=#{goods_detail_nm}, goods_detail_price=#{goods_detail_price}, goods_detail_amount=#{goods_detail_amount}, goods_detail_expression=#{goods_detail_expression}, goods_image_path=#{goods_image_path}, goods_post=#{goods_post}, goods_address=#{goods_address}, goods_detail_address=#{goods_detail_address}, goods_detail_tel=#{goods_detail_tel}, t_goods_type_seq=#{t_goods_type_seq}
+			goods_detail_nm=#{goods_detail_nm}, goods_detail_price=#{goods_detail_price}, goods_detail_amount=#{goods_detail_amount}, goods_detail_expression=#{goods_detail_expression}, goods_image_path=#{goods_image_path}, goods_post=#{goods_post}, goods_address=#{goods_address}, goods_detail_address=#{goods_detail_address}, goods_detail_tel=#{goods_detail_tel}, t_promotion_seq=#{t_promotion_seq}, t_goods_type_seq=#{t_goods_type_seq}
 		WHERE
 			goods_detail_seq=#{goods_detail_seq}
 	</update>
