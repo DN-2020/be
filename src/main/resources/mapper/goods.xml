@@ -36,17 +36,29 @@
 <!--			a.t_goods_type_seq = b.type_seq-->
 <!--		-->
 <!--	</select>-->
-	
-	<select id="detail_goods" parameterType="hashMap" resultType="goodsDetail" >
-		SELECT a.*, b.promotion_nm
+
+<!--		버전 1 상품 출력-->
+<!--	<select id="detail_goods" parameterType="hashMap" resultType="goodsDetail" >-->
+<!--		SELECT a.*, b.promotion_nm-->
+<!--		FROM-->
+<!--			t_goods_detail a, t_promotion b-->
+<!--		WHERE-->
+<!--			a.goods_detail_seq = #{goods_detail_seq}-->
+<!--		AND-->
+<!--			a.t_promotion_seq = b.promotion_seq-->
+<!--	</select>-->
+	<select id="detail_goods" parameterType="hashMap" resultType="goodsDetail">
+		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade, d.promotion_nm
 		FROM
-			t_goods_detail a, t_promotion b
+			dn2020b.t_goods_detail a
+		LEFT JOIN dn2020b.t_reservation b ON dn2020b.a.goods_detail_seq = dn2020b.b.t_goods_detail_seq
+        LEFT JOIN dn2020b.t_review c ON dn2020b.b.reservation_seq = dn2020b.c.t_reservation_seq
+        LEFT JOIN dn2020b.t_promotion d ON dn2020b.a.t_promotion_seq = dn2020b.d.promotion_seq
 		WHERE
 			a.goods_detail_seq = #{goods_detail_seq}
-		AND
-			a.t_promotion_seq = b.promotion_seq
 	</select>
-	
+
+
 	<select id="select_cgoodsList" parameterType="hashMap" resultType="goodsDetail">
 		SELECT *
 		FROM
@@ -211,16 +223,44 @@
 		AND
 			t_goods_seq = #{goods_seq}	
 	</delete>
-
+<!--	버전 1.0 검색-->
+<!--	<select id="selectSearch" parameterType="hashMap" resultType="goodsDetail">-->
+<!--		SELECT * FROM t_goods_detail-->
+<!--		where  goods_detail_nm Like CONCAT('%',#{search},'%')-->
+<!--		Limit #{limit},16-->
+<!--	</select>-->
 	<select id="selectSearch" parameterType="hashMap" resultType="goodsDetail">
-		SELECT * FROM t_goods_detail
+		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade FROM dn2020b.t_goods_detail a
+		LEFT JOIN dn2020b.t_reservation b ON dn2020b.a.goods_detail_seq = dn2020b.b.t_goods_detail_seq
+        LEFT JOIN dn2020b.t_review c ON dn2020b.b.reservation_seq = dn2020b.c.t_reservation_seq
 		where  goods_detail_nm Like CONCAT('%',#{search},'%')
+		GROUP BY goods_detail_seq
 		Limit #{limit},16
 	</select>
+<!--	버전 1.0 카테고리 검색-->
+<!--	<select id="selectCategorySearch" parameterType="hashMap" resultType="goodsDetail">-->
+<!--		SELECT * FROM t_goods_detail-->
+<!--		where t_goods_type_seq = #{category}-->
+<!--		Limit #{limit},16-->
+<!--	</select>-->
 	<select id="selectCategorySearch" parameterType="hashMap" resultType="goodsDetail">
-		SELECT * FROM t_goods_detail
+		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade FROM dn2020b.t_goods_detail a
+		LEFT JOIN dn2020b.t_reservation b ON dn2020b.a.goods_detail_seq = dn2020b.b.t_goods_detail_seq
+        LEFT JOIN dn2020b.t_review c ON dn2020b.b.reservation_seq = dn2020b.c.t_reservation_seq
 		where t_goods_type_seq = #{category}
+		GROUP BY goods_detail_seq
 		Limit #{limit},16
 	</select>
+
+	<select id="categoryNum" resultType="Integer">
+		SELECT type_seq
+		FROM t_goods_type
+	</select>
+	<select id="goodsListType" parameterType="Integer" resultType="goodsDetail">
+		SELECT * FROM dn2020b.t_goods_detail
+		where t_goods_type_seq = #{param}
+		Limit 0,6
+	</select>
+
 </mapper>
  

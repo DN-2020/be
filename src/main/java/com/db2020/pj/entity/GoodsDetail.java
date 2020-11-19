@@ -22,6 +22,7 @@ public class GoodsDetail {
 	int goods_detail_seq;
 	String goods_detail_nm;
 	int goods_detail_price;
+	double goods_grade;
 	int goods_detail_amount;
 	String goods_detail_expression;
 	String goods_image_path;
@@ -35,7 +36,6 @@ public class GoodsDetail {
 	int t_company_seq;
 	int t_promotion_seq;
 	int t_goods_type_seq;
-//	List<HashMap<String, Object>> goods_detail_image;
 
 	@Override
 	public String toString() {
@@ -43,6 +43,7 @@ public class GoodsDetail {
 				"goods_detail_seq=" + goods_detail_seq +
 				", goods_detail_nm='" + goods_detail_nm + '\'' +
 				", goods_detail_price=" + goods_detail_price +
+				", goods_grade=" + goods_grade +
 				", goods_detail_amount=" + goods_detail_amount +
 				", goods_detail_expression='" + goods_detail_expression + '\'' +
 				", goods_image_path='" + goods_image_path + '\'' +
@@ -53,8 +54,9 @@ public class GoodsDetail {
 				", goods_detail_view_yn='" + goods_detail_view_yn + '\'' +
 				", goods_detail_createAt='" + goods_detail_createAt + '\'' +
 				", promotion_nm='" + promotion_nm + '\'' +
+				", t_company_seq=" + t_company_seq +
 				", t_promotion_seq=" + t_promotion_seq +
-//				", goods_detail_image=" + goods_detail_image +
+				", t_goods_type_seq=" + t_goods_type_seq +
 				'}';
 	}
 }
