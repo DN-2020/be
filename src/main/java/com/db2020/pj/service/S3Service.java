@@ -53,8 +53,6 @@ public class S3Service {
         metadata.setContentType("image/png");
         s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), metadata)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
-        fileName = fileName + ".PNG";
-
 //        return s3Client.getUrl(bucket, fileName).toString();
         return fileName;
     }
