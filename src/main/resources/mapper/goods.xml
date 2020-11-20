@@ -242,7 +242,7 @@
 <!--		where t_goods_type_seq = #{category}-->
 <!--		Limit #{limit},16-->
 <!--	</select>-->
-	<select id="selectCategorySearch" parameterType="hashMap" resultType="goodsDetail">
+	<select id="selectCategorySearch" parameterType="string" resultType="goodsDetail">
 		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade FROM dn2020b.t_goods_detail a
 		LEFT JOIN dn2020b.t_reservation b ON dn2020b.a.goods_detail_seq = dn2020b.b.t_goods_detail_seq
         LEFT JOIN dn2020b.t_review c ON dn2020b.b.reservation_seq = dn2020b.c.t_reservation_seq

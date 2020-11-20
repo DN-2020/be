@@ -114,16 +114,17 @@ public class GoodsServiceImpl implements GoodsService{
 
 	@Override
 	public List<GoodsDetail> selectSearch(HashMap<String, Object> map) {
-		int limit = Integer.parseInt(map.get("limit").toString());
-		map.put("limit", limit);
+//		int limit = Integer.parseInt(map.get("limit").toString());
+//		map.put("limit", limit);
 		return goodsRepository.selectSearch(map);
 	}
 
 	@Override
-	public List<GoodsDetail> selectCategorySearch(HashMap<String, Object> map) {
-		int limit = Integer.parseInt(map.get("limit").toString());;
-		map.put("limit", limit);
-		return goodsRepository.selectCategorySearch(map);
+	public List<GoodsDetail> selectCategorySearch(String category) {
+//		System.out.println(map.toString());
+//		int limit = Integer.parseInt(map.get("limit").toString());;
+//		map.put("limit", limit);
+		return goodsRepository.selectCategorySearch(category);
 	}
 
 	@Override
@@ -131,6 +132,9 @@ public class GoodsServiceImpl implements GoodsService{
 
 		return goodsRepository.reserve_date(param);
 	}
-	
-	
+
+	@Override
+	public HashMap<String, Object> goodsListType() {
+		return goodsRepository.goodsListType();
+	}
 }

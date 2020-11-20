@@ -41,8 +41,10 @@ public interface GoodsService {
 
 	public List<GoodsDetail> selectSearch(HashMap<String, Object> map);
 
-	public List<GoodsDetail> selectCategorySearch(HashMap<String, Object> map);
+	public List<GoodsDetail> selectCategorySearch(String category);
 	
 	public List<HashMap<String, Object>> reserve_date(Map<String, Object> param);
+
+	public HashMap<String, Object> goodsListType();
 	
 }

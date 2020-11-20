@@ -1,22 +1,18 @@
 package com.db2020.pj.repository;
 
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.db2020.pj.controller.GoodsController;
+import com.db2020.pj.entity.GoodsDetail;
 import com.db2020.pj.entity.GoodsType;
+import com.db2020.pj.mapper.ReservationMapper;
 import org.apache.ibatis.session.SqlSession;
-import org.hibernate.exception.DataException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.db2020.pj.entity.Goods;
-import com.db2020.pj.entity.GoodsDetail;
-import com.db2020.pj.mapper.ReservationMapper;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class GoodsRepositoryImpl implements GoodsRepository {
@@ -179,8 +175,9 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 	}
 
 	@Override
-	public List<GoodsDetail> selectCategorySearch(HashMap<String, Object> map) {
-		return sqlSession.selectList("goods.selectCategorySearch", map);
+	public List<GoodsDetail> selectCategorySearch(String category) {
+//		System.out.println(map.toString());
+		return sqlSession.selectList("goods.selectCategorySearch", category);
 	}
 
 	@Override
@@ -190,6 +187,15 @@ public class GoodsRepositoryImpl implements GoodsRepository {
 		
 		return reservationMapper.reserve_date(param);
 	}
-	
-	
+
+	@Override
+	public HashMap<String, Object> goodsListType() {
+		List<Integer> num = sqlSession.selectList("goods.categoryNum");
+		HashMap<String, Object> tab = new HashMap<>();
+		for(int param : num){
+			String number = Integer.toString(param);
+			tab.put(number, sqlSession.selectList("goods.goodsListType", param));
+		}
+		return tab;
+	}
 }

@@ -190,7 +190,7 @@ public class GoodsController {
     public Response searchGoods(@RequestParam HashMap<String, Object> goods) {
 
         List<GoodsDetail> goodsList = goodsService.selectSearch(goods);
-        
+        System.out.println(goodsList.toString());
         if(goodsList.isEmpty()) {
         	goodsList = null;
         }
@@ -198,12 +198,19 @@ public class GoodsController {
     }
 
     @GetMapping("/search/{category}")
-    public Response searchCategoryGoods(@RequestParam HashMap<String, Object> goods, @PathVariable String category) {
-        goods.put("category", category);
-        List<GoodsDetail> goodsList = goodsService.selectCategorySearch(goods);
+    public Response searchCategoryGoods(@PathVariable String category) {
+//        goods.put("category", category);
+        List<GoodsDetail> goodsList = goodsService.selectCategorySearch(category);
+        System.out.println(goodsList.toString());
         if(goodsList.isEmpty()) {
         	goodsList = null;
         }
         return new Response("200", "카테고리 상품 검색을 성공적으로 하였습니다.", goodsList); 
+    }
+
+    @GetMapping("/goodsList/type")
+    public Response goodsListType(){
+        HashMap<String, Object> param = goodsService.goodsListType();
+        return new Response("200", "카테고리 별 상품 리스트 검색을 성공적으로 하였습니다.", param);
     }
 }
