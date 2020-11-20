@@ -235,7 +235,6 @@
         LEFT JOIN dn2020b.t_review c ON dn2020b.b.reservation_seq = dn2020b.c.t_reservation_seq
 		where  goods_detail_nm Like CONCAT('%',#{search},'%')
 		GROUP BY goods_detail_seq
-		Limit #{limit},16
 	</select>
 <!--	버전 1.0 카테고리 검색-->
 <!--	<select id="selectCategorySearch" parameterType="hashMap" resultType="goodsDetail">-->
@@ -249,7 +248,6 @@
         LEFT JOIN dn2020b.t_review c ON dn2020b.b.reservation_seq = dn2020b.c.t_reservation_seq
 		where t_goods_type_seq = #{category}
 		GROUP BY goods_detail_seq
-		Limit #{limit},16
 	</select>
 
 	<select id="categoryNum" resultType="Integer">
@@ -257,9 +255,11 @@
 		FROM t_goods_type
 	</select>
 	<select id="goodsListType" parameterType="Integer" resultType="goodsDetail">
-		SELECT * FROM dn2020b.t_goods_detail
+		SELECT a.*, TRUNCATE(avg(c.review_grade),2) FROM dn2020b.t_goods_detail a
+		LEFT JOIN dn2020b.t_reservation b ON dn2020b.a.goods_detail_seq = dn2020b.b.t_goods_detail_seq
+        LEFT JOIN dn2020b.t_review c ON dn2020b.b.reservation_seq = dn2020b.c.t_reservation_seq
 		where t_goods_type_seq = #{param}
-		Limit 0,6
+		GROUP BY goods_detail_seq
 	</select>
 
 </mapper>
