@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	       		  .antMatchers("/**/company/**").hasAnyRole("ADMIN", "EMP")
 	       		  .antMatchers("/exception/**").permitAll()
 	       		  .antMatchers("/**/image/**").permitAll()
-				  .antMatchers(HttpMethod.GET,"/*/goods/**").permitAll()
+				  .antMatchers(HttpMethod.GET,"/*/goods/**", "/*/goodsList/type/**").permitAll()
 				  .antMatchers(HttpMethod.POST,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
 				  .antMatchers(HttpMethod.PUT,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
 				  .antMatchers(HttpMethod.DELETE,"/*/goods/**").hasAnyRole("ADMIN", "EMP")
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOrigin("http://localhost:3000");
+        configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.addAllowedMethod("*");

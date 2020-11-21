@@ -75,7 +75,7 @@ public class SignController {
 		res.addHeader("Authorization", accessToken.getValue());
 		res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
 		res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_HEADERS, "SET_COOKIE");
-		res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://localhost:3000");
+		res.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "*");
 		System.out.println(accessToken.getValue());
 		Collection<String> headers = res.getHeaders(HttpHeaders.SET_COOKIE);
 		for(String header : headers) {
