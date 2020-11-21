@@ -23,6 +23,7 @@ public class GoodsDetail {
 	String goods_detail_nm;
 	int goods_detail_price;
 	double goods_grade;
+	int review_count;
 	int goods_detail_amount;
 	String goods_detail_expression;
 	String goods_image_path;
@@ -32,6 +33,7 @@ public class GoodsDetail {
 	String goods_detail_tel;
 	String goods_detail_view_yn;
 	String goods_detail_createAt;
+	String company_nm;
 	String promotion_nm;
 	int t_company_seq;
 	int t_promotion_seq;
@@ -44,6 +46,7 @@ public class GoodsDetail {
 				", goods_detail_nm='" + goods_detail_nm + '\'' +
 				", goods_detail_price=" + goods_detail_price +
 				", goods_grade=" + goods_grade +
+				", review_count=" + review_count +
 				", goods_detail_amount=" + goods_detail_amount +
 				", goods_detail_expression='" + goods_detail_expression + '\'' +
 				", goods_image_path='" + goods_image_path + '\'' +
@@ -53,6 +56,7 @@ public class GoodsDetail {
 				", goods_detail_tel='" + goods_detail_tel + '\'' +
 				", goods_detail_view_yn='" + goods_detail_view_yn + '\'' +
 				", goods_detail_createAt='" + goods_detail_createAt + '\'' +
+				", company_nm='" + company_nm + '\'' +
 				", promotion_nm='" + promotion_nm + '\'' +
 				", t_company_seq=" + t_company_seq +
 				", t_promotion_seq=" + t_promotion_seq +
