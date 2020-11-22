@@ -44,9 +44,9 @@ public class ReservationController {
         int customer_seq = userService.selectUserSeq(email);
         map.put("customer_seq", customer_seq);
         map.put("customer_id", email);
-        reservationService.insertReservation(map);
+        HashMap<String, Object> result = reservationService.insertReservation(map);
         response.setHeader("access_token", jwt);
-        return new Response("200", "예약등록을 성공했습니다", null);
+        return new Response("200", "예약등록을 성공했습니다", result);
     }
 
     //예약취소

@@ -22,7 +22,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     @Transactional
-    public void insertReservation(HashMap<String, Object> map) {
+    public HashMap<String, Object> insertReservation(HashMap<String, Object> map) {
 
         ReservationRepository reservationRepository = new ReservationRepository(sqlSession);
 
@@ -57,6 +57,9 @@ public class ReservationServiceImpl implements ReservationService {
         logger.info("3번째 쿼리 시도중");
         reservationRepository.insertApproval(map);
         logger.info("3번째 쿼리 성공");
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("reservation_seq",seq);
+        return result;
     }
 
     @Override

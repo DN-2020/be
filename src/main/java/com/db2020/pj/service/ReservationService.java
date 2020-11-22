@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ReservationService {
-    public void insertReservation(HashMap<String, Object> map);
+    public HashMap<String, Object> insertReservation(HashMap<String, Object> map);
     public void deleteReservation(HashMap<String, Object> map);
     public List<HashMap<String, Object>> selectUserReservation(HashMap<String, Object> map);
     public HashMap<String, Object> selectDetailUserReservation(HashMap<String, Object> map);
