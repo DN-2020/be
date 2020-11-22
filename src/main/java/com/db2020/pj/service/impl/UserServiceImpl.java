@@ -33,7 +33,6 @@ public class UserServiceImpl implements UserService {
         userRepository.reviseUserInfo(Customer.builder()
 //                .customer_seq(user.getCustomer_seq())
                 .customer_email(user.getCustomer_email())
-                .customer_pw(passwordEncoder.encode(user.getCustomer_pw()))
                 .customer_nm(user.getCustomer_nm())
                 .customer_tel(user.getCustomer_tel())
                 .customer_post(user.getCustomer_post())
