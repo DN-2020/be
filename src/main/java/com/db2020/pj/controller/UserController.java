@@ -64,7 +64,7 @@ public class UserController {
         return new Response("200", "유저정보를 성공적으로 조회하였습니다.", user);
     }
 
-    @PutMapping("/user/info")
+    @PostMapping("/user/info")
     public Response putMypage(HttpServletRequest req, HttpServletResponse res, @RequestBody Customer customer) {
 
         String jwt = req.getHeader("Authorization");
