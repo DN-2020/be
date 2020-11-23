@@ -37,7 +37,7 @@ public class Customer implements UserDetails{
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String customer_pw;
     private String customer_nm;
-    String customer_image_path;
+    private String customer_image_path;
     private String customer_tel;
     private int customer_post;
     private String customer_address;

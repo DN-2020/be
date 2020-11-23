@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
 //                .customer_seq(user.getCustomer_seq())
                 .customer_email(user.getCustomer_email())
                 .customer_nm(user.getCustomer_nm())
+                .customer_image_path(user.getCustomer_image_path())
                 .customer_tel(user.getCustomer_tel())
                 .customer_post(user.getCustomer_post())
                 .customer_address(user.getCustomer_address())
