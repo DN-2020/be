@@ -48,7 +48,7 @@
 <!--			a.t_promotion_seq = b.promotion_seq-->
 <!--	</select>-->
 	<select id="detail_goods" parameterType="hashMap" resultType="goodsDetail">
-		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade, d.promotion_nm, count(c.review_seq) AS review_count, e.company_nm
+		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade, d.promotion_nm, d.promotion_discount, d.promotion_discountType, count(c.review_seq) AS review_count, e.company_nm
 		FROM
 			dn2020b.t_goods_detail a
 		LEFT JOIN dn2020b.t_reservation b ON dn2020b.a.goods_detail_seq = dn2020b.b.t_goods_detail_seq
@@ -231,11 +231,12 @@
 <!--		Limit #{limit},16-->
 <!--	</select>-->
 	<select id="selectSearch" parameterType="hashMap" resultType="goodsDetail">
-		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade, count(c.review_seq) AS review_count, d.company_nm
+		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade, count(c.review_seq) AS review_count, d.company_nm, e.promotion_discount, e.promotion_discountType
 		FROM dn2020b.t_goods_detail a
 		LEFT JOIN dn2020b.t_reservation b ON dn2020b.a.goods_detail_seq = dn2020b.b.t_goods_detail_seq
         LEFT JOIN dn2020b.t_review c ON dn2020b.b.reservation_seq = dn2020b.c.t_reservation_seq
         LEFT JOIN dn2020b.t_company d ON dn2020b.a.t_company_seq = dn2020b.d.company_seq
+        LEFT JOIN dn2020b.t_promotion e ON dn2020b.a.t_promotion_seq = dn2020b.e.promotion_seq
 		where  goods_detail_nm Like CONCAT('%',#{search},'%')
 		GROUP BY goods_detail_seq
 	</select>
@@ -246,11 +247,12 @@
 <!--		Limit #{limit},16-->
 <!--	</select>-->
 	<select id="selectCategorySearch" parameterType="string" resultType="goodsDetail">
-		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade, count(c.review_seq) AS review_count, d.company_nm
+		SELECT a.*, TRUNCATE(avg(c.review_grade),2) AS goods_grade, count(c.review_seq) AS review_count, d.company_nm, e.promotion_discount, e.promotion_discountType
 		FROM dn2020b.t_goods_detail a
 		LEFT JOIN dn2020b.t_reservation b ON dn2020b.a.goods_detail_seq = dn2020b.b.t_goods_detail_seq
         LEFT JOIN dn2020b.t_review c ON dn2020b.b.reservation_seq = dn2020b.c.t_reservation_seq
         LEFT JOIN dn2020b.t_company d ON dn2020b.a.t_company_seq = dn2020b.d.company_seq
+        LEFT JOIN dn2020b.t_promotion e ON dn2020b.a.t_promotion_seq = dn2020b.e.promotion_seq
 		where t_goods_type_seq = #{category}
 		GROUP BY goods_detail_seq
 	</select>
