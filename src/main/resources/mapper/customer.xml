@@ -43,7 +43,7 @@
 		UPDATE
 			t_customer
 		SET
-			customer_email=#{customer_email}, customer_nm=#{customer_nm}, customer_tel=#{customer_tel}, customer_post=#{customer_post}, customer_address=#{customer_address}, customer_detail_address=#{customer_detail_address}
+			customer_email=#{customer_email}, customer_nm=#{customer_nm}, customer_image_path=#{customer_image_path} customer_tel=#{customer_tel}, customer_post=#{customer_post}, customer_address=#{customer_address}, customer_detail_address=#{customer_detail_address}
 		WHERE
 			customer_email = #{customer_email}
 	</update>
